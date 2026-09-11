@@ -1655,7 +1655,9 @@ break;case"<bookViews":;case"<bookViews>":;case"</bookViews>":break;case"<workbo
   /* ---------- 起動 ---------- */
   (function boot() {
     var k = loadLocal();
-    if (k && sessionStorage.getItem(SS_TAB) === k.tab) { K = k; sessionDraft = JSON.stringify(K.draft); }
+    // 「経理を始める」から開いた時は、前に受け取った中身を使わず、必ず「始める」で受け取り直す
+    if (/start/.test(location.hash)) sessionStorage.removeItem(SS_TAB);
+    else if (k && sessionStorage.getItem(SS_TAB) === k.tab) { K = k; sessionDraft = JSON.stringify(K.draft); }
     document.body.setAttribute('data-kview', 'menu');
     if (location.hash) onHash(); else show('menu');
     renderStatus();
