@@ -199,7 +199,7 @@
   body[data-kview="menu"] #kMenu, body[data-kview="seisan"] #kSeisan, body[data-kview="kiroku"] #kKiroku { display: block; }
   body:not([data-kview="getsumatsu"]) main, body:not([data-kview="getsumatsu"]) .fab { display: none !important; }
   .kcard { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; margin: 12px 0; box-shadow: 0 2px 10px var(--shadow); font-size: .88rem; line-height: 1.7; }
-  .kcard[hidden], #kStart[hidden], #kEnd[hidden], .kover[hidden] { display: none !important; }
+  .kcard[hidden], #kStart[hidden], #kEnd[hidden], .kover[hidden], #kRestore[hidden] { display: none !important; }
   .kwarn { color: var(--alert); }
   .kwarnbox { background: var(--alert-soft); border-color: transparent; color: var(--alert); }
   .khint { font-size: .76rem; color: var(--ink-soft); line-height: 1.7; margin: 6px 2px; }
@@ -207,7 +207,7 @@
   .kbig { font-size: 1.3rem; font-weight: 600; margin-top: 4px; }
   .kbtn { display: block; width: 100%; text-align: left; margin: 10px 0; padding: 16px 18px; border-radius: 16px; border: 1px solid var(--line); background: var(--card); color: var(--ink); box-shadow: 0 2px 10px var(--shadow); appearance: none; }
   .kbtn b { display: block; font-size: 1.05rem; font-weight: 600; }
-  .kbtn span { display: block; font-size: .76rem; color: var(--ink-soft); margin-top: 2px; }
+  .kbtn > span { display: block; font-size: .76rem; color: var(--ink-soft); margin-top: 2px; }
   #kTasks.off .kbtn { opacity: .4; }
   .kback { appearance: none; border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 999px; padding: 4px 10px; font-size: .74rem; margin-right: 6px; }
   .kmini { appearance: none; border: 1px solid var(--mint); background: var(--card); color: var(--mint); border-radius: 999px; padding: 6px 12px; font-size: .76rem; }
@@ -233,6 +233,7 @@
   .kover { position: fixed; inset: 0; background: rgba(0,0,0,.35); z-index: 90; display: flex; align-items: center; justify-content: center; padding: 20px; }
   .kover .kcard { max-width: 420px; }
   .kaskmsg { margin-bottom: 6px; }
+  .kdiff { font-size: .76rem; line-height: 1.6; margin: 8px 0; max-height: 40vh; overflow: auto; border-top: 1px solid var(--line); padding-top: 6px; }
 </style>
 
 <!-- ===== メニュー ===== -->
@@ -252,7 +253,7 @@
     <button class="primary kEndBtn" type="button">作業を終える</button>
     <div class="khint">押すと、経理ファイルに保存します。次に出る確認では「開く」を押してください。</div>
   </div>
-  <div style="margin:26px 4px 0;text-align:center"><button type="button" class="linkish" onclick="document.getElementById('btnData').click()" style="font-size:.76rem">予備のコピー（困ったとき）</button></div>
+  <div style="margin:26px 4px 0;text-align:center"><button type="button" class="linkish" onclick="document.getElementById('btnData').click()" style="font-size:.76rem">予備のコピー（困ったとき）</button><br><button type="button" class="linkish" id="kRestore" style="font-size:.72rem;margin-top:10px" hidden></button></div>
 </section>
 
 <!-- ===== 精算 ===== -->
@@ -1264,6 +1265,7 @@ break;case"<bookViews":;case"<bookViews>":;case"</bookViews>":break;case"<workbo
     if (K.draft) s += '<br>' + NM() + '精算に、途中の下書きがあります。';
     st.innerHTML = s;
     document.querySelectorAll('.kEndBtn').forEach(function (b) { b.classList.toggle('dirty', !!K.dirty); });
+    var bk = getBackup(); $('kRestore').hidden = !bk; if (bk) $('kRestore').textContent = 'この端末に残した予備(' + new Date(bk.at).toLocaleString('ja-JP') + '・予定と実績 ' + bk.data.entries.length + '件)を戻す';
   }
 
   /* ---------- 始める(経理ファイルを受け取る) ---------- */
@@ -1274,10 +1276,31 @@ break;case"<bookViews":;case"<bookViews>":;case"</bookViews>":break;case"<workbo
     try { if (atob(b64.slice(0, 8)).slice(0, 2) !== 'PK') return null; } catch (e) { return null; }
     return { ver: Number(m[1]), b64: b64 };
   }
-  function sameData(a, b) {
-    var pick = function (d) { return JSON.stringify({ e: (d.entries || []).map(function (x) { var c = Object.assign({}, x); delete c._cat; delete c.balance; return c; }), p: d.payees || [], a: d.accounts || [] }); };
-    return pick(a) === pick(b);
+  function norm(o) { if (Array.isArray(o)) return o.map(norm); if (o && typeof o === 'object') { var r = {}; Object.keys(o).sort().forEach(function (k) { if (k !== '_cat' && k !== 'balance') r[k] = norm(o[k]); }); return r; } return o; }
+  function diffList(fa, la, key) {
+    var mf = {}, ml = {}, out = { onlyFile: [], onlyLocal: [], changed: [] };
+    (fa || []).forEach(function (x) { mf[x[key]] = x; }); (la || []).forEach(function (x) { ml[x[key]] = x; });
+    Object.keys(mf).forEach(function (k) { if (!ml[k]) out.onlyFile.push(mf[k]); else if (JSON.stringify(norm(mf[k])) !== JSON.stringify(norm(ml[k]))) out.changed.push([mf[k], ml[k]]); });
+    Object.keys(ml).forEach(function (k) { if (!mf[k]) out.onlyLocal.push(ml[k]); });
+    return out;
   }
+  function diffData(f, l) {
+    var e = diffList(f.entries, l.entries, 'id'), p = diffList(f.payees, l.payees, 'name'), a = diffList(f.accounts, l.accounts, 'name');
+    var n = e.onlyFile.length + e.onlyLocal.length + e.changed.length + p.onlyFile.length + p.onlyLocal.length + p.changed.length + a.onlyFile.length + a.onlyLocal.length + a.changed.length;
+    return { n: n, e: e, p: p, a: a };
+  }
+  function descDiff(d) {
+    var line = function (x) { return esc((x.date || '') + ' ' + (x.payee || x.name || '') + ' ' + (x.amount != null ? yen(x.amount) + '円' : (x.baseBalance != null ? '残高' + yen(x.baseBalance) + '円' : '')) + (x.doneDate ? ' 実行' + x.doneDate : '') + (x.memo ? ' ' + x.memo : '')); };
+    var h = [];
+    var sec = function (title, list, f) { if (list.length) h.push('<b>' + title + '(' + list.length + ')</b><br>' + list.slice(0, 6).map(f).join('<br>') + (list.length > 6 ? '<br>…ほか' + (list.length - 6) + '件' : '')); };
+    sec('経理ファイルにだけある予定', d.e.onlyFile, line); sec('この端末にだけある予定', d.e.onlyLocal, line);
+    sec('中身が違う予定', d.e.changed, function (c) { return '経理ファイル: ' + line(c[0]) + '<br>この端末: ' + line(c[1]); });
+    sec('違う相手先', d.p.onlyFile.concat(d.p.onlyLocal).concat(d.p.changed.map(function (c) { return c[1]; })), line);
+    sec('違う口座', d.a.onlyFile.concat(d.a.onlyLocal).concat(d.a.changed.map(function (c) { return c[1]; })), line);
+    return h.join('<br>');
+  }
+  function getBackup() { try { var t = localStorage.getItem('kaikei-local-backup'); return t ? JSON.parse(t) : null; } catch (e) { return null; } }
+  function backupLocal(snap) { try { localStorage.setItem('kaikei-local-backup', JSON.stringify({ at: new Date().toISOString(), data: snap })); } catch (e) {} }
   $('kStartBtn').addEventListener('click', function () {
     if (!navigator.clipboard || !navigator.clipboard.readText) { toast('この画面ではコピーの中身を読めません'); return; }
     navigator.clipboard.readText().then(function (t) {
@@ -1294,7 +1317,7 @@ break;case"<bookViews":;case"<bookViews>":;case"</bookViews>":break;case"<workbo
         sessionDraft = JSON.stringify(K.draft);
         sessionStorage.setItem(SS_TAB, TAB);
         saveLocal();
-        announce();
+        announce(); clearClipLater();
         show('menu');
         toast('経理ファイルを受け取りました(版 ' + env.ver + ')');
       };
@@ -1305,15 +1328,20 @@ break;case"<bookViews":;case"<bookViews>":;case"</bookViews>":break;case"<workbo
            ['前回の変更を使って続ける', function () { K = prev; K.tab = TAB; K.loadedDay = today(); if (prev.ver !== env.ver) K.ver = prev.ver; sessionDraft = JSON.stringify(K.draft); sessionStorage.setItem(SS_TAB, TAB); saveLocal(); announce(); show('menu'); }]]);
         return;
       }
-      if (firstTime && local && (local.entries || []).length && !sameData(local, f.snap)) {
-        askChoice('この端末のアプリに、経理ファイルと違う月末経理のデータがあります。<br>経理ファイル: 予定と実績 ' + f.snap.entries.length + '件 / この端末: ' + local.entries.length + '件',
-          [['経理ファイルの内容を使う', function () { start(false); }],
+      var dd = (firstTime && local && (local.entries || []).length) ? diffData(f.snap, local) : { n: 0 };
+      if (dd.n) {
+        askChoice('この端末のアプリに、経理ファイルと違う月末経理のデータがあります(違い ' + dd.n + '件)。どちらを使うか選んでください。選ばなかった方も、この端末に予備として残します。<div class="kdiff">' + descDiff(dd) + '</div>',
+          [['経理ファイルの内容を使う', function () { backupLocal(local); start(false); }],
            ['この端末の内容を使う(次に保存すると経理ファイルが書き換わります)', function () { start(true); }]]);
         return;
       }
       start(false);
     }, function () { toast('コピーの中身を読めませんでした。もう一度「始める」を押して「ペースト」を押してください'); });
   });
+  function clearClipLater() {
+    var f = function () { try { navigator.clipboard.writeText('経理ファイルの受け取りは終わりました').catch(function () {}); } catch (e) {} };
+    document.addEventListener('click', f, { once: true, capture: true });
+  }
   function askChoice(msg, choices) {
     var box = $('kAsk'); box.innerHTML = '<div class="kaskmsg">' + msg + '</div>';
     choices.forEach(function (c, i) {
@@ -1343,8 +1371,9 @@ break;case"<bookViews":;case"<bookViews>":;case"</bookViews>":break;case"<workbo
     }, function () { toast('コピーできませんでした。もう一度押してください'); });
   }
   document.addEventListener('click', function (ev) { var b = ev.target.closest && ev.target.closest('.kEndBtn'); if (b) endWork(); });
-  function onHash() {
+  function onHash(ev) {
     var h = location.hash || '', m;
+    if (ev && /start/.test(h)) { location.replace(location.pathname + '?v=' + Date.now() + '#start'); return; }
     if ((m = /saved=(\d+)/.exec(h))) {
       var k = loadLocal();
       if (k) { K = k; K.ver = Number(m[1]); K.dirty = false; delete K.pendingVer; K.tab = K.tab || TAB; sessionStorage.setItem(SS_TAB, K.tab); saveLocal(); }
@@ -1616,6 +1645,12 @@ break;case"<bookViews":;case"<bookViews>":;case"</bookViews>":break;case"<workbo
   }
 
   window.KAIKEI_ONCHANGE = function () { if (ready()) markDirty(); };
+  $('kRestore').addEventListener('click', function () {
+    var bk = getBackup(); if (!bk || !ready()) return;
+    askChoice('この端末に残した予備(' + esc(new Date(bk.at).toLocaleString('ja-JP')) + ')で、今の月末経理を置き換えますか？<br>今の月末経理の中身は、代わりに予備として残します。',
+      [['予備で置き換える', function () { var cur = A.snapshot(); A.applyData(bk.data); A.render(); markDirty(); backupLocal(cur); renderStatus(); toast('予備に戻しました。「作業を終える」で経理ファイルにも入ります'); }],
+       ['やめる', function () {}]]);
+  });
 
   /* ---------- 起動 ---------- */
   (function boot() {
