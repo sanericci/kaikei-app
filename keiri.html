@@ -238,7 +238,7 @@
 
 <!-- ===== メニュー ===== -->
 <section class="kview" id="kMenu">
-  <div class="top"><div class="eyebrow"><strong>sanericci cafe 経理</strong> <span style="color:var(--ink-faint)" id="kVer">v10.0</span></div></div>
+  <div class="top"><div class="eyebrow"><strong>sanericci cafe 経理</strong> <span style="color:var(--ink-faint)" id="kVer">v10.1</span></div></div>
   <div class="kcard" id="kDone" hidden></div>
   <div class="kcard" id="kStatus"></div>
   <div id="kAsk" class="kcard" hidden></div>
@@ -251,7 +251,7 @@
   </div>
   <div id="kEnd" hidden>
     <button class="primary kEndBtn" type="button">作業を終える</button>
-    <div class="khint">押すと、経理ファイルに保存します。次に出る「ペーストを許可」を押してください。</div>
+    <div class="khint">押すと、経理ファイルに保存します。</div>
   </div>
   <div style="margin:26px 4px 0;text-align:center"><button type="button" class="linkish" onclick="document.getElementById('btnData').click()" style="font-size:.76rem">予備のコピー（困ったとき）</button><br><button type="button" class="linkish" id="kRestore" style="font-size:.72rem;margin-top:10px" hidden></button></div>
 </section>
@@ -290,11 +290,11 @@
 </section>
 
 <div class="kover" id="kStale" hidden><div class="kcard"><b>この画面は古くなりました。</b><br>新しい画面で作業を続けてください。この画面は閉じて大丈夫です。</div></div>
-<div class="kover" id="kSaving" hidden><div class="kcard"><b>保存しています…</b><br>「ペーストを許可」が出たら押してください。保存が終わると、この画面に戻って「保存しました」と出ます。<br><button class="ghost" type="button" onclick="document.getElementById('kSaving').hidden=true">閉じる</button></div></div>
+<div class="kover" id="kSaving" hidden><div class="kcard"><b>保存しています…</b><br>保存が終わると、この画面に戻って「保存しました」と出ます。<div id="kAlt" hidden style="margin-top:12px">ショートカットが動かない時は、こちらを押してください。<br><button class="primary" type="button" id="kAltBtn">別の方法で保存</button><div class="khint">押したあと「ペーストを許可」が出たら押してください。</div></div><button class="ghost" type="button" onclick="document.getElementById('kSaving').hidden=true">閉じる</button></div></div>
 
 <main>
   <div class="top">
-    <div class="eyebrow"><button type="button" class="kback" data-kgo="menu">‹ メニュー</button> <strong>月末経理</strong> <span id="ver" style="color:var(--ink-faint)">v10.0</span></div>
+    <div class="eyebrow"><button type="button" class="kback" data-kgo="menu">‹ メニュー</button> <strong>月末経理</strong> <span id="ver" style="color:var(--ink-faint)">v10.1</span></div>
     <div class="theme-toggle" role="group" aria-label="表示の明るさ">
       <button type="button" data-theme-choice="light">明るい</button>
       <button type="button" data-theme-choice="dark">夜</button>
@@ -1254,7 +1254,7 @@ break;case"<bookViews":;case"<bookViews>":;case"</bookViews>":break;case"<workbo
   function renderStatus() {
     var st = $('kStatus'); if (!st) return; putNames();
     if (!ready()) {
-      st.innerHTML = '<b>まだ経理ファイルを受け取っていません。</b><br>ホーム画面の「経理を始める」から開いたら、下の「始める」を押してください。次に出る「ペースト」を押すと、経理ファイルの中身が入ります。';
+      st.innerHTML = '<b>まだ経理ファイルを受け取っていません。</b><br>ホーム画面(MacはDock)の「経理」から開いてください。開いてもこの表示のままの時は、下の「始める」を押し、次に出る「ペースト」を押してください。';
       $('kStart').hidden = false; $('kTasks').classList.add('off'); $('kEnd').hidden = true;
       return;
     }
@@ -1306,21 +1306,49 @@ break;case"<bookViews":;case"<bookViews>":;case"</bookViews>":break;case"<workbo
     if (!navigator.clipboard || !navigator.clipboard.readText) { toast('この画面ではコピーの中身を読めません'); return; }
     navigator.clipboard.readText().then(function (t) {
       var env = parseEnvelope(t);
-      if (!env) { $('kStatus').innerHTML = '<b class="kwarn">経理ファイルではありませんでした。</b><br>ホーム画面の「経理を始める」をもう一度押してください。'; return; }
-      var f0;
-      try { f0 = readFile(env.b64); } catch (e) { $('kStatus').innerHTML = '<b class="kwarn">経理ファイルを読めませんでした。</b><br>' + esc(e.message); return; }
-      $('kStatus').innerHTML = '経理ファイルが最新か、確かめています…';
-      checkLatest(f0).then(function (c) { begin(c.f, c.ver, c.note); });
+      if (!env) { $('kStatus').innerHTML = '<b class="kwarn">経理ファイルではありませんでした。</b><br>ホーム画面(MacはDock)の「経理」をもう一度押してください。'; return; }
+      receive(env.b64);
     }, function () { toast('コピーの中身を読めませんでした。もう一度「始める」を押して「ペースト」を押してください'); });
   });
+  function receive(b64) {
+    var f0;
+    try { f0 = readFile(b64); } catch (e) { $('kStatus').innerHTML = '<b class="kwarn">経理ファイルを読めませんでした。</b><br>' + esc(e.message); return; }
+    $('kStart').hidden = true;
+    $('kStatus').innerHTML = '経理ファイルが最新か、確かめています…';
+    checkLatest(f0).then(function (c) { begin(c.f, c.ver, c.note); });
+  }
+  // 「経理」のショートカットがリンクで渡した中身(#KAIKEI3|版|長さ|中身)
+  function parseHash3(h) {
+    var t = String(h || '').replace(/^#/, '');
+    for (var i = 0; i < 3 && t.indexOf('%') >= 0; i++) { try { t = decodeURIComponent(t); } catch (e) { break; } }   // 中身(Base64)に % は無いので、戻しても壊れない
+    if (t.indexOf('KAIKEI3|') !== 0) return null;
+    var m = /^KAIKEI3\|(\d+)\|(\d+)\|([A-Za-z0-9+\/=\s]*)$/.exec(t);
+    if (!m) return { bad: true };
+    var b64 = m[3].replace(/\s/g, '');
+    if (b64.length !== Number(m[2])) return { bad: true };
+    try { if (atob(b64.slice(0, 8)).slice(0, 2) !== 'PK') return { bad: true }; } catch (e) { return { bad: true }; }
+    return { ver: Number(m[1]), b64: b64 };
+  }
+  function takeHash3(h) {
+    var r = parseHash3(h); if (!r) return false;
+    history.replaceState(null, '', location.pathname);   // 中身を画面のアドレスに残さない
+    sessionStorage.removeItem(SS_TAB); K = null;
+    $('kDone').hidden = true; $('kSaving').hidden = true; show('menu');
+    if (r.bad) { $('kStatus').innerHTML = '<b class="kwarn">経理ファイルが途中で切れていました。</b><br>下の「始める」を押し、次に出る「ペースト」を押してください。'; $('kStart').hidden = false; return true; }
+    receive(r.b64);
+    return true;
+  }
   function fileVer(f) { for (var i = 0; i < f.info.length; i++) if (f.info[i][0] === '版') return Number(f.info[i][1]) || 0; return 0; }
   function fileKey(f) { for (var i = 0; i < f.info.length; i++) if (f.info[i][0] === '台帳の名前') return String(f.info[i][1] || ''); return ''; }
   // この端末の写しが古い時は、Googleに置いた最新の中身を使う
+  var lastClaim = '';
   function checkLatest(f) {
+    lastClaim = '';
     var F = fileVer(f), key = fileKey(f);
     if (!key) return Promise.resolve({ f: f, ver: F, note: '<span class="kwarn">この経理ファイルには「台帳の名前」がないので、最新か確かめられません。</span>' });
     return gasCall({ action: 'ver', key: key }, f.info).then(function (r) {
       if (!r.ok) throw new Error(r.error || '');
+      lastClaim = r.claim || '';
       if (r.ver == null || r.ver <= F) return { f: f, ver: F, note: '' };
       return gasCall({ action: 'latest', key: key }, f.info).then(function (L) {
         if (!L.ok || !L.b64) throw new Error(L.error || '最新の中身を受け取れませんでした');
@@ -1331,13 +1359,17 @@ break;case"<bookViews":;case"<bookViews>":;case"</bookViews>":break;case"<workbo
       return { f: f, ver: F, note: '<span class="kwarn">電波などで、最新か確かめられませんでした。</span>保存する時にもう一度確かめます。' };
     });
   }
+  function localSnap() { try { var t = localStorage.getItem('shushi-data-v1'); if (t) return JSON.parse(t); } catch (e) {} return A.snapshot(); }
+  function fp(snap) { var t = JSON.stringify(norm({ e: snap.entries || [], p: snap.payees || [], a: snap.accounts || [] })), h = 0; for (var i = 0; i < t.length; i++) h = (h * 31 + t.charCodeAt(i)) | 0; return t.length + ':' + h; }
+  function setFp() { if (K) { K.snapFp = fp(A.snapshot()); saveLocal(); } }
   function begin(f, fver, note) {
       var prev = loadLocal();
-      var local = A.snapshot();
+      var local = localSnap();
       var firstTime = !prev;
       var start = function (useLocalMonthly) {
         K = { ver: fver, info: f.info, sum: f.sum, det: f.det, draft: f.draft, dirty: false, tab: TAB, loadedDay: today(), note: note || '' };
-        if (useLocalMonthly) { K.dirty = true; } else { A.applyData(f.snap); A.lsSaveQuiet(); A.render(); }
+        if (useLocalMonthly) { K.dirty = true; A.applyData(local); A.lsSaveQuiet(); A.render(); } else { A.applyData(f.snap); A.lsSaveQuiet(); A.render(); }
+        K.snapFp = fp(A.snapshot());
         sessionDraft = JSON.stringify(K.draft);
         sessionStorage.setItem(SS_TAB, TAB);
         saveLocal();
@@ -1349,12 +1381,15 @@ break;case"<bookViews":;case"<bookViews>":;case"</bookViews>":break;case"<workbo
       var prevKey = prev && prev.info ? (prev.info.filter(function (r) { return r[0] === '台帳の名前'; })[0] || [])[1] || '' : '';
       if (prev && prev.dirty && prevKey !== fileKey(f)) { backupLocal(local); prev = null; firstTime = false; }
       if (prev && prev.dirty) {
-        askChoice('前回、保存していない変更がこの端末に残っています。' + (prev.ver === fver ? '' : '（その後、別の端末で保存されています。前回の変更を使うと、その保存の内容は、この端末の内容で置き換わります）'),
+        var own = lastClaim && prev.tab && lastClaim.indexOf(prev.tab + '-') === 0;   // 最後の保存がこの端末の前の押下なら「別の端末」ではない
+        askChoice('前回、保存していない変更がこの端末に残っています。' + (prev.ver === fver || own ? '' : '（その後、別の端末で保存されています。前回の変更を使うと、その保存の内容は、この端末の内容で置き換わります）'),
           [['経理ファイルの内容で始める(前回の変更は捨てる)', function () { backupLocal(local); start(false); }],
-           ['前回の変更を使って続ける', function () { K = prev; K.tab = TAB; K.loadedDay = today(); K.ver = fver; K.note = note || ''; delete K.pendingVer; sessionDraft = JSON.stringify(K.draft); sessionStorage.setItem(SS_TAB, TAB); saveLocal(); announce(); show('menu'); }]]);
+           ['前回の変更を使って続ける', function () { A.applyData(local); A.lsSaveQuiet(); A.render(); K = prev; K.snapFp = fp(A.snapshot()); K.tab = TAB; K.loadedDay = today(); K.ver = fver; K.note = note || ''; delete K.pendingVer; sessionDraft = JSON.stringify(K.draft); sessionStorage.setItem(SS_TAB, TAB); saveLocal(); announce(); show('menu'); }]]);
         return;
       }
-      var dd = (firstTime && local && (local.entries || []).length) ? diffData(f.snap, local) : { n: 0 };
+      // 初めての時、または古いタブなど新しいアプリの外で月末経理が書き換わっていた時(空の時は聞かない)
+      var outside = prev && prev.snapFp && local && (local.entries || []).length && fp(local) !== prev.snapFp;
+      var dd = ((firstTime || outside) && local && (local.entries || []).length) ? diffData(f.snap, local) : { n: 0 };
       if (dd.n) {
         askChoice('この端末のアプリに、経理ファイルと違う月末経理のデータがあります(違い ' + dd.n + '件)。どちらを使うか選んでください。選ばなかった方も、この端末に予備として残します。<div class="kdiff">' + descDiff(dd) + '</div>',
           [['経理ファイルの内容を使う', function () { backupLocal(local); start(false); }],
@@ -1363,9 +1398,15 @@ break;case"<bookViews":;case"<bookViews>":;case"</bookViews>":break;case"<workbo
       }
       start(false);
   }
+  var clipTimer = null;
   function clearClipLater() {
-    var f = function () { try { navigator.clipboard.writeText('経理ファイルの受け取りは終わりました').catch(function () {}); } catch (e) {} };
-    document.addEventListener('click', f, { once: true, capture: true });
+    if (clipTimer) document.removeEventListener('click', clipTimer, true);
+    clipTimer = function (ev) {
+      if (ev.target && ev.target.closest && ev.target.closest('#kStartBtn')) return;   // 「始める」の時は消さない(これから読む)
+      document.removeEventListener('click', clipTimer, true); clipTimer = null;
+      try { navigator.clipboard.writeText('経理ファイルの受け取りは終わりました').catch(function () {}); } catch (e) {}
+    };
+    document.addEventListener('click', clipTimer, true);
   }
   function askChoice(msg, choices) {
     var box = $('kAsk'); box.innerHTML = '<div class="kaskmsg">' + msg + '</div>';
@@ -1385,24 +1426,53 @@ break;case"<bookViews":;case"<bookViews>":;case"</bookViews>":break;case"<workbo
 
   /* ---------- 作業を終える(保存) ---------- */
   function endWork() {
+    if (!$('kSaving').hidden && Date.now() - savingAt < 20000) return;   // 送っている間は押しても何もしない
     if (!ready()) { toast('先に「始める」で経理ファイルを受け取ってください'); show('menu'); return; }
     var b64;
     try { b64 = buildFile(K.ver + 1); } catch (e) { toast('経理ファイルを作れませんでした: ' + e.message); return; }
     var ua = navigator.userAgent, dev = /iPhone|iPod/.test(ua) ? 'iPhone' : (/iPad/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1) ? 'iPad' : (/Macintosh/.test(ua) ? 'Mac' : 'その他'));
-    var env = 'KAIKEI2|' + K.ver + '|' + (infoGet('台帳の名前') || '') + '|' + K.tab + '-' + K.ver + '|' + dev + '|' + b64;
-    copyText(env).then(function () {
-      K.pendingVer = K.ver + 1; saveLocal();
-      $('kSaving').hidden = false; savingAt = Date.now();
-      location.href = 'shortcuts://run-shortcut?name=' + encodeURIComponent(SC_END) + '&input=clipboard';
-    }, function () { toast('コピーできませんでした。もう一度押してください'); });
+    K.seq = (K.seq || 0) + 1;
+    var claim = K.tab + '-' + K.ver + '-' + K.seq;           // 押すたびに新しい作業番号
+    var env = ['KAIKEI2', b64.length, infoGet('受け口URL'), infoGet('合言葉'), infoGet('台帳の名前') || '', K.ver, claim, dev, b64].join('|');
+    K.pendingClaim = claim;
+    var name = (dev === 'Mac' && String(infoGet('Mac用のショートカットの名前') || '').trim()) || SC_END;
+    pendingEnv = env; pendingName = name; leftPage = false;
+    K.pendingVer = K.ver + 1; saveLocal();
+    $('kAlt').hidden = true; $('kSaving').hidden = false; savingAt = Date.now();
+    go('shortcuts://run-shortcut?name=' + encodeURIComponent(name) + '&input=text&text=' + encodeURIComponent(env));
+    setTimeout(function () { if (!leftPage && document.hasFocus() && !$('kSaving').hidden) $('kAlt').hidden = false; }, 3000);
   }
+  var pendingEnv = null, pendingName = SC_END, leftPage = false;
+  function go(u) { if (window.__kaikeiGo) window.__kaikeiGo(u); else location.href = u; }   // __kaikeiGo は試験の時だけ
+  window.addEventListener('pagehide', function () { leftPage = true; });
+  // 1回押しで開かない時の予備(コピーで渡す。「ペーストを許可」が出る)
+  $('kAltBtn').addEventListener('click', function () {
+    if (!pendingEnv) return;
+    copyText(pendingEnv).then(function () {
+      $('kAlt').hidden = true; savingAt = Date.now(); leftPage = false;
+      go('shortcuts://run-shortcut?name=' + encodeURIComponent(pendingName) + '&input=clipboard');
+    }, function () { toast('コピーできませんでした。もう一度押してください'); });
+  });
   document.addEventListener('click', function (ev) { var b = ev.target.closest && ev.target.closest('.kEndBtn'); if (b) endWork(); });
   // ショートカットが途中で止まった時(電波なしなど)は、戻ってきても知らせが来ない
   var savingAt = 0;
   document.addEventListener('visibilitychange', function () {
-    if (document.visibilityState !== 'visible' || $('kSaving').hidden || Date.now() - savingAt < 1500) return;
-    setTimeout(function () { if (!$('kSaving').hidden) showFailed(); }, 2500);
+    if (document.visibilityState !== 'visible') { leftPage = true; return; }
+    if ($('kSaving').hidden || Date.now() - savingAt < 1500) return;
+    setTimeout(function () { if (!$('kSaving').hidden) checkArrived(); }, 2500);
   });
+  function checkArrived() {
+    var k = K || loadLocal();
+    if (!k || !k.pendingClaim) { showFailed(); return; }
+    gasCall({ action: 'ver', key: (k.info.filter(function (r) { return r[0] === '台帳の名前'; })[0] || [])[1] || '' }, k.info).then(function (r) {
+      if (r.ok && r.claim === k.pendingClaim) {
+        K = k; K.ver = r.ver; K.dirty = false; delete K.pendingClaim; delete K.pendingVer; saveLocal();
+        $('kSaving').hidden = true;
+        $('kDone').innerHTML = '<b>Googleには保存できました(版 ' + r.ver + ')。</b>この端末の経理ファイルは、次に開いた時に最新になります。このまま閉じて大丈夫です。';
+        $('kDone').hidden = false; show('menu');
+      } else showFailed();
+    }, showFailed);
+  }
   function showFailed() {
     $('kSaving').hidden = true;
     $('kDone').innerHTML = '<b class="kwarn">保存できませんでした。</b>経理ファイルは前のままです。今回の作業の中身は、この端末に残っています。<br>電波のある所で、もう一度「作業を終える」を押してください。';
@@ -1410,16 +1480,27 @@ break;case"<bookViews":;case"<bookViews>":;case"</bookViews>":break;case"<workbo
   }
   function onHash(ev) {
     var h = location.hash || '', m;
+    if (takeHash3(h)) return;
     if (ev && /start/.test(h)) { location.replace(location.pathname + '?v=' + Date.now() + '#start'); return; }
     if ((m = /saved=(\d+)/.exec(h))) {
       var k = loadLocal();
-      if (k) { K = k; K.ver = Number(m[1]); K.dirty = false; K.note = ''; delete K.pendingVer; K.tab = K.tab || TAB; sessionStorage.setItem(SS_TAB, K.tab); saveLocal(); }
-      $('kSaving').hidden = true;
+      if (k) { K = k; K.ver = Number(m[1]); K.dirty = false; K.note = ''; delete K.pendingVer; delete K.pendingClaim; K.snapFp = fp(A.snapshot()); K.tab = K.tab || TAB; sessionStorage.setItem(SS_TAB, K.tab); saveLocal(); }
+      $('kSaving').hidden = true; pendingEnv = null;
       $('kDone').innerHTML = '<b>保存しました。</b>経理ファイルは 版 ' + m[1] + ' になりました。このまま閉じて大丈夫です。';
       $('kDone').hidden = false; show('menu');
     } else if (/conflict/.test(h)) {
       $('kSaving').hidden = true;
-      $('kDone').innerHTML = '<b class="kwarn">別の端末で先に保存されていたので、保存しませんでした。</b>今回の作業の中身は、この端末と「予備」フォルダの控えに残っています。<br>もう一度「経理を始める」から開くと、最新の中身で始めるか、この端末の中身で続けるかを選べます。';
+      var kc = K || loadLocal();
+      if (kc && kc.tab) {
+        gasCall({ action: 'ver', key: (kc.info.filter(function (r) { return r[0] === '台帳の名前'; })[0] || [])[1] || '' }, kc.info).then(function (r) {
+          if (r.ok && r.claim && r.claim.indexOf(kc.tab + '-' + kc.ver + '-') === 0 && r.ver === kc.ver + 1) {
+            K = kc; K.ver = r.ver; delete K.pendingClaim; saveLocal();
+            $('kDone').innerHTML = '<b>前に押した保存は、Googleに届いていました。</b>その後の変更を入れるため、もう一度「作業を終える」を押してください。';
+            $('kDone').hidden = false; show('menu');
+          }
+        }, function () {});
+      }
+      $('kDone').innerHTML = '<b class="kwarn">別の端末で先に保存されていたので、保存しませんでした。</b>今回の作業の中身は、この端末と「予備」フォルダの控えに残っています。<br>もう一度「経理」から開くと、最新の中身で始めるか、この端末の中身で続けるかを選べます。';
       $('kDone').hidden = false; show('menu');
     } else if (/failed/.test(h)) {
       showFailed();
@@ -1687,7 +1768,7 @@ break;case"<bookViews":;case"<bookViews>":;case"</bookViews>":break;case"<workbo
     }).join('');
   }
 
-  window.KAIKEI_ONCHANGE = function () { if (ready()) markDirty(); };
+  window.KAIKEI_ONCHANGE = function () { if (ready()) { markDirty(); setFp(); } };
   $('kRestore').addEventListener('click', function () {
     var bk = getBackup(); if (!bk || !ready()) return;
     askChoice('この端末に残した予備(' + esc(new Date(bk.at).toLocaleString('ja-JP')) + ')で、今の月末経理を置き換えますか？<br>今の月末経理の中身は、代わりに予備として残します。',
@@ -1698,8 +1779,8 @@ break;case"<bookViews":;case"<bookViews>":;case"</bookViews>":break;case"<workbo
   /* ---------- 起動 ---------- */
   (function boot() {
     var k = loadLocal();
-    // 「経理を始める」から開いた時は、前に受け取った中身を使わず、必ず「始める」で受け取り直す
-    if (/start/.test(location.hash)) sessionStorage.removeItem(SS_TAB);
+    // 「経理」から開いた時は、前に受け取った中身を使わず、必ず受け取り直す
+    if (/start|KAIKEI3/.test(location.hash)) sessionStorage.removeItem(SS_TAB);
     else if (k && sessionStorage.getItem(SS_TAB) === k.tab) { K = k; sessionDraft = JSON.stringify(K.draft); }
     document.body.setAttribute('data-kview', 'menu');
     if (location.hash) onHash(); else show('menu');
