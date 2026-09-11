@@ -246,29 +246,29 @@
     <div class="khint">押したあと、iPhoneが出す「ペースト」を押してください。</div></div>
   <div id="kTasks" class="off">
     <button class="kbtn" type="button" data-kgo="getsumatsu"><b>月末経理</b><span>予定と実績・残高の見込み</span></button>
-    <button class="kbtn" type="button" data-kgo="seisan"><b><span class="kname">相手</span>精算</b><span>毎月の光熱費などの精算</span></button>
+    <button class="kbtn" type="button" data-kgo="seisan"><b><span class="kname"></span>精算</b><span>毎月の光熱費などの精算</span></button>
     <button class="kbtn" type="button" data-kgo="kiroku"><b>これまでの記録</b><span>過去の精算の中身</span></button>
   </div>
   <div id="kEnd" hidden>
     <button class="primary kEndBtn" type="button">作業を終える</button>
-    <div class="khint">押すと、経理ファイルに保存します。次に出る確認では「開く」を押してください。</div>
+    <div class="khint">押すと、経理ファイルに保存します。次に出る「ペーストを許可」を押してください。</div>
   </div>
   <div style="margin:26px 4px 0;text-align:center"><button type="button" class="linkish" onclick="document.getElementById('btnData').click()" style="font-size:.76rem">予備のコピー（困ったとき）</button><br><button type="button" class="linkish" id="kRestore" style="font-size:.72rem;margin-top:10px" hidden></button></div>
 </section>
 
 <!-- ===== 精算 ===== -->
 <section class="kview" id="kSeisan">
-  <div class="top"><div class="eyebrow"><button type="button" class="kback" data-kgo="menu">‹ メニュー</button> <strong><span class="kname">相手</span>精算</strong></div>
+  <div class="top"><div class="eyebrow"><button type="button" class="kback" data-kgo="menu">‹ メニュー</button> <strong><span class="kname"></span>精算</strong></div>
     <button type="button" class="kEndBtn kmini">作業を終える</button></div>
-  <div class="kcard kwarnbox" id="kMode" hidden>試験中です。結果メールは、<span class="kname">相手</span>ではなく自分あてに届きます。</div>
+  <div class="kcard kwarnbox" id="kMode" hidden>試験中です。結果メールは、<span class="kname"></span>ではなく自分あてに届きます。</div>
   <div class="kcard" id="kFinished" hidden></div>
   <div class="kcard"><div class="klbl">精算の期間</div>
     <div class="field two" style="margin-top:6px"><div><label>はじめ(前回の終わりの日)</label><input class="text-in" type="date" id="kPStart"></div><div><label>終わり</label><input class="text-in" type="date" id="kPEnd"></div></div></div>
-  <div class="kcard"><div class="klbl"><span class="kname">相手</span>の返信</div><div id="kReply" class="khint" style="margin-top:6px"></div>
+  <div class="kcard"><div class="klbl"><span class="kname"></span>の返信</div><div id="kReply" class="khint" style="margin-top:6px"></div>
     <details class="kpaste"><summary>LINEなどの文を貼って読み取る</summary>
       <textarea class="text-in" id="kPaste" rows="3" placeholder="例：ガス代15760円、電気代13202円です"></textarea>
       <button class="ghost" type="button" id="kPasteGo">読み取る</button><div id="kPasteOut"></div></details></div>
-  <div class="kcard"><div class="khead"><span><span class="kname">相手</span>が払った分</span><span class="kmoney">負担 <b id="kTotRumi">0</b>円</span></div>
+  <div class="kcard"><div class="khead"><span><span class="kname"></span>が払った分</span><span class="kmoney">負担 <b id="kTotRumi">0</b>円</span></div>
     <div id="kRumiRows"></div><button type="button" class="linkish" id="kAddRumi">＋ 立て替えなどの行を足す</button></div>
   <div class="kcard"><div class="khead"><span>sanericciが払った分</span><span class="kmoney">負担 <b id="kTotSane">0</b>円</span></div>
     <div id="kSaneRows"></div><button type="button" class="linkish" id="kAddSane">＋ 行を足す</button>
@@ -285,12 +285,12 @@
 <!-- ===== これまでの記録 ===== -->
 <section class="kview" id="kKiroku">
   <div class="top"><div class="eyebrow"><button type="button" class="kback" data-kgo="menu">‹ メニュー</button> <strong>これまでの記録</strong></div></div>
-  <div class="khint" style="margin:0 4px 10px"><span class="kname">相手</span>精算の過去の分です。押すと中身が開きます。月末経理の過去の月は「月末経理」の月のタブから見られます。</div>
+  <div class="khint" style="margin:0 4px 10px"><span class="kname"></span>精算の過去の分です。押すと中身が開きます。月末経理の過去の月は「月末経理」の月のタブから見られます。</div>
   <div id="kKirokuList"></div>
 </section>
 
 <div class="kover" id="kStale" hidden><div class="kcard"><b>この画面は古くなりました。</b><br>新しい画面で作業を続けてください。この画面は閉じて大丈夫です。</div></div>
-<div class="kover" id="kSaving" hidden><div class="kcard"><b>保存しています…</b><br>確認が出たら「開く」を押してください。保存が終わると、この画面に戻って「保存しました」と出ます。<br><button class="ghost" type="button" onclick="document.getElementById('kSaving').hidden=true">閉じる</button></div></div>
+<div class="kover" id="kSaving" hidden><div class="kcard"><b>保存しています…</b><br>「ペーストを許可」が出たら押してください。保存が終わると、この画面に戻って「保存しました」と出ます。<br><button class="ghost" type="button" onclick="document.getElementById('kSaving').hidden=true">閉じる</button></div></div>
 
 <main>
   <div class="top">
@@ -1126,7 +1126,7 @@ break;case"<bookViews":;case"<bookViews>":;case"</bookViews>":break;case"<workbo
   function loadLocal() { try { var t = localStorage.getItem(LS_K); return t ? JSON.parse(t) : null; } catch (e) { return null; } }
   function infoGet(k) { if (!K) return ''; for (var i = 0; i < K.info.length; i++) if (K.info[i][0] === k) return K.info[i][1]; return ''; }
   function infoSet(k, v) { for (var i = 0; i < K.info.length; i++) if (K.info[i][0] === k) { K.info[i][1] = v; return; } K.info.push([k, v]); }
-  function NM() { return (K && infoGet('精算の相手')) || '相手'; }
+  function NM() { if (!K) return ''; return infoGet('精算の相手') || '相手'; }
   function putNames() { document.querySelectorAll('.kname').forEach(function (e) { e.textContent = NM(); }); }
   function markDirty() { if (!K) return; K.dirty = true; saveLocal(); renderStatus(); }
   function monthFromNote(note, y, m) {
@@ -1263,6 +1263,7 @@ break;case"<bookViews":;case"<bookViews>":;case"</bookViews>":break;case"<workbo
     if (K.dirty) s += '<br><b class="kwarn">保存していない変更があります。</b>終わったら「作業を終える」を押してください。';
     else s += '<br>変更はありません。';
     if (K.draft) s += '<br>' + NM() + '精算に、途中の下書きがあります。';
+    if (K.note) s += '<br>' + K.note;
     st.innerHTML = s;
     document.querySelectorAll('.kEndBtn').forEach(function (b) { b.classList.toggle('dirty', !!K.dirty); });
     var bk = getBackup(); $('kRestore').hidden = !bk; if (bk) $('kRestore').textContent = 'この端末に残した予備(' + new Date(bk.at).toLocaleString('ja-JP') + '・予定と実績 ' + bk.data.entries.length + '件)を戻す';
@@ -1306,26 +1307,51 @@ break;case"<bookViews":;case"<bookViews>":;case"</bookViews>":break;case"<workbo
     navigator.clipboard.readText().then(function (t) {
       var env = parseEnvelope(t);
       if (!env) { $('kStatus').innerHTML = '<b class="kwarn">経理ファイルではありませんでした。</b><br>ホーム画面の「経理を始める」をもう一度押してください。'; return; }
-      var f;
-      try { f = readFile(env.b64); } catch (e) { $('kStatus').innerHTML = '<b class="kwarn">経理ファイルを読めませんでした。</b><br>' + esc(e.message); return; }
+      var f0;
+      try { f0 = readFile(env.b64); } catch (e) { $('kStatus').innerHTML = '<b class="kwarn">経理ファイルを読めませんでした。</b><br>' + esc(e.message); return; }
+      $('kStatus').innerHTML = '経理ファイルが最新か、確かめています…';
+      checkLatest(f0).then(function (c) { begin(c.f, c.ver, c.note); });
+    }, function () { toast('コピーの中身を読めませんでした。もう一度「始める」を押して「ペースト」を押してください'); });
+  });
+  function fileVer(f) { for (var i = 0; i < f.info.length; i++) if (f.info[i][0] === '版') return Number(f.info[i][1]) || 0; return 0; }
+  function fileKey(f) { for (var i = 0; i < f.info.length; i++) if (f.info[i][0] === '台帳の名前') return String(f.info[i][1] || ''); return ''; }
+  // この端末の写しが古い時は、Googleに置いた最新の中身を使う
+  function checkLatest(f) {
+    var F = fileVer(f), key = fileKey(f);
+    if (!key) return Promise.resolve({ f: f, ver: F, note: '<span class="kwarn">この経理ファイルには「台帳の名前」がないので、最新か確かめられません。</span>' });
+    return gasCall({ action: 'ver', key: key }, f.info).then(function (r) {
+      if (!r.ok) throw new Error(r.error || '');
+      if (r.ver == null || r.ver <= F) return { f: f, ver: F, note: '' };
+      return gasCall({ action: 'latest', key: key }, f.info).then(function (L) {
+        if (!L.ok || !L.b64) throw new Error(L.error || '最新の中身を受け取れませんでした');
+        var f2 = readFile(L.b64);
+        return { f: f2, ver: fileVer(f2), note: 'この端末の経理ファイルは古かったので、' + esc(L.at || '') + ' に' + esc(L.device || '別の端末') + 'で保存した最新の中身(版 ' + fileVer(f2) + ')を使っています。' };
+      });
+    }).catch(function (e) {
+      return { f: f, ver: F, note: '<span class="kwarn">電波などで、最新か確かめられませんでした。</span>保存する時にもう一度確かめます。' };
+    });
+  }
+  function begin(f, fver, note) {
       var prev = loadLocal();
       var local = A.snapshot();
       var firstTime = !prev;
       var start = function (useLocalMonthly) {
-        K = { ver: env.ver, info: f.info, sum: f.sum, det: f.det, draft: f.draft, dirty: false, tab: TAB, loadedDay: today() };
+        K = { ver: fver, info: f.info, sum: f.sum, det: f.det, draft: f.draft, dirty: false, tab: TAB, loadedDay: today(), note: note || '' };
         if (useLocalMonthly) { K.dirty = true; } else { A.applyData(f.snap); A.lsSaveQuiet(); A.render(); }
         sessionDraft = JSON.stringify(K.draft);
         sessionStorage.setItem(SS_TAB, TAB);
         saveLocal();
         announce(); clearClipLater();
         show('menu');
-        toast('経理ファイルを受け取りました(版 ' + env.ver + ')');
+        toast('経理ファイルを受け取りました(版 ' + fver + ')');
       };
-      // この端末に保存していない変更が残っている場合
+      // この端末に保存していない変更が残っている場合(同じ台帳の時だけ)
+      var prevKey = prev && prev.info ? (prev.info.filter(function (r) { return r[0] === '台帳の名前'; })[0] || [])[1] || '' : '';
+      if (prev && prev.dirty && prevKey !== fileKey(f)) { backupLocal(local); prev = null; firstTime = false; }
       if (prev && prev.dirty) {
-        askChoice('前回、保存していない変更がこの端末に残っています。' + (prev.ver === env.ver ? '' : '（その後、別の端末で保存されています）'),
-          [['経理ファイルの内容で始める(前回の変更は捨てる)', function () { start(false); }],
-           ['前回の変更を使って続ける', function () { K = prev; K.tab = TAB; K.loadedDay = today(); if (prev.ver !== env.ver) K.ver = prev.ver; sessionDraft = JSON.stringify(K.draft); sessionStorage.setItem(SS_TAB, TAB); saveLocal(); announce(); show('menu'); }]]);
+        askChoice('前回、保存していない変更がこの端末に残っています。' + (prev.ver === fver ? '' : '（その後、別の端末で保存されています。前回の変更を使うと、その保存の内容は、この端末の内容で置き換わります）'),
+          [['経理ファイルの内容で始める(前回の変更は捨てる)', function () { backupLocal(local); start(false); }],
+           ['前回の変更を使って続ける', function () { K = prev; K.tab = TAB; K.loadedDay = today(); K.ver = fver; K.note = note || ''; delete K.pendingVer; sessionDraft = JSON.stringify(K.draft); sessionStorage.setItem(SS_TAB, TAB); saveLocal(); announce(); show('menu'); }]]);
         return;
       }
       var dd = (firstTime && local && (local.entries || []).length) ? diffData(f.snap, local) : { n: 0 };
@@ -1336,8 +1362,7 @@ break;case"<bookViews":;case"<bookViews>":;case"</bookViews>":break;case"<workbo
         return;
       }
       start(false);
-    }, function () { toast('コピーの中身を読めませんでした。もう一度「始める」を押して「ペースト」を押してください'); });
-  });
+  }
   function clearClipLater() {
     var f = function () { try { navigator.clipboard.writeText('経理ファイルの受け取りは終わりました').catch(function () {}); } catch (e) {} };
     document.addEventListener('click', f, { once: true, capture: true });
@@ -1363,27 +1388,41 @@ break;case"<bookViews":;case"<bookViews>":;case"</bookViews>":break;case"<workbo
     if (!ready()) { toast('先に「始める」で経理ファイルを受け取ってください'); show('menu'); return; }
     var b64;
     try { b64 = buildFile(K.ver + 1); } catch (e) { toast('経理ファイルを作れませんでした: ' + e.message); return; }
-    var env = 'KAIKEI1|' + K.ver + '|' + b64;
+    var ua = navigator.userAgent, dev = /iPhone|iPod/.test(ua) ? 'iPhone' : (/iPad/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1) ? 'iPad' : (/Macintosh/.test(ua) ? 'Mac' : 'その他'));
+    var env = 'KAIKEI2|' + K.ver + '|' + (infoGet('台帳の名前') || '') + '|' + K.tab + '-' + K.ver + '|' + dev + '|' + b64;
     copyText(env).then(function () {
       K.pendingVer = K.ver + 1; saveLocal();
-      $('kSaving').hidden = false;
+      $('kSaving').hidden = false; savingAt = Date.now();
       location.href = 'shortcuts://run-shortcut?name=' + encodeURIComponent(SC_END) + '&input=clipboard';
     }, function () { toast('コピーできませんでした。もう一度押してください'); });
   }
   document.addEventListener('click', function (ev) { var b = ev.target.closest && ev.target.closest('.kEndBtn'); if (b) endWork(); });
+  // ショートカットが途中で止まった時(電波なしなど)は、戻ってきても知らせが来ない
+  var savingAt = 0;
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState !== 'visible' || $('kSaving').hidden || Date.now() - savingAt < 1500) return;
+    setTimeout(function () { if (!$('kSaving').hidden) showFailed(); }, 2500);
+  });
+  function showFailed() {
+    $('kSaving').hidden = true;
+    $('kDone').innerHTML = '<b class="kwarn">保存できませんでした。</b>経理ファイルは前のままです。今回の作業の中身は、この端末に残っています。<br>電波のある所で、もう一度「作業を終える」を押してください。';
+    $('kDone').hidden = false; show('menu');
+  }
   function onHash(ev) {
     var h = location.hash || '', m;
     if (ev && /start/.test(h)) { location.replace(location.pathname + '?v=' + Date.now() + '#start'); return; }
     if ((m = /saved=(\d+)/.exec(h))) {
       var k = loadLocal();
-      if (k) { K = k; K.ver = Number(m[1]); K.dirty = false; delete K.pendingVer; K.tab = K.tab || TAB; sessionStorage.setItem(SS_TAB, K.tab); saveLocal(); }
+      if (k) { K = k; K.ver = Number(m[1]); K.dirty = false; K.note = ''; delete K.pendingVer; K.tab = K.tab || TAB; sessionStorage.setItem(SS_TAB, K.tab); saveLocal(); }
       $('kSaving').hidden = true;
       $('kDone').innerHTML = '<b>保存しました。</b>経理ファイルは 版 ' + m[1] + ' になりました。このまま閉じて大丈夫です。';
       $('kDone').hidden = false; show('menu');
     } else if (/conflict/.test(h)) {
       $('kSaving').hidden = true;
-      $('kDone').innerHTML = '<b class="kwarn">別の端末で先に保存されていました。</b>今回の内容は、消えないように「予備」フォルダへ別の名前で保存しました。もう一度「経理を始める」から開き直してください。';
+      $('kDone').innerHTML = '<b class="kwarn">別の端末で先に保存されていたので、保存しませんでした。</b>今回の作業の中身は、この端末と「予備」フォルダの控えに残っています。<br>もう一度「経理を始める」から開くと、最新の中身で始めるか、この端末の中身で続けるかを選べます。';
       $('kDone').hidden = false; show('menu');
+    } else if (/failed/.test(h)) {
+      showFailed();
     } else if (/start/.test(h)) {
       show('menu');
     }
@@ -1493,11 +1532,14 @@ break;case"<bookViews":;case"<bookViews>":;case"</bookViews>":break;case"<workbo
   $('kAddSane').addEventListener('click', function () { readInputs(); K.draft.sane.push({ date: today().replace(/-/g, ''), item: '', kind: '割り勘', amount: null, qty: 0.5, note: '' }); saveLocal(); renderSeisan(false); });
 
   // 返信を読む(Googleの受け口)
-  function gasCall(body) {
-    var url = infoGet('受け口URL'), tok = infoGet('合言葉');
+  function gasCall(body, info) {
+    var get = function (k) { var src = info || (K && K.info) || []; for (var i = 0; i < src.length; i++) if (src[i][0] === k) return src[i][1]; return ''; };
+    var url = get('受け口URL'), tok = get('合言葉');
     if (!url || !tok) return Promise.reject(new Error('経理ファイルに受け口の設定がありません'));
     body.token = tok;
-    return fetch(url, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(body) }).then(function (r) { return r.json(); });
+    var req = fetch(url, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(body) }).then(function (r) { return r.json(); });
+    var limit = new Promise(function (ok, ng) { setTimeout(function () { ng(new Error('時間切れ')); }, 15000); });
+    return Promise.race([req, limit]);
   }
   function loadReply() {
     var box = $('kReply'); box.innerHTML = '' + NM() + 'の返信を探しています…'; lastReplyHtml = '';
@@ -1611,6 +1653,7 @@ break;case"<bookViews":;case"<bookViews>":;case"</bookViews>":break;case"<workbo
     gasCall({ action: 'send', period: period(d), threadId: d.replyThread || '', subject: mp.subject, html: mp.html, text: mp.text }).then(function (r) {
       $('kSend').disabled = false; $('kSend').textContent = '精算を終えて、結果をメールで送る';
       if (!r.ok) { $('kMsg').innerHTML = '<span class="kwarn">送れませんでした: ' + esc(r.error) + '</span>'; return; }
+      if (r.already && r.record && /^\d{8}-\d{8}$/.test(r.record.period || '')) { var pe = r.record.period.slice(9); K.draft.end = pe.slice(0, 4) + '-' + pe.slice(4, 6) + '-' + pe.slice(6); }
       finalize('mail', r.record);
       if (r.already) $('kMsg').innerHTML = 'この期間の結果メールは、' + esc(r.record.at) + ' にもう送ってありました。記録だけしました。';
     }, function (e) { $('kSend').disabled = false; $('kSend').textContent = '精算を終えて、結果をメールで送る'; $('kMsg').innerHTML = '<span class="kwarn">送れたか分かりません(電波など)。もう一度押しても、同じ期間は2通目が出ないようになっています。</span>'; });
