@@ -1,0 +1,79 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>受け渡しの試験</title>
+<style>
+body{font:17px/1.6 -apple-system,"Hiragino Sans",sans-serif;background:#f6f7f3;color:#222;margin:0;padding:16px}
+h1{font-size:20px;margin:0 0 4px}
+.box{background:#fff;border:1px solid #dde;border-radius:12px;padding:14px;margin:12px 0}
+button{font-size:18px;padding:12px 18px;border-radius:10px;border:1px solid #777;background:#fff;width:100%;margin:6px 0}
+.ok{color:#1b6b3a;font-weight:bold}.ng{color:#b3261e;font-weight:bold}
+#log{white-space:pre-wrap;font-size:14px;color:#555}
+</style></head><body>
+<h1>受け渡しの試験</h1>
+<div>ここは試験用のページです。本番のアプリではありません。</div>
+
+<div class="box"><b>1. Googleに届くか</b>
+<button id="bG">Googleに届くか試す</button><div id="rG"></div></div>
+
+<div class="box"><b>2. 経理ファイルを受け取る</b>
+<div>ホーム画面の「経理テストを始める」から来たら、下のボタンを押してください。次に出る「ペースト」を押します。</div>
+<button id="bIn">始める</button><div id="rIn"></div></div>
+
+<div class="box"><b>3. 作業を終える</b>
+<div>押すと、次に「“ショートカット”で開きますか」のような確認が出ます。「開く」を押してください。</div>
+<button id="bOut" disabled>作業を終える</button><div id="rOut"></div></div>
+
+<div class="box"><div id="log"></div></div>
+
+<script>
+var U='https://script.google.com/macros/s/AKfycbwoE0W4hFPeOcqBcaUEA0cxGRBvmp7IFqYj4tSQ_ZKP0Vd2CWbybYQN7vc1_eIFBrFHoA/exec';
+var SC='経理テストを終える';
+var got=null; // {ver, b64}
+function $(i){return document.getElementById(i)}
+function log(s){$('log').textContent=new Date().toLocaleTimeString()+' '+s+'\n'+$('log').textContent}
+function say(id,ok,s){$(id).innerHTML='<span class="'+(ok?'ok':'ng')+'">'+(ok?'できました: ':'できませんでした: ')+'</span>'+s}
+
+$('bG').onclick=async function(){
+  try{
+    var t0=Date.now();
+    var g=await fetch(U+'?x=iphone').then(function(r){return r.json()});
+    var p=await fetch(U,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:'x'.repeat(50000)}).then(function(r){return r.json()});
+    say('rG', g.ok&&p.ok&&p.got===50000, '読む '+(g.ok?'OK':'NG')+' / 送る '+(p.got===50000?'OK':'NG')+' ('+(Date.now()-t0)+'ミリ秒)');
+  }catch(e){say('rG',false,String(e))}
+};
+
+// 形式: KAIKEI1|版|base64
+function parse(t){
+  t=(t||'').trim(); var m=/^KAIKEI1\|(\d+)\|([A-Za-z0-9+\/=\r\n]+)$/.exec(t);
+  if(!m) return null;
+  var b64=m[2].replace(/\s/g,''); var head=atob(b64.slice(0,8));
+  if(head.slice(0,2)!=='PK') return null;
+  return {ver:Number(m[1]), b64:b64};
+}
+$('bIn').onclick=async function(){
+  try{
+    var t=await navigator.clipboard.readText();
+    var r=parse(t);
+    if(!r){say('rIn',false,'経理ファイルではありませんでした。もう一度「経理テストを始める」を押してください。('+t.length+'文字)');return}
+    got=r; $('bOut').disabled=false;
+    try{await navigator.clipboard.writeText('')}catch(e){log('コピーを消せず: '+e)}
+    say('rIn',true,'版 '+r.ver+' / '+r.b64.length+'文字を受け取りました。コピーの中身は消しました。');
+  }catch(e){say('rIn',false,String(e))}
+};
+$('bOut').onclick=async function(){
+  if(!got) return;
+  try{
+    await navigator.clipboard.writeText('KAIKEI1|'+got.ver+'|'+got.b64);
+    log('コピーしました。ショートカットを呼びます');
+    location.href='shortcuts://run-shortcut?name='+encodeURIComponent(SC)+'&input=clipboard';
+    say('rOut',true,'ショートカットを呼びました。保存が終わるとこの画面(新しいタブ)に戻ります。');
+  }catch(e){say('rOut',false,String(e))}
+};
+(function(){
+  var m=/saved=(\d+)/.exec(location.hash);
+  if(m){ say('rOut',true,'保存しました。今の版は '+m[1]+' です。'); history.replaceState(null,'',location.pathname); }
+  if(/start/.test(location.hash)){ log('経理テストを始める から来ました'); history.replaceState(null,'',location.pathname); }
+})();
+</script>
+</body></html>
