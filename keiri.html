@@ -238,7 +238,7 @@
 
 <!-- ===== メニュー ===== -->
 <section class="kview" id="kMenu">
-  <div class="top"><div class="eyebrow"><strong>sanericci cafe 経理</strong> <span style="color:var(--ink-faint)" id="kVer">v10.2</span></div></div>
+  <div class="top"><div class="eyebrow"><strong>sanericci cafe 経理</strong> <span style="color:var(--ink-faint)" id="kVer">v10.3</span></div></div>
   <div class="kcard" id="kDone" hidden></div>
   <div class="kcard" id="kStatus"></div>
   <div id="kAsk" class="kcard" hidden></div>
@@ -294,7 +294,7 @@
 
 <main>
   <div class="top">
-    <div class="eyebrow"><button type="button" class="kback" data-kgo="menu">‹ メニュー</button> <strong>月末経理</strong> <span id="ver" style="color:var(--ink-faint)">v10.2</span></div>
+    <div class="eyebrow"><button type="button" class="kback" data-kgo="menu">‹ メニュー</button> <strong>月末経理</strong> <span id="ver" style="color:var(--ink-faint)">v10.3</span></div>
     <div class="theme-toggle" role="group" aria-label="表示の明るさ">
       <button type="button" data-theme-choice="light">明るい</button>
       <button type="button" data-theme-choice="dark">夜</button>
@@ -1469,8 +1469,10 @@ SOFTWARE.*/
     K.pendingClaim = claim;
     var name = (dev === 'Mac' && String(infoGet('Mac用のショートカットの名前') || '').trim()) || SC_END;
     K.pendingVer = K.ver + 1; saveLocal();
-    $('kSaving').hidden = false; savingAt = Date.now();         // 先に「保存しています」を出す(二度押しを止める)
-    var scUrl = 'shortcuts://run-shortcut?name=' + encodeURIComponent(name) + '&input=clipboard';   // 中身はコピーから渡す(9/11 実機で同じ形を確認)
+    $('kSaving').hidden = false; savingAt = Date.now(); checkedOnce = false;   // 先に「保存しています」を出す(二度押しを止める)。確認の印は押すたびに戻す
+    endSaving();
+    saveTimer = setTimeout(function () { tryCheck(); }, window.__kaikeiWait || 60000);   // 戻ってこない時の保険
+    var scUrl = 'shortcuts://run-shortcut?name=' + encodeURIComponent(name);   // 中身はショートカット側が「クリップボード」を読む(iPhone・Mac共通)
     $('kOpenSc').href = scUrl;   // 自動で開かなかった時に、じかに押す用
     copyText(env).then(function () {
       go(scUrl);
@@ -1483,18 +1485,19 @@ SOFTWARE.*/
   function go(u) { if (window.__kaikeiGo) window.__kaikeiGo(u); else location.href = u; }   // __kaikeiGo は試験の時だけ
   document.addEventListener('click', function (ev) { var b = ev.target.closest && ev.target.closest('.kEndBtn'); if (b) endWork(); });
   // ショートカットが途中で止まった時(電波なしなど)は、戻ってきても知らせが来ない
-  var savingAt = 0;
-  document.addEventListener('visibilitychange', function () {
-    if (document.visibilityState !== 'visible') return;
-    if ($('kSaving').hidden || Date.now() - savingAt < 1500) return;
-    setTimeout(function () { if (!$('kSaving').hidden) checkArrived(); }, 2500);
-  });
+  var savingAt = 0, checkedOnce = false, saveTimer = null;
+  function endSaving() { if (saveTimer) { clearTimeout(saveTimer); saveTimer = null; } }   // 結果が出たら保険を止める
+  function tryCheck() { if ($('kSaving').hidden || checkedOnce) return; checkedOnce = true; endSaving(); checkArrived(); }   // 確認は1回だけ
+  function backHere() { if ($('kSaving').hidden || Date.now() - savingAt < 1500) return; setTimeout(tryCheck, 2500); }
+  document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') backHere(); });   // iPhone: 画面が戻った時
+  window.addEventListener('focus', backHere);                                                                              // Mac: 前面に戻った時
   function checkArrived() {
     var k = K || loadLocal();
     if (!k || !k.pendingClaim) { showFailed(); return; }
     gasCall({ action: 'ver', key: (k.info.filter(function (r) { return r[0] === '台帳の名前'; })[0] || [])[1] || '' }, k.info).then(function (r) {
       if (r.ok && r.claim === k.pendingClaim) {
         K = k; K.ver = r.ver; K.dirty = false; delete K.pendingClaim; delete K.pendingVer; saveLocal();
+        endSaving();
         $('kSaving').hidden = true;
         $('kDone').innerHTML = '<b>Googleには保存できました(版 ' + r.ver + ')。</b>この端末の経理ファイルは、次に開いた時に最新になります。このまま閉じて大丈夫です。';
         $('kDone').hidden = false; show('menu');
@@ -1502,6 +1505,7 @@ SOFTWARE.*/
     }, showFailed);
   }
   function showFailed() {
+    endSaving();
     $('kSaving').hidden = true; clearClipLater();   // 途中で止まった時、コピーに残った中身(合言葉入り)を次に押した時に消す
     $('kDone').innerHTML = '<b class="kwarn">保存できませんでした。</b>経理ファイルは前のままです。今回の作業の中身は、この端末に残っています。<br>電波のある所で、もう一度「作業を終える」を押してください。';
     $('kDone').hidden = false; show('menu');
@@ -1513,10 +1517,12 @@ SOFTWARE.*/
     if ((m = /saved=(\d+)/.exec(h))) {
       var k = loadLocal();
       if (k) { K = k; K.ver = Number(m[1]); K.dirty = false; K.note = ''; delete K.pendingVer; delete K.pendingClaim; K.snapFp = fp(A.snapshot()); K.tab = K.tab || TAB; sessionStorage.setItem(SS_TAB, K.tab); saveLocal(); }
+      endSaving();
       $('kSaving').hidden = true;
       $('kDone').innerHTML = '<b>保存しました。</b>経理ファイルは 版 ' + m[1] + ' になりました。このまま閉じて大丈夫です。';
       $('kDone').hidden = false; show('menu');
     } else if (/conflict/.test(h)) {
+      endSaving();
       $('kSaving').hidden = true;
       var kc = K || loadLocal();
       if (kc && kc.tab) {
