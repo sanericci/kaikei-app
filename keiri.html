@@ -380,22 +380,22 @@ body[data-kview="seikyu"] #ie{display:block}
 .qi-left input[type="checkbox"]{min-height:22px;width:22px}
 .qi-left .qi-b{min-height:44px;font-size:15px}
 .qe-card{background:var(--card);border-radius:14px;padding:14px 16px;margin:0 0 12px;box-shadow:0 1px 8px var(--shadow)}
-.qe-h{font-size:16px;font-weight:700;color:#2b2b2b;margin:0 0 8px}
-.qe-row{display:flex;align-items:center;gap:10px;min-height:48px;padding:6px 0;border-bottom:1px solid rgba(0,0,0,.07);cursor:pointer}
+.qe-h{font-size:16px;font-weight:700;color:var(--ink);margin:0 0 8px}
+.qe-row{display:flex;align-items:center;gap:10px;min-height:48px;padding:6px 0;border-bottom:1px solid var(--line);cursor:pointer}
 .qe-row:last-child{border-bottom:none}
-.qe-lb{flex:0 0 88px;font-size:15px;color:#4a4a4a}
-.qe-v{flex:1;font-size:16px;color:#1d1d1d;word-break:break-all}
-.qe-go{color:#8a8071;font-size:20px;line-height:1}
-.qe-line{display:flex;align-items:center;gap:8px;min-height:52px;padding:8px 0;border-bottom:1px solid rgba(0,0,0,.07)}
-.qe-line .nm{flex:1;font-size:16px;color:#1d1d1d;cursor:pointer}
-.qe-line .sb{display:block;font-size:13px;color:#5c5c5c;margin-top:2px}
-.qe-line .am{font-size:16px;font-weight:700;color:#1d1d1d;white-space:nowrap}
-.qe-line button{min-width:42px;min-height:42px;border:1px solid rgba(0,0,0,.18);background:var(--card);border-radius:10px;font-size:16px;color:#2b2b2b}
-.qe-add{width:100%;min-height:48px;margin-top:10px;border:1px dashed rgba(0,0,0,.28);background:transparent;border-radius:12px;font-size:16px;color:#2b2b2b}
+.qe-lb{flex:0 0 88px;font-size:15px;color:var(--ink-soft)}
+.qe-v{flex:1;font-size:16px;color:var(--ink);word-break:break-all}
+.qe-go{color:var(--ink-faint);font-size:20px;line-height:1}
+.qe-line{display:flex;align-items:center;gap:8px;min-height:52px;padding:8px 0;border-bottom:1px solid var(--line)}
+.qe-line .nm{flex:1;font-size:16px;color:var(--ink);cursor:pointer}
+.qe-line .sb{display:block;font-size:13px;color:var(--ink-soft);margin-top:2px}
+.qe-line .am{font-size:16px;font-weight:700;color:var(--ink);white-space:nowrap}
+.qe-line button{min-width:42px;min-height:42px;border:1px solid var(--line);background:var(--card);border-radius:10px;font-size:16px;color:var(--ink)}
+.qe-add{width:100%;min-height:48px;margin-top:10px;border:1px dashed var(--line);background:transparent;border-radius:12px;font-size:16px;color:var(--ink)}
 .qe-total{display:flex;justify-content:flex-end;align-items:baseline;gap:10px;font-size:16px;margin-top:10px}
 .qe-total b{font-size:22px}
 .qe-bar{display:flex;gap:10px;margin:0 0 14px}
-.qe-b{flex:1;min-height:48px;border:1px solid rgba(0,0,0,.18);background:var(--card);border-radius:12px;font-size:16px;color:#2b2b2b}
+.qe-b{flex:1;min-height:48px;border:1px solid var(--line);background:var(--card);border-radius:12px;font-size:16px;color:var(--ink)}
 #qe_old>summary,#ie_old>summary{min-height:44px;display:flex;align-items:center;font-size:15px}
 @media screen{
  /* 紙は画面から見えない所へ置く。display:none にすると高さが測れず、改ページの計算が壊れる */
@@ -404,8 +404,8 @@ body[data-kview="seikyu"] #ie{display:block}
  body.qe-paper[data-kview="mitsumori"] .qi-right,body.qe-paper[data-kview="seikyu"] .qi-right{inset:0;width:auto;z-index:60;overflow:auto;background:var(--bg);padding:58px 10px 24px}
  body.qe-paper #qe_close{display:block}
 }
-#qe_close{display:none;position:fixed;top:10px;right:12px;z-index:61;min-height:44px;padding:0 18px;border-radius:12px;border:1px solid rgba(0,0,0,.2);background:var(--card);font-size:16px;color:#2b2b2b}
-.qep-fld textarea{width:100%;font-size:16px;padding:8px 10px;border:1px solid rgba(0,0,0,.2);border-radius:10px;background:var(--card);color:#1d1d1d;line-height:1.5}
+#qe_close{display:none;position:fixed;top:10px;right:12px;z-index:61;min-height:44px;padding:0 18px;border-radius:12px;border:1px solid var(--line);background:var(--card);font-size:16px;color:var(--ink)}
+.qep-fld textarea{width:100%;font-size:16px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);line-height:1.5}
 </style>
 
 <!-- ===== メニュー ===== -->
@@ -2994,17 +2994,17 @@ var QI = (function () {
 #qep{display:none;position:fixed;inset:0;z-index:70;background:rgba(0,0,0,.35)}
 #qep.on{display:block}
 .qep-in{position:absolute;left:0;right:0;bottom:0;max-width:520px;margin:0 auto;background:var(--card);border-radius:20px 20px 0 0;padding:16px 18px calc(20px + env(safe-area-inset-bottom));max-height:88vh;overflow:auto}
-.qep-h{font-size:17px;font-weight:700;margin:0 0 12px;color:#1d1d1d}
+.qep-h{font-size:17px;font-weight:700;margin:0 0 12px;color:var(--ink)}
 .qep-f{display:flex;gap:10px;margin-top:14px}
-.qep-ok{background:var(--mint,#4e8a6a);color:#fff;border-color:transparent;font-weight:700}
+.qep-ok{background:var(--mint,var(--mint));color:var(--bg);border-color:transparent;font-weight:700}
 .qep-fld{margin:0 0 12px}
-.qep-fld label{display:block;font-size:14px;color:#4a4a4a;margin:0 0 4px}
-.qep-fld input,.qep-fld select{width:100%;min-height:46px;font-size:16px;padding:6px 10px;border:1px solid rgba(0,0,0,.2);border-radius:10px;background:var(--card);color:#1d1d1d}
-.qep-pick{display:block;width:100%;min-height:50px;text-align:left;padding:10px 12px;margin:0 0 8px;font-size:16px;color:#1d1d1d;background:var(--card);border:1px solid rgba(0,0,0,.18);border-radius:12px}
-.qep-pick small{display:block;font-size:13px;color:#5c5c5c;margin-top:2px}
-.qep-back{min-height:44px;padding:0 14px;margin:0 0 10px;font-size:15px;background:transparent;border:1px solid rgba(0,0,0,.18);border-radius:10px;color:#2b2b2b}
-.qep-out{font-size:16px;font-weight:700;margin:10px 0 0;color:#1d1d1d}
-.qe-line.qe-dragging{background:rgba(78,138,106,.16);border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,.12)}
+.qep-fld label{display:block;font-size:14px;color:var(--ink-soft);margin:0 0 4px}
+.qep-fld input,.qep-fld select{width:100%;min-height:46px;font-size:16px;padding:6px 10px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink)}
+.qep-pick{display:block;width:100%;min-height:50px;text-align:left;padding:10px 12px;margin:0 0 8px;font-size:16px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:12px}
+.qep-pick small{display:block;font-size:13px;color:var(--ink-soft);margin-top:2px}
+.qep-back{min-height:44px;padding:0 14px;margin:0 0 10px;font-size:15px;background:transparent;border:1px solid var(--line);border-radius:10px;color:var(--ink)}
+.qep-out{font-size:16px;font-weight:700;margin:10px 0 0;color:var(--ink)}
+.qe-line.qe-dragging{background:var(--mint-soft);border-radius:10px;box-shadow:0 2px 10px var(--shadow)}
 </style>
 <script>
 (function(){
