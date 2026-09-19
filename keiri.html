@@ -417,7 +417,7 @@ body[data-kview="seikyu"] #ie{display:block}
   <div id="kStart"><button class="primary" id="kStartBtn" type="button">始める</button>
     <div class="khint">押したあと、「ペースト」が出たら押してください。</div></div>
   <div id="kTasks" class="off">
-      <button class="kbtn" type="button" data-kgo="toiawase"><b>問い合わせ</b><span>来た話を受ける・見積へ進む</span></button>
+      <button class="kbtn" type="button" data-kgo="toiawase"><b>問い合わせ</b><span>打ち合わせシートを書く・見積へ進む</span></button>
       <button class="kbtn" type="button" data-kgo="mitsumori"><b>見積書</b><span>過去からひいて作る・印刷</span></button>
       <button class="kbtn" type="button" data-kgo="seikyu"><b>請求書</b><span>案件から作る・月末まとめ</span></button>
       <button class="kbtn" type="button" data-kgo="getsumatsu"><b>月末経理</b><span>予定と実績・残高の見込み</span></button>
@@ -447,9 +447,18 @@ body[data-kview="seikyu"] #ie{display:block}
 <!-- ===== 問い合わせ ===== -->
 <section class="kview" id="kToiawase">
  <div class="top"><div class="eyebrow"><button type="button" class="kback" data-kgo="menu">← もどる</button> <strong>問い合わせ</strong></div></div>
- <div class="qe-card"><div class="qe-h">来ている話</div><div id="ti_list"></div>
-  <button type="button" class="qe-add" id="ti_add">＋ 問い合わせを足す</button></div>
- <p class="khint" style="margin:10px 4px">行を押すと、その内容で見積書に進みます。</p>
+ <div class="qe-card">
+  <div class="qe-row" data-ti="brand"><span class="qe-lb">依頼先</span><span class="qe-v" id="ti_brand">sanericci café</span><span class="qe-go">›</span></div>
+ </div>
+ <div class="qe-card" id="ti_cafe"><div class="qe-h">聞き取り</div>
+  <div class="qep-fld"><label>得意先（宛名）</label><select id="ti_client"></select></div>
+  <div class="qep-fld"><label>施工日</label><input id="ti_day" type="date"></div>
+  <div class="qep-fld"><label>支払い</label><select id="ti_pay"><option value="mae">前払い</option><option value="matsu">末締め・翌月末</option></select></div>
+  <div id="ti_name"></div>
+  <div id="ti_travel"></div>
+ </div>
+ <div id="ti_meet"></div>
+ <div class="qe-bar"><button type="button" class="qe-b" id="ti_go">この内容で見積書へ</button></div>
 </section>
 <!-- ===== 見積書（v11） ===== -->
 <section class="kview" id="kMitsumori">
@@ -2440,6 +2449,7 @@ var QI = (function () {
     if (view === 'seisan') renderSeisan(true);
     if (view === 'kiroku') renderKiroku();
     if (view === 'menu') renderStatus();
+    if (view === 'toiawase') { try { QI.enter('mitsumori', K); } catch (e) { } }   // 問い合わせも見積の仕組みを使うので、先に立ち上げる
     if (view === 'mitsumori' || view === 'seikyu') { try { QI.enter(view, K); } catch (e) { alert('見積書・請求書の画面をひらけませんでした。\n' + (e && e.message || '') + '\n月末経理と精算は、そのまま使えます。'); show('menu'); } }
   }
   function ready() { return !!K && sessionStorage.getItem(SS_TAB) === K.tab; }
@@ -3367,22 +3377,46 @@ var QI = (function () {
 <script>
 (function(){
  var $=function(i){return document.getElementById(i)};
- function anken(){try{var K=window.KAIKEI&&window.KAIKEI.get();return (K&&K.qi&&K.qi.anken)||[]}catch(e){return []}}
- function draw(){
-  var box=$('ti_list'); if(!box)return;
-  var L=anken().filter(function(a){return !a.no}); // まだ見積番号が付いていない＝これから見積を出す話
-  var h='';
-  for(var i=0;i<L.length;i++){var a=L[i];
-   h+='<div class="qe-line" data-ti="'+i+'"><span class="nm">'+String(a.title||a.client||'（名前なし）').replace(/</g,'&lt;')
-     +'<span class="sb">'+String(a.client||'').replace(/</g,'&lt;')+(a.day?'　'+a.day:'')+'</span></span>'
-     +'<span class="am">見積へ ›</span></div>';}
-  box.innerHTML=h||'<div style="padding:14px 0;color:#4a544d;font-size:15px">まだありません。下の「＋ 問い合わせを足す」から、新しい見積を始められます。</div>';
+ var moved=false;
+ function ev(el,t){ if(el) el.dispatchEvent(new Event(t,{bubbles:true})); }
+ function brand(){ var b=$('q_brand'); return b?b.value:'cafe'; }
+ function move(){
+  if(moved) return;
+  var a=$('d_meet'), b=$('d_name'), c=$('d_travel');
+  var A=$('ti_meet'), B=$('ti_name'), C=$('ti_travel');
+  if(!a||!b||!c||!A||!B||!C) return;
+  A.appendChild(a); B.appendChild(b); C.appendChild(c);
+  a.open=true; b.open=true; c.open=true; moved=true;
  }
- document.addEventListener('click',function(ev){
-  var t=ev.target;
-  if(t.id==='ti_add'){var b=document.querySelector('[data-kgo="mitsumori"]'); if(b)b.click(); return;}
-  var row=t.closest&&t.closest('[data-ti]');
-  if(row){var b2=document.querySelector('[data-kgo="mitsumori"]'); if(b2)b2.click(); return;}
+ function fillClient(){
+  var src=$('q_client'), dst=$('ti_client'); if(!src||!dst) return;
+  if(dst.innerHTML!==src.innerHTML) dst.innerHTML=src.innerHTML;
+  if(dst.value!==src.value) dst.value=src.value;
+ }
+ function draw(){
+  move(); fillClient();
+  var dc=(brand()==='dcloud');
+  if($('d_meet')) $('d_meet').style.display = dc ? '' : 'none';
+  if($('ti_cafe')) $('ti_cafe').style.display = dc ? 'none' : '';
+  if($('ti_brand')) $('ti_brand').textContent = dc ? 'Dcloud（楽曲制作）' : 'sanericci café';
+  if($('ti_day')&&$('q_day')&&$('ti_day').value!==$('q_day').value) $('ti_day').value=$('q_day').value;
+  if($('ti_pay')&&$('q_pay')&&$('ti_pay').value!==$('q_pay').value&&$('q_pay').value!=='nouhin') $('ti_pay').value=$('q_pay').value;
+ }
+ document.addEventListener('change',function(e){
+  var t=e.target;
+  if(t.id==='ti_client'){ var c=$('q_client'); if(c){ c.value=t.value; ev(c,'change'); } return; }
+  if(t.id==='ti_day'){ var d=$('q_day'); if(d){ d.value=t.value; ev(d,'input'); ev(d,'change'); } return; }
+  if(t.id==='ti_pay'){ var p=$('q_pay'); if(p){ p.value=t.value; ev(p,'change'); } return; }
+ },false);
+ document.addEventListener('click',function(e){
+  var t=e.target;
+  if(t.closest&&t.closest('[data-kgo="toiawase"]')){ draw(); return; }
+  var row=t.closest&&t.closest('.qe-row[data-ti="brand"]');
+  if(row){ var b=$('q_brand'); if(b){ b.value=(b.value==='cafe')?'dcloud':'cafe'; ev(b,'change'); } draw(); return; }
+  if(t.id==='ti_go'){
+    if(brand()==='dcloud'){ var a=$('mt_apply'); if(a)a.click(); }
+    else { var n=$('q_mkname'); if(n&&($('q_kind').value.trim()||$('q_day').value)) n.click(); }
+    var m=document.querySelector('[data-kgo="mitsumori"]'); if(m)m.click(); return; }
  },false);
  setInterval(function(){ if(document.body.getAttribute('data-kview')==='toiawase') draw(); },700);
 })();
