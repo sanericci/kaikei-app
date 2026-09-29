@@ -112,6 +112,10 @@
   .chip.over { background: var(--alert-soft); color: var(--alert); } .chip.today { background: var(--mint-soft); color: var(--mint); }
   .chip.aid { background: var(--peach-soft); color: var(--peach); } .chip.left { background: var(--bg); color: var(--ink-soft); }
   .chip.noamt { background: var(--alert-soft); color: var(--alert); }
+  .a.kari { text-decoration: line-through; opacity: .6; }
+  .actbox { margin: 12px 0 4px; padding: 12px; border: 1px solid var(--line); border-radius: 12px; }
+  .actbox .lbl { font-size: .85rem; margin-bottom: 6px; display: block; } .actbox .hint { margin: 6px 0; }
+  .actbox .primary, .actbox .ghost { margin-top: 8px; }
 
   .empty { padding: 28px 18px; text-align: center; color: var(--ink-soft); font-size: 0.85rem; background: var(--card); border-radius: 18px; }
   .notice { margin: 14px 4px 0; font-size: 0.74rem; color: var(--ink-soft); display: flex; gap: 8px; align-items: flex-start; }
@@ -258,7 +262,21 @@
   .qi-sub2{margin-top:11px;font-size:12px;color:#777;} .qi-sub2 .qi-ce{font-size:12px;}
   .qi-lead{margin-top:16px;font-size:11.5px;line-height:2;}
   .qi-from{width:56mm;font-size:10.5px;line-height:1.95;color:#777;position:relative;}
-  .qi-seal{position:absolute;right:0;top:0;width:15mm;height:15mm;object-fit:contain;opacity:.92;}
+  .qi-seal{position:absolute;right:0;top:0;width:9.5mm;height:9.5mm;object-fit:contain;opacity:.92;}
+  .mt-f{margin:10px 0;} .mt-f>label{display:block;font-size:14px;color:var(--ink-soft);margin-bottom:4px;}
+  .mt-f input:not([type=checkbox]),.mt-f select,.mt-f textarea{width:100%;font-size:16px;min-height:44px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);}
+  .mt-g{display:flex;flex-wrap:wrap;gap:6px 14px;margin:4px 0 6px;} .mt-g label{display:flex;align-items:center;gap:6px;font-size:16px;min-height:44px;}
+  .mt-g input,.mt-chk input{width:22px;height:22px;} .mt-chk{display:flex !important;align-items:center;gap:8px;font-size:16px !important;color:var(--ink) !important;min-height:44px;}
+  .mt-note{font-size:14px;color:var(--ink-soft);margin:6px 0 0;line-height:1.6;}
+  .mt-op{display:flex;gap:10px;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding:6px 0;} .mt-op small{display:block;font-size:13px;color:var(--ink-soft);} .mt-op input{width:84px !important;flex:0 0 84px;}
+  #qe #d_meet{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px 14px;margin:0 0 14px;} #qe #d_meet>summary{min-height:48px;display:flex;align-items:center;font-size:16px;font-weight:600;}
+  #meet_box .qi-b{width:100%;margin:6px 0 0;}
+  .qe-bar{flex-wrap:wrap;} .qe-bar .qe-b{flex:1 1 45%;} .qe-bar .qe-k{background:var(--mint,#2f6b4a);color:#fff;border-color:transparent;}
+  .qe-chk{display:inline-block;font-size:12px;color:#8a5a2c;background:#f5e2cf;border-radius:6px;padding:1px 6px;margin-left:6px;}
+  #qe_printbtn{display:none;position:fixed;top:10px;right:110px;z-index:61;min-height:44px;padding:0 18px;border-radius:12px;border:1px solid var(--line);background:var(--card);font-size:16px;color:var(--ink)}
+  body.qe-paper #qe_printbtn{display:block}
+  @media screen and (min-width:1380px){ body:not(.qe-paper)[data-kview="mitsumori"] #kMitsumori, body:not(.qe-paper)[data-kview="seikyu"] #kSeikyu{max-width:1400px;}
+    body:not(.qe-paper)[data-kview="mitsumori"] .qi-right, body:not(.qe-paper)[data-kview="seikyu"] .qi-right{position:sticky !important;left:auto !important;top:8px;visibility:visible !important;flex:0 0 794px;width:794px;max-height:calc(100vh - 16px);overflow:auto;} }
   .qi-big{margin:22px 0 6px;display:flex;align-items:baseline;gap:14px;}
   .qi-big .lb{font-size:11px;letter-spacing:.3em;color:#777;}
   .qi-big .vl{font-size:27px;color:#2f4f3f;}
@@ -361,6 +379,10 @@
   .kresult { background: var(--mint-soft); border-color: transparent; }
   .kquote { border-left: 3px solid var(--line); padding: 4px 10px; margin: 6px 0; color: var(--ink); }
   .kpaste summary { font-size: .78rem; color: var(--mint); margin-top: 8px; }
+  #kSeisan .field.two > div { min-width: 0; } #kSeisan .field.two input { min-width: 0; max-width: 100%; }
+  @media (max-width: 360px) { #kSeisan .field.two { grid-template-columns: 1fr !important; display: block; } }
+  .kpreview { max-height: 60vh; overflow: auto; margin: 10px 0; padding: 10px; border: 1px solid var(--line); border-radius: 10px; background: #fff; color: #2b2620; }
+  .kkfix { margin-top: 8px; min-height: 44px; }
   .kk { background: var(--card); border: 1px solid var(--line); border-radius: 14px; margin: 8px 0; padding: 10px 14px; }
   .kk summary { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px; font-size: .86rem; }
   .kkp small { color: var(--ink-faint); } .kkb { font-weight: 600; } .kkc { flex-basis: 100%; font-size: .72rem; }
@@ -410,19 +432,17 @@ body[data-kview="seikyu"] #ie{display:block}
 
 <!-- ===== メニュー ===== -->
 <section class="kview" id="kMenu">
-  <div class="top"><div class="eyebrow"><strong>sanericci cafe 経理</strong> <span style="color:var(--ink-faint)" id="kVer">v15</span></div></div>
+  <div class="top"><div class="eyebrow"><strong>sanericci cafe 経理</strong> <span style="color:var(--ink-faint)" id="kVer">v16</span></div></div>
   <div class="kcard" id="kDone" hidden></div>
   <div class="kcard" id="kStatus"></div>
   <div id="kAsk" class="kcard" hidden></div>
   <div id="kStart"><button class="primary" id="kStartBtn" type="button">始める</button>
     <div class="khint">押したあと、「ペースト」が出たら押してください。</div></div>
   <div id="kTasks" class="off">
-      <button class="kbtn" type="button" data-kgo="toiawase"><b>問い合わせ</b><span>打ち合わせシートを書く・見積へ進む</span></button>
       <button class="kbtn" type="button" data-kgo="mitsumori"><b>見積書</b><span>過去からひいて作る・印刷</span></button>
       <button class="kbtn" type="button" data-kgo="seikyu"><b>請求書</b><span>案件から作る・月末まとめ</span></button>
       <button class="kbtn" type="button" data-kgo="getsumatsu"><b>月末経理</b><span>予定と実績・残高の見込み</span></button>
-      <button class="kbtn" type="button" data-kgo="seisan"><b>拠点経費清算</b><span>毎月の光熱費などの精算</span></button>
-      <button class="kbtn" type="button" data-kgo="kiroku"><b>これまでの記録</b><span>過去の精算の中身</span></button>
+      <button class="kbtn" type="button" data-kgo="seisan"><b>拠点経費清算</b><span>毎月の光熱費などの清算・これまでの記録</span></button>
       <button class="kbtn" type="button" data-kgo="jigyo"><b>事業者の情報</b><span>会社情報と振込先を直す</span></button>
     </div>
   <div id="kEnd" hidden>
@@ -447,18 +467,9 @@ body[data-kview="seikyu"] #ie{display:block}
 <!-- ===== 問い合わせ ===== -->
 <section class="kview" id="kToiawase">
  <div class="top"><div class="eyebrow"><button type="button" class="kback" data-kgo="menu">← もどる</button> <strong>問い合わせ</strong></div></div>
- <div class="qe-card">
-  <div class="qe-row" data-ti="brand"><span class="qe-lb">依頼先</span><span class="qe-v" id="ti_brand">sanericci café</span><span class="qe-go">›</span></div>
- </div>
- <div class="qe-card" id="ti_cafe"><div class="qe-h">聞き取り</div>
-  <div class="qep-fld"><label>得意先（宛名）</label><select id="ti_client"></select></div>
-  <div class="qep-fld"><label>施工日</label><input id="ti_day" type="date"></div>
-  <div class="qep-fld"><label>支払い</label><select id="ti_pay"><option value="mae">前払い</option><option value="matsu">末締め・翌月末</option></select></div>
-  <div id="ti_name"></div>
-  <div id="ti_travel"></div>
- </div>
- <div id="ti_meet"></div>
- <div class="qe-bar"><button type="button" class="qe-b" id="ti_go">この内容で見積書へ</button></div>
+ <div class="qe-card"><div class="qe-h">来ている話</div><div id="ti_list"></div>
+  <button type="button" class="qe-add" id="ti_add">＋ 問い合わせを足す</button></div>
+ <p class="khint" style="margin:10px 4px">見積番号がまだ付いていない話です。押すと、その内容のまま見積書の画面で開きます。</p>
 </section>
 <!-- ===== 見積書（v11） ===== -->
 <section class="kview" id="kMitsumori">
@@ -473,6 +484,7 @@ body[data-kview="seikyu"] #ie{display:block}
  <div class="qe-row" data-qe="valid"><span class="qe-lb">有効期限</span><span class="qe-v" id="qe_valid">—</span><span class="qe-go">›</span></div>
  <div class="qe-row" data-qe="pay"><span class="qe-lb">支払い</span><span class="qe-v" id="qe_pay">—</span><span class="qe-go">›</span></div>
  <div class="qe-row" data-qe="no"><span class="qe-lb">見積No.</span><span class="qe-v" id="qe_no">—</span><span class="qe-go">›</span></div>
+  <div class="qe-row" data-qe="stat"><span class="qe-lb">状態</span><span class="qe-v" id="qe_stat">—</span><span class="qe-go">›</span></div>
 </div>
 <div class="qe-card"><div class="qe-h">明細</div><div id="qe_lines"></div>
  <button type="button" class="qe-add" id="qe_add">＋ 行を足す</button></div>
@@ -480,7 +492,7 @@ body[data-kview="seikyu"] #ie{display:block}
  <div class="qe-row" data-qe="note"><span class="qe-lb">備考</span><span class="qe-v" id="qe_note">—</span><span class="qe-go">›</span></div>
  <div class="qe-total">合計 <b id="qe_total">¥0</b></div>
 </div>
-<div class="qe-bar"><button type="button" class="qe-b" id="qe_paper">印字イメージを見る</button></div>
+<div class="qe-bar"><button type="button" class="qe-b qe-k" id="qe_save">この見積を入れる</button><button type="button" class="qe-b" id="qe_paper">印字イメージを見る</button><button type="button" class="qe-b" id="qe_keep">問い合わせとして残す</button><button type="button" class="qe-b" id="qe_new">新しくはじめる</button></div><p class="khint" id="qe_msg" style="margin:0 4px 14px"></p>
 </div><details class="qi-sub" id="qe_old"><summary>くわしい入力（今までの画面）</summary><div>
       <div class="qi-steps"><span><i>1</i>だれに出す？</span><span><i>2</i>前と同じ？</span><span><i>3</i>行を足す</span><span><i>4</i>印刷</span></div>
       <div class="qi-step"><div class="qi-sh"><i>1</i>だれに出しますか？</div>
@@ -528,36 +540,50 @@ body[data-kview="seikyu"] #ie{display:block}
           <div class="qi-row" style="margin-top:8px;align-items:center"><div style="font-size:15px;font-weight:600;flex:1" id="t_out">出張費　0 円</div>
             <button class="qi-b k" id="t_add">この額で行を入れる</button></div>
           <p class="qi-note" id="t_br"></p></div></details></div>
-      <details class="qi-sub" id="d_meet" style="display:none"><summary>打ち合わせシート（Dcloud）</summary><div style="padding-top:8px" id="meet_box">
-        <div class="qi-row"><div class="qi-f" style="flex:1"><label>お客様名</label><input id="mt_client"></div>
-          <div class="qi-f"><label>打ち合わせの日</label><input id="mt_date" type="date" style="width:160px"></div></div>
-        <div class="qi-row" style="margin-top:6px"><div class="qi-f" style="flex:1"><label>使う場所・場面</label><input id="mt_use" placeholder="施設内で流す／自社のSNS／ウェブサイト／館内の映像／その他"></div></div>
-        <div class="qi-row" style="margin-top:6px"><div class="qi-f"><label>プラン</label><select id="mt_plan"><option value="">—</option><option value="使用許諾">使用許諾</option><option value="著作権譲渡">著作権譲渡</option></select></div>
-          <div class="qi-f"><label>曲の数と長さ</label><select id="mt_len"><option value="">—</option><option value="エントリー">エントリー（1曲・30秒〜1分）</option><option value="スタンダード">スタンダード（1曲・4〜6分）</option><option value="フル">フル（複数曲・合計74分以内）</option></select></div>
-          <div class="qi-f"><label>曲数</label><input id="mt_songs" type="number" min="1" step="1" value="1" style="width:70px"></div></div>
-        <div class="qi-row" style="margin-top:6px"><div class="qi-f" style="flex:1"><label>ご利用範囲（使用許諾の時だけ・見積の備考に入ります）</label><input id="mt_scope"></div></div>
-        <div class="qi-row" style="margin-top:6px"><div class="qi-f" style="flex:1"><label>納品の形式</label><input id="mt_fmt" placeholder="CD用／配信用／ハイレゾ／MP3"></div>
-          <div class="qi-f"><label>ほしい日</label><input id="mt_due" type="date" style="width:150px"></div>
-          <div class="qi-f"><label>使い始める日</label><input id="mt_start" type="date" style="width:150px"></div></div>
-        <div class="qi-row" style="margin-top:6px"><label class="qi-note" style="display:flex;gap:6px;align-items:center;margin:0"><input type="checkbox" id="mt_trip"> 出張あり（人数・日数は「出張費をはかる」に入れます）</label></div>
-        <div class="qi-row" style="margin-top:6px">
-          <div class="qi-f"><label>追加修正（回）</label><input id="mt_fix" type="number" min="0" step="1" value="0" style="width:74px"></div>
-          <div class="qi-f"><label>尺違い（本）</label><input id="mt_alt" type="number" min="0" step="1" value="0" style="width:74px"></div>
-          <div class="qi-f"><label>長尺ループ（本）</label><input id="mt_loop" type="number" min="0" step="1" value="0" style="width:74px"></div>
-          <div class="qi-f"><label>ステム（式）</label><input id="mt_stem" type="number" min="0" step="1" value="0" style="width:74px"></div>
-          <div class="qi-f"><label>現地録音（日）</label><input id="mt_rec" type="number" min="0" step="1" value="0" style="width:74px"></div></div>
-        <div class="qi-row" style="margin-top:6px"><div class="qi-f" style="flex:1"><label>参考にもらうもの</label><input id="mt_ref" placeholder="写真／映像／イメージに近い曲"></div></div>
-        <div class="qi-row" style="margin-top:6px"><div class="qi-f" style="flex:1"><label>自由メモ（400字まで）</label><textarea id="mt_memo" maxlength="400" rows="3" style="width:100%"></textarea></div></div>
-        <div class="qi-row" style="margin-top:8px"><button class="qi-b k" id="mt_apply">見積に反映</button>
+      <details class="qi-sub" id="d_meet" style="display:none"><summary>打ち合わせシート（Dcloud・問い合わせの時に聞くこと）</summary><div style="padding-top:8px" id="meet_box">
+        <div class="mt-f"><label>お客様名</label><input id="mt_client"></div>
+        <div class="mt-f"><label>打ち合わせの日</label><input id="mt_date" type="date"></div>
+        <div class="mt-f"><label>使う場所・場面</label><input id="mt_use" type="hidden">
+          <div class="mt-g" data-g="mt_use"><label><input type="checkbox" value="施設内で流す"> 施設内で流す</label><label><input type="checkbox" value="自社のSNS"> 自社のSNS</label><label><input type="checkbox" value="ウェブサイト"> ウェブサイト</label><label><input type="checkbox" value="館内の映像"> 館内の映像</label><label><input type="checkbox" value="その他"> その他</label></div>
+          <input id="mt_use_other" placeholder="その他の中身"></div>
+        <div class="mt-f"><label>流す時間帯・場面</label><input id="mt_when" placeholder="例：朝の開店前、ロビーでずっと"></div>
+        <div class="mt-f"><label>プラン</label><select id="mt_plan"><option value="">—</option><option value="使用許諾">使用許諾</option><option value="著作権譲渡">著作権譲渡</option></select>
+          <p class="mt-note">使用許諾：曲の権利はDcloudに残る。ほかの人も使えることがある。<br>著作権譲渡：曲の権利をお客様にお渡しする。独占したい時はこちら。<br><b>※ ご発注の後にプランは変えられないことを伝える</b></p></div>
+        <div class="mt-f"><label>ご利用範囲（使用許諾の時だけ・見積書の備考に、この文をそのまま書きます）</label><input id="mt_scope"></div>
+        <div class="mt-f"><label>曲の数と長さ</label><select id="mt_len"><option value="">—</option><option value="エントリー">エントリー（1曲・30秒〜1分）</option><option value="スタンダード">スタンダード（1曲・4〜6分）</option><option value="フル">フル（複数曲・合計74分以内）</option></select></div>
+        <div class="mt-f" id="mt_songsbox"><label>曲数（エントリー・スタンダードの時。フルは曲数に関係なく1式）</label><input id="mt_songs" type="number" min="1" step="1" value="1"></div>
+        <div class="mt-f"><label>納品の形式</label><input id="mt_fmt" type="hidden">
+          <div class="mt-g" data-g="mt_fmt"><label><input type="checkbox" value="CD用"> CD用</label><label><input type="checkbox" value="配信用"> 配信用</label><label><input type="checkbox" value="ハイレゾ"> ハイレゾ（高音質）</label><label><input type="checkbox" value="MP3"> MP3</label></div></div>
+        <div class="mt-f"><label>納期：ほしい日</label><input id="mt_due" type="date"></div>
+        <div class="mt-f"><label>納期：使い始める日</label><input id="mt_start" type="date"></div>
+        <div class="mt-f"><label class="mt-chk"><input type="checkbox" id="mt_trip"> 出張あり（現地取材・現地録音の時）</label>
+          <div id="mt_tripbox" hidden>
+            <div class="mt-f"><label>人数</label><input id="mt_num" type="number" min="0" step="1"></div>
+            <div class="mt-f"><label>作業日数</label><input id="mt_wday" type="number" min="0" step="1"></div>
+            <div class="mt-f"><label>移動日数</label><input id="mt_mday" type="number" min="0" step="1"></div>
+            <div class="mt-g"><label><input type="checkbox" id="mt_car"> 車</label><label><input type="checkbox" id="mt_train"> 電車・飛行機</label><label><input type="checkbox" id="mt_hotel"> 宿泊</label><label><input type="checkbox" id="mt_park"> 駐車場</label></div>
+            <p class="mt-note">人数と日数は、出張費の計算にそのまま入ります。会場・km・高速代・運賃・宿泊代は「＋ 行を足す」→「出張費をはかる」で入れます。駐車場は実費なので、見積には「駐車場代」の行を足します。</p></div></div>
+        <div class="mt-f"><label>オプション</label>
+          <div class="mt-op"><div><b>追加修正（回）</b><small>3回目からの修正</small></div><input id="mt_fix" type="number" min="0" step="1" value="0"></div>
+          <div class="mt-op"><div><b>尺違い書き出し（本）</b><small>同じ曲の長さ違い（30秒版など）</small></div><input id="mt_alt" type="number" min="0" step="1" value="0"></div>
+          <div class="mt-op"><div><b>長尺ループ版（本）</b><small>切れ目なく長く流せる版</small></div><input id="mt_loop" type="number" min="0" step="1" value="0"></div>
+          <div class="mt-op"><div><b>ステム納品（式）</b><small>楽器ごとに分けた音のデータ（映像の音を細かく調整したい時）</small></div><input id="mt_stem" type="number" min="0" step="1" value="0"></div>
+          <div class="mt-op"><div><b>現地録音（日）</b><small>その場所の音（波・鳥の声など）を録って曲に入れる。出張費も入れる</small></div><input id="mt_rec" type="number" min="0" step="1" value="0"></div></div>
+        <div class="mt-f"><label>参考にもらうもの</label><input id="mt_ref" type="hidden">
+          <div class="mt-g" data-g="mt_ref"><label><input type="checkbox" value="写真"> 写真</label><label><input type="checkbox" value="映像"> 映像</label><label><input type="checkbox" value="イメージに近い曲"> イメージに近い曲</label></div></div>
+        <div class="mt-f"><label>自由メモ（400字まで）</label><textarea id="mt_memo" maxlength="400" rows="3"></textarea></div>
+        <div class="mt-f"><button class="qi-b k" id="mt_apply">見積に反映</button>
           <button class="qi-b" id="mt_memoapp">写真・メモをメモappで開く</button>
-          <span class="qi-note" id="mt_state" style="margin:0"></span></div>
+          <button class="qi-b" id="mt_keep">問い合わせとして残す（見積番号はまだ付けない）</button>
+          <p class="qi-note" id="mt_state" style="margin:6px 0 0"></p></div>
       </div></details>
       <div class="qi-step"><div class="qi-sh"><i>4</i>できたら<em>「作業を終える」で経理ファイルに入ります</em></div>
         <div class="qi-row"><button class="qi-b k" id="q_save">この見積を入れる</button>
           <button class="qi-b" id="q_new">新しくはじめる</button>
+          <button class="qi-b" id="q_keep">問い合わせとして残す</button>
           <button class="qi-b" id="q_print">印刷 ／ PDFで保存</button>
           <button class="qi-b" id="q_memo">打ち合わせメモ</button>
-          <div class="qi-f"><label>状態</label><select id="q_stat"><option value="見積">見積</option><option value="発注">発注</option><option value="着手金入金">着手金入金</option><option value="確認待ち">確認待ち</option><option value="残金請求">残金請求</option><option value="納品済">納品済</option></select></div>
+          <div class="qi-f"><label>状態</label><select id="q_stat"><option value="問い合わせ">問い合わせ</option><option value="見積" selected>見積</option><option value="発注">発注</option><option value="着手金入金">着手金入金</option><option value="確認待ち">確認待ち</option><option value="残金請求">残金請求</option><option value="納品済">納品済</option></select></div>
           <span class="qi-note" id="q_state" style="margin:0"></span></div>
         <p class="qi-note">「この見積を入れる」を押すと、経理ファイルの中に入ります。<b>メニューに戻って「作業を終える」を押すまで、ファイルには書き込まれません。</b></p></div>
     </div>
@@ -613,7 +639,7 @@ body[data-kview="seikyu"] #ie{display:block}
  <div class="qe-row" data-ie="note"><span class="qe-lb">備考</span><span class="qe-v" id="ie_note">—</span><span class="qe-go">›</span></div>
  <div class="qe-total">合計 <b id="ie_total">¥0</b></div>
 </div>
-<div class="qe-bar"><button type="button" class="qe-b" id="ie_paper">印字イメージを見る</button></div>
+<div class="qe-bar"><button type="button" class="qe-b qe-k" id="ie_save">この請求を入れる</button><button type="button" class="qe-b" id="ie_paper">印字イメージを見る</button></div><p class="khint" id="ie_msg" style="margin:0 4px 14px"></p>
 </div><details class="qi-sub" id="ie_old"><summary>くわしい入力（今までの画面）</summary><div>
       <div class="qi-steps"><span><i>1</i>だれに請求？</span><span><i>2</i>どの仕事？</span><span><i>3</i>あとから出た分</span><span><i>4</i>印刷</span></div>
       <div class="qi-step"><div class="qi-sh"><i>1</i>だれに請求しますか？</div>
@@ -661,11 +687,11 @@ body[data-kview="seikyu"] #ie{display:block}
 
 <!-- ===== 精算 ===== -->
 <section class="kview" id="kSeisan">
-  <div class="top"><div class="eyebrow"><button type="button" class="kback" data-kgo="menu">‹ メニュー</button> <strong><span class="kname"></span>精算</strong></div>
-    <button type="button" class="kEndBtn kmini">作業を終える</button></div>
+  <div class="top"><div class="eyebrow"><button type="button" class="kback" data-kgo="menu">‹ メニュー</button> <strong>拠点経費清算</strong></div>
+    <a class="kmini" href="#kKirokuHere" style="text-decoration:none">これまでの記録 ↓</a></div>
   <div class="kcard kwarnbox" id="kMode" hidden>試験中です。結果メールは、<span class="kname"></span>ではなく自分あてに届きます。</div>
   <div class="kcard" id="kFinished" hidden></div>
-  <div class="kcard"><div class="klbl">精算の期間</div>
+  <div class="kcard"><div class="klbl">清算の期間</div>
     <div class="field two" style="margin-top:6px"><div><label>はじめ(前回の終わりの日)</label><input class="text-in" type="date" id="kPStart"></div><div><label>終わり</label><input class="text-in" type="date" id="kPEnd"></div></div></div>
   <div class="kcard"><div class="klbl"><span class="kname"></span>の返信</div><div id="kReply" class="khint" style="margin-top:6px"></div>
     <details class="kpaste"><summary>LINEなどの文を貼って読み取る</summary>
@@ -677,18 +703,28 @@ body[data-kview="seikyu"] #ie{display:block}
     <div id="kSaneRows"></div><button type="button" class="linkish" id="kAddSane">＋ 行を足す</button>
     <div class="khint">前回の分を1か月ずらして並べています。金額が違う所だけ直してください。「負担」は相手の負担の割合です(折半なら0.5)。</div></div>
   <div class="kcard kresult" id="kResult"></div>
+  <label class="check" style="margin:6px 4px"><input type="checkbox" id="kCount" checked> 清算の入金・出金を、月末の資金の計算に入れる</label>
   <div id="kMsg" class="khint"></div>
-  <button class="primary" id="kSend" type="button">精算を終えて、結果をメールで送る</button>
-  <button class="ghost" id="kNoMail" type="button">精算を終える（メールは送らない）</button>
+  <div id="kEdit">
+  <button class="primary" id="kSend" type="button">送る前に、メールの中身を確かめる</button>
+  <button class="ghost" id="kNoMail" type="button">メールは送らずに記録する</button>
+  </div>
+  <div class="kcard" id="kConfirm" hidden><div class="klbl">この内容で送ります（あて先：<span class="kname"></span>）</div>
+    <div class="khint" id="kConfirmSubj"></div><div id="kConfirmBody" class="kpreview"></div>
+    <button class="primary" id="kSendGo" type="button">この内容でメールを送る</button>
+    <button class="ghost" id="kBack" type="button">戻って直す</button></div>
   <div class="kcard" id="kCopyBox" hidden><div class="klbl">結果の文(LINEなどに貼れます)</div><textarea class="text-in" id="kCopyText" rows="8" readonly></textarea><button class="ghost" type="button" id="kCopyBtn">結果の文をコピーする</button></div>
-  <button class="ghost" id="kHold" type="button">途中でやめる（あとで続ける）</button>
-  <button class="ghost" id="kCancel" type="button">今回の変更を取り消す</button>
+  <button class="ghost" id="kHold" type="button">あとで続ける（メニューへ）</button>
+  <button class="ghost" id="kCancel" type="button">今回の入力を元に戻す</button>
+  <div id="kKirokuHere" style="margin-top:28px"><div class="klbl" style="margin:0 4px 6px">これまでの記録</div>
+    <div class="khint" style="margin:0 4px 10px">押すと中身が開きます。間違いがあった時は「直す」で、この画面に戻して直せます（直した結果はメールで送り直せます）。</div>
+    <div id="kKirokuList2"></div></div>
 </section>
 
 <!-- ===== これまでの記録 ===== -->
 <section class="kview" id="kKiroku">
   <div class="top"><div class="eyebrow"><button type="button" class="kback" data-kgo="menu">‹ メニュー</button> <strong>これまでの記録</strong></div></div>
-  <div class="khint" style="margin:0 4px 10px"><span class="kname"></span>精算の過去の分です。押すと中身が開きます。月末経理の過去の月は「月末経理」の月のタブから見られます。</div>
+  <div class="khint" style="margin:0 4px 10px">拠点経費清算の過去の分です。押すと中身が開きます。月末経理の過去の月は「月末経理」の月のタブから見られます。</div>
   <div id="kKirokuList"></div>
 </section>
 
@@ -789,6 +825,8 @@ body[data-kview="seikyu"] #ie{display:block}
       <button class="primary" id="btnDone" type="button">実行済みにする</button>
     </div>
   </div>
+  <div id="actPlan"></div>
+  <button class="ghost" id="btnProv" type="button">資金の計算に入れない</button>
   <button class="ghost" id="btnUndone" type="button">未実行に戻す</button>
   <button class="ghost" id="btnEdit" type="button">編集</button>
   <button class="danger" id="btnDelete" type="button">この予定を削除</button>
@@ -861,7 +899,8 @@ body[data-kview="seikyu"] #ie{display:block}
       <div class="exlist" id="pfExList"></div>
     </div>
     <div class="field"><label>メール上の表記（自動入力の突き合わせ用・任意）</label><input class="text-in" type="text" id="pfMailKey" placeholder="例：ラクテンカードサービス" autocomplete="off"></div>
-    <label class="check"><input type="checkbox" id="pfRebill"> 落ちなかった時に再振替がある（楽天カードなど）</label>
+    <div class="field"><label>払い方</label><select class="text-in" id="pfPay"><option value="">（入金・その都度）</option><option value="debit">引き落とし（再引落なし）</option><option value="rebill">引き落とし（再引落あり・楽天カードなど）</option><option value="transfer">自分で振込（日にちを選べる）</option></select></div>
+    <label class="check" style="display:none"><input type="checkbox" id="pfRebill"> 落ちなかった時に再振替がある（楽天カードなど）</label>
     <div class="field" id="pfRebillDaysField" style="display:none"><label>再振替の回数（支払日の翌営業日から何営業日か）</label><input class="text-in" inputmode="numeric" pattern="[0-9]*" id="pfRebillDays" placeholder="4"><div class="hint">楽天カードは4営業日（例：8/27払い → 8/28・8/31・9/1・9/2）。実際の日程は楽天のお知らせで確認してください。</div></div>
     <label class="check"><input type="checkbox" id="pfHidden"> ボタンに表示しない（使わなくなった相手先）</label>
     <button class="primary" id="pfSave" type="button">保存</button>
@@ -949,12 +988,16 @@ body[data-kview="seikyu"] #ie{display:block}
   function ymDiff(a, b) { var pa = a.split('-'), pb = b.split('-'); return (+pb[0] - +pa[0]) * 12 + (+pb[1] - +pa[1]); }
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   var TODAY = ymd(new Date()), THIS_YM = ymOf(TODAY);
-  var HOLIDAYS = { '2026-01-01': 1, '2026-01-02': 1, '2026-01-03': 1, '2026-01-12': 1, '2026-02-11': 1, '2026-02-23': 1, '2026-03-20': 1, '2026-04-29': 1, '2026-05-03': 1, '2026-05-04': 1, '2026-05-05': 1, '2026-05-06': 1, '2026-07-20': 1, '2026-08-11': 1, '2026-09-21': 1, '2026-09-22': 1, '2026-09-23': 1, '2026-10-12': 1, '2026-11-03': 1, '2026-11-23': 1, '2026-12-31': 1, '2027-01-01': 1, '2027-01-02': 1, '2027-01-03': 1, '2027-01-11': 1, '2027-02-11': 1, '2027-02-23': 1, '2027-03-21': 1, '2027-03-22': 1, '2027-04-29': 1, '2027-05-03': 1, '2027-05-04': 1, '2027-05-05': 1, '2027-07-19': 1, '2027-08-11': 1, '2027-09-20': 1, '2027-09-23': 1, '2027-10-11': 1, '2027-11-03': 1, '2027-11-23': 1, '2027-12-31': 1 };
-  var HOLIDAY_MAX_YEAR = 2027;
+  var HOLIDAYS = { '2026-01-01': 1, '2026-01-02': 1, '2026-01-03': 1, '2026-01-12': 1, '2026-02-11': 1, '2026-02-23': 1, '2026-03-20': 1, '2026-04-29': 1, '2026-05-03': 1, '2026-05-04': 1, '2026-05-05': 1, '2026-05-06': 1, '2026-07-20': 1, '2026-08-11': 1, '2026-09-21': 1, '2026-09-22': 1, '2026-09-23': 1, '2026-10-12': 1, '2026-11-03': 1, '2026-11-23': 1, '2026-12-31': 1, '2027-01-01': 1, '2027-01-02': 1, '2027-01-03': 1, '2027-01-11': 1, '2027-02-11': 1, '2027-02-23': 1, '2027-03-21': 1, '2027-03-22': 1, '2027-04-29': 1, '2027-05-03': 1, '2027-05-04': 1, '2027-05-05': 1, '2027-07-19': 1, '2027-08-11': 1, '2027-09-20': 1, '2027-09-23': 1, '2027-10-11': 1, '2027-11-03': 1, '2027-11-23': 1, '2027-12-31': 1, '2028-01-01': 1, '2028-01-02': 1, '2028-01-03': 1, '2028-01-10': 1, '2028-02-11': 1, '2028-02-23': 1, '2028-03-20': 1, '2028-04-29': 1, '2028-05-03': 1, '2028-05-04': 1, '2028-05-05': 1, '2028-07-17': 1, '2028-08-11': 1, '2028-09-18': 1, '2028-09-22': 1, '2028-10-09': 1, '2028-11-03': 1, '2028-11-23': 1, '2028-12-31': 1 };
+  var HOLIDAY_MAX_YEAR = 2028;
   function isBiz(s) { var w = parse(s).getDay(); return w !== 0 && w !== 6 && !HOLIDAYS[s]; }
   function nextBiz(s) { var g = 0; while (!isBiz(s) && g++ < 10) s = addDays(s, 1); return s; }
-  function dateForRule(rule, ym) { var p = ym.split('-'), y = +p[0], m = +p[1] - 1; if (rule === '27') return nextBiz(ymd(new Date(y, m, 27))); if (rule === '28') return nextBiz(ymd(new Date(y, m, 28))); if (rule === '22') return ymd(new Date(y, m, 22)); if (rule === 'eom' || rule === 'y03') return ymd(eomDate(y, m)); if (rule === 'next10') return ymd(new Date(y, m + 1, 10)); if (rule === 'next5') return nextBiz(ymd(new Date(y, m + 1, 5))); return ymd(new Date(y, m, Math.min(+TODAY.slice(8, 10), eomDate(y, m).getDate()))); }
-  function nextDateForRule(rule) { var d = dateForRule(rule, THIS_YM); if (d < TODAY && rule !== 'next10' && rule !== 'next5') d = dateForRule(rule, ymAdd(THIS_YM, 1)); return d; }
+  function prevBiz(s) { var g = 0; while (!isBiz(s) && g++ < 10) s = addDays(s, -1); return s; }
+  /* 払い方: debit=引き落とし(再引落なし) / rebill=引き落とし(再引落あり) / transfer=自分で振込。名前ではなく相手先の設定で決める */
+  function payType(p) { if (!p) return ''; if (p.rebill) return 'rebill'; if (p.pay === 'debit' || p.pay === 'transfer') return p.pay; if (p.kind !== '出金') return ''; if (p.category === 'カード会社' || p.category === '返済' || p.rule === '27' || p.rule === '28' || p.rule === 'next5' || p.rule === 'y03') return 'debit'; return 'transfer'; }
+  function payTypeLabel(t) { return { debit: '引き落とし（再引落なし）', rebill: '引き落とし（再引落あり）', transfer: '自分で振込' }[t] || ''; }
+  function dateForRule(rule, ym, kind) { var p = ym.split('-'), y = +p[0], m = +p[1] - 1; if (rule === '27') return nextBiz(ymd(new Date(y, m, 27))); if (rule === '28') return nextBiz(ymd(new Date(y, m, 28))); if (rule === '22') return ymd(new Date(y, m, 22)); if (rule === 'eom' || rule === 'y03') { var e0 = ymd(eomDate(y, m)); return kind === '入金' ? nextBiz(e0) : (kind === '出金' ? prevBiz(e0) : e0); } if (rule === 'next10') return ymd(new Date(y, m + 1, 10)); if (rule === 'next5') return nextBiz(ymd(new Date(y, m + 1, 5))); return ymd(new Date(y, m, Math.min(+TODAY.slice(8, 10), eomDate(y, m).getDate()))); }
+  function nextDateForRule(rule, kind) { var d = dateForRule(rule, THIS_YM, kind); if (d < TODAY && rule !== 'next10' && rule !== 'next5') d = dateForRule(rule, ymAdd(THIS_YM, 1), kind); return d; }
   /* 再振替（楽天カードなど）：支払日の翌営業日から n 営業日 */
   function rebillWindow(payDate, n) { var out = [], s = payDate, g = 0; n = n || 4; while (out.length < n && g++ < 60) { s = addDays(s, 1); if (isBiz(s)) out.push(s); } return out; }
   function ruleLabel(rule) { return { '27': '毎月27日（営業日調整）', '28': '毎月28日（営業日調整）', '22': '毎月22日頃', 'eom': '月末', 'next10': '月末締め・翌月10日払い', 'next5': '翌月5日（営業日調整）', 'y03': '年1回・3月末' }[rule] || ''; }
@@ -981,20 +1024,23 @@ body[data-kview="seikyu"] #ie{display:block}
   function inPeriod(p, ym) { if (p.period && p.period.from && ym < p.period.from) return false; if (p.period && p.period.to && ym > p.period.to) return false; if (p.rule === 'y03' && ym.slice(5) !== '03') return false; return true; }
   function remaining(p, ym) { if (!p || !p.period || !p.period.to) return null; var n = ymDiff(ym, p.period.to); return n < 0 ? null : n + 1; }
 
+  /* 残高の計算に使う日: 楽天を最初から再振替に回した時は、回した先の日 */
+  function effDate(e) { return (e.rebillPlan && e.planDate && !e.doneDate) ? e.planDate : e.date; }
+  function rebWin(e) { var p = payeeOf(e.payee); return rebillWindow(e.date, (p && p.rebillDays) || 4); }
   /* compute */
   function compute() {
     var a = acct(); var base = a.baseBalance == null ? 0 : a.baseBalance; var hasBase = a.baseBalance != null;
     var rows = entries.filter(function (e) { return (e.account || (accounts[0] && accounts[0].name)) === a.name; });
     rows.forEach(function (e) { e._cat = catOf(e); });
-    rows.sort(function (x, y) { if (x.date !== y.date) return x.date < y.date ? -1 : 1; if (x.kind !== y.kind) return x.kind === '入金' ? -1 : 1; var cx = CAT_ORDER[x._cat] == null ? 99 : CAT_ORDER[x._cat], cy = CAT_ORDER[y._cat] == null ? 99 : CAT_ORDER[y._cat]; if (cx !== cy) return cx - cy; return x.id < y.id ? -1 : 1; });
+    rows.sort(function (x, y) { var dx = effDate(x), dy = effDate(y); if (dx !== dy) return dx < dy ? -1 : 1; if (x.kind !== y.kind) return x.kind === '入金' ? -1 : 1; var cx = CAT_ORDER[x._cat] == null ? 99 : CAT_ORDER[x._cat], cy = CAT_ORDER[y._cat] == null ? 99 : CAT_ORDER[y._cat]; if (cx !== cy) return cx - cy; return x.id < y.id ? -1 : 1; });
     var bal = base; monthStats = {};
     rows.forEach(function (e) {
-      var amt = e.amount || 0, counted = hasBase && (!a.baseDate || e.date > a.baseDate || (e.date === a.baseDate && !e.doneDate));   // 起点日当日の分は、まだ実行されていないものだけ数える
+      var amt = e.provisional ? 0 : (e.amount || 0), ed = effDate(e), counted = hasBase && (!a.baseDate || ed > a.baseDate || (ed === a.baseDate && !e.doneDate));   // 起点日当日の分は、まだ実行されていないものだけ数える
       if (counted) { bal += e.kind === '入金' ? amt : -amt; e.balance = bal; } else e.balance = null;
       var ym = cycleOf(e.date); var s = monthStats[ym] || (monthStats[ym] = { inn: 0, aid: 0, out: 0, end: null, noAmt: [] });
       if (e.kind === '入金') { if (isAid(e._cat)) s.aid += amt; else s.inn += amt; } else s.out += amt;
       if (counted) s.end = bal;
-      if (!e.amount && !e.doneDate) s.noAmt.push(e.payee);
+      if (!e.amount && !e.doneDate && !e.provisional) s.noAmt.push(e.payee);
     });
     computed = rows;
     /* 判定の範囲：選んだ月ならその月の枠、「すべて」なら今後30日 */
@@ -1008,9 +1054,10 @@ body[data-kview="seikyu"] #ie{display:block}
       if (!e.doneDate && e.date < TODAY) overdue++;
       if (e.date === TODAY && !e.doneDate) todayCount++;
       if (e.balance == null) return;
-      if (e.date < TODAY || (e.date === TODAY && e.doneDate)) balNow = e.balance;
-      if (e.date < startAt) { entering = e.balance; return; }      // 範囲の手前は「入口の残高」に畳み込む
-      if (e.date > to) return;
+      var ed = effDate(e);
+      if (ed < TODAY || (ed === TODAY && e.doneDate)) balNow = e.balance;
+      if (ed < startAt) { entering = e.balance; return; }      // 範囲の手前は「入口の残高」に畳み込む
+      if (ed > to) return;
       if (!e.amount && !e.doneDate && noAmt.indexOf(e.payee) < 0) noAmt.push(e.payee);
       if (min === null || e.balance < min) { min = e.balance; minRow = e; }
     });
@@ -1028,14 +1075,17 @@ body[data-kview="seikyu"] #ie{display:block}
   function fillAccountSelects() { ['inAccount', 'pfAccount'].forEach(function (id) { var sel = $(id), cur = sel.value; sel.innerHTML = (id === 'pfAccount' ? '<option value="">（指定なし）</option>' : '') + accounts.map(function (a) { return '<option value="' + esc(a.name) + '">' + esc(a.name) + '</option>'; }).join(''); if (cur) sel.value = cur; }); $('inAccountField').style.display = accounts.length > 1 ? '' : 'none'; }
   function rowHtml(e, showBal) {
     var isDone = !!e.doneDate, isToday = e.date === TODAY, isOver = !isDone && e.date < TODAY, p = payeeOf(e.payee), aid = e.kind === '入金' && isAid(e._cat);
+    if (e.rebillPlan && !isDone && effDate(e) >= TODAY) isOver = false;
     var cls = 'row' + (isDone ? ' done' : '') + (isToday ? ' today' : '') + (isOver ? ' overdue' : '');
     var chips = '';
     if (aid) chips += '<span class="chip aid">' + esc(e._cat) + '</span>';
-    if (!e.amount) chips += '<span class="chip noamt">金額未入力</span>';
+    if (!e.amount && !e.provisional) chips += '<span class="chip noamt">金額未入力</span>';
+    if (e.provisional) chips += '<span class="chip kari">計算に入れていない</span>';
+    if (e.rebillPlan && !isDone) chips += '<span class="chip kari">再振替に回す → ' + md(effDate(e)) + '</span>';
     if (isDone) chips += '<span class="chip done">済 ' + md(e.doneDate) + '</span>'; else if (isOver) chips += '<span class="chip over">期日超過' + (p && p.rebill ? '・再振替あり' : '') + '</span>'; else if (isToday) chips += '<span class="chip today">今日</span>';
     var left = remaining(p, ymOf(e.date)); if (left != null && !isDone) chips += '<span class="chip left">あと' + left + '回</span>';
     var bal = showBal ? '<span class="bal' + (e.balance != null && e.balance < 0 ? ' neg' : '') + '">' + (e.balance == null ? '—' : fmt(e.balance)) + '</span>' : '';
-    return '<li><button class="' + cls + '" type="button" data-id="' + esc(e.id) + '"><span class="d"><span class="md">' + md(e.date) + '</span><span class="wd">' + wd(e.date) + '</span></span><span class="who"><span class="name">' + esc(e.payee) + chips + '</span>' + (e.memo ? '<span class="memo">' + esc(e.memo) + '</span>' : '') + '</span><span class="amt"><span class="a ' + (e.kind === '入金' ? (aid ? 'aid' : 'in') : 'out') + '">' + (e.amount ? (e.kind === '入金' ? '+' : '−') + fmt(e.amount) : '0') + '</span>' + bal + '</span></button></li>';
+    return '<li><button class="' + cls + '" type="button" data-id="' + esc(e.id) + '"><span class="d"><span class="md">' + md(e.date) + '</span><span class="wd">' + wd(e.date) + '</span></span><span class="who"><span class="name">' + esc(e.payee) + chips + '</span>' + (e.memo ? '<span class="memo">' + esc(e.memo) + '</span>' : '') + '</span><span class="amt"><span class="a ' + (e.kind === '入金' ? (aid ? 'aid' : 'in') : 'out') + (e.provisional ? ' kari' : '') + '">' + (e.amount ? (e.kind === '入金' ? '+' : '−') + fmt(e.amount) : '0') + '</span>' + bal + '</span></button></li>';
   }
   function monthHtml(ym) {
     var s = monthStats[ym], m = months[ym] || {};
@@ -1158,7 +1208,7 @@ body[data-kview="seikyu"] #ie{display:block}
       elOtherField.style.display = 'none';
       if (userPick) {
         if (p.kind === '入金' || p.kind === '出金') setKind(p.kind);
-        elDate.value = nextDateForRule(p.rule); elHint.textContent = p.rule ? ruleLabel(p.rule) + ' から自動で入れました' : '';
+        elDate.value = nextDateForRule(p.rule, p.kind); elHint.textContent = p.rule ? ruleLabel(p.rule) + ' から自動で入れました' : '';
         var am = amountFor(p, ymOf(elDate.value)); if (am != null && !elAmount.value) elAmount.value = am;
         if (p.account) $('inAccount').value = p.account;
       }
@@ -1187,7 +1237,8 @@ body[data-kview="seikyu"] #ie{display:block}
   btnSave.addEventListener('click', function () {
     var name = currentPayeeName(); if (!name) return; var p = payeeOf(name);
     var old = addState.editId ? entries.filter(function (x) { return x.id === addState.editId; })[0] : null;
-    var e = Object.assign({}, old || { id: newId(), doneDate: '', createdAt: new Date().toISOString() }, { date: elDate.value, kind: addState.kind, payee: name, category: p ? p.category || '' : (old && old.payee === name ? old.category || '' : ''), memo: elMemo.value.trim(), amount: +elAmount.value || 0, account: $('inAccount').value || acct().name, provisional: false });
+    var e = Object.assign({}, old || { id: newId(), doneDate: '', createdAt: new Date().toISOString() }, { date: elDate.value, kind: addState.kind, payee: name, category: p ? p.category || '' : (old && old.payee === name ? old.category || '' : ''), memo: elMemo.value.trim(), amount: +elAmount.value || 0, account: $('inAccount').value || acct().name, provisional: old ? !!old.provisional : false });
+    if (e.rebillPlan && e.date !== (old && old.date)) { var w0 = rebillWindow(e.date, (p && p.rebillDays) || 4); e.planDate = w0[w0.length - 1]; }
     var chain = saveEntry(e);
     if (!p) { var mo = payees.reduce(function (m, x) { return Math.max(m, x.order || 0); }, 0); chain = chain.then(function () { return savePayees(payees.concat([{ name: name, kind: addState.kind, category: addState.kind === '入金' ? 'その他入金' : 'その他出金', rule: '', amount: null, order: mo + 1, hidden: false }])); }); }
     chain.then(function () { closeSheet(); toast(old ? '直しました' : (p ? '保存しました' : '保存して、相手先にも登録しました')); });
@@ -1201,12 +1252,54 @@ body[data-kview="seikyu"] #ie{display:block}
     $('actName').textContent = e.payee + (e.memo ? ' · ' + e.memo : '');
     $('actAmt').textContent = (e.kind === '入金' ? '+' : '−') + fmt(e.amount || 0) + '円' + (!e.amount ? '（金額未入力）' : '');
     $('actDoneWrap').style.display = e.doneDate ? 'none' : ''; $('btnUndone').style.display = e.doneDate ? '' : 'none';
-    $('actDoneDate').value = TODAY; resetDelEntry(); openSheet('act');
+    $('actDoneDate').value = TODAY; resetDelEntry();
+    $('btnProv').textContent = e.provisional ? '資金の計算に入れる' : '資金の計算に入れない';
+    renderActPlan(e); openSheet('act');
+  }
+  function renderActPlan(e) {
+    var box = $('actPlan'), p = payeeOf(e.payee), t = payType(p), h = '';
+    if (e.doneDate || e.kind !== '出金') { box.innerHTML = ''; return; }
+    if (t === 'rebill') {
+      var w = rebWin(e);
+      h += '<div class="actbox"><div class="lbl">' + esc(e.payee) + 'は、落ちなかった時にもう一度引き落とされます（再振替 ' + w.map(md).join('・') + '）。</div>';
+      if (e.rebillPlan) {
+        h += '<label class="lbl">再振替で落とす日</label><select class="text-in" id="actPlanDate">' + w.map(function (d) { return '<option value="' + d + '"' + (d === effDate(e) ? ' selected' : '') + '>' + md(d) + '（' + wd(d) + '）</option>'; }).join('') + '</select>';
+        h += '<div class="hint">' + md(e.date) + 'の残高を ' + fmt(e.amount || 0) + '円より少なくしておくと、この日に落ちます。手数料220円は翌月の' + esc(e.payee) + 'の請求に入ります。前の月の分が延滞中だと、再振替の対象外になることがあります。</div>';
+        h += '<button class="ghost" id="btnPlanOff" type="button">' + md(e.date) + 'に落とす（再振替に回さない）</button>';
+      } else h += '<button class="primary" id="btnPlanOn" type="button">最初から再振替に回す（月末の入金で落とす）</button>';
+      h += '</div>';
+    } else if (t === 'transfer') {
+      var best = bestTransferDay(e);
+      h += '<div class="actbox"><div class="lbl">自分で振り込むので、日にちを選べます。</div>' + (best ? '<div class="hint">引き落としを崩さない一番早い日は <b>' + md(best) + '（' + wd(best) + '）</b> です。</div>' + (best !== e.date ? '<button class="primary" id="btnBestDay" type="button" data-d="' + best + '">' + md(best) + 'にする</button>' : '') : '<div class="hint" style="color:var(--alert)">今の予定のままだと、どの日に振り込んでも、引き落としの時にお金が足りなくなります。先に「資金計算」で不足を確かめてください。</div>') + '</div>';
+    }
+    box.innerHTML = h;
+    var on = $('btnPlanOn'), off = $('btnPlanOff'), sel = $('actPlanDate'), bd = $('btnBestDay');
+    if (on) on.addEventListener('click', function () { var w = rebWin(e); saveEntry(Object.assign({}, e, { rebillPlan: true, planDate: w[w.length - 1] })).then(function () { closeSheet(); toast(e.payee + 'を再振替（' + md(w[w.length - 1]) + '）に回しました'); }); });
+    if (off) off.addEventListener('click', function () { var c = Object.assign({}, e); delete c.rebillPlan; delete c.planDate; saveEntry(c).then(function () { closeSheet(); toast(md(e.date) + 'に落とす予定に戻しました'); }); });
+    if (sel) sel.addEventListener('change', function () { saveEntry(Object.assign({}, e, { planDate: sel.value })).then(function () { toast('再振替で落とす日を ' + md(sel.value) + ' にしました'); openAct(e.id); }); });
+    if (bd) bd.addEventListener('click', function () { saveEntry(Object.assign({}, e, { date: bd.dataset.d })).then(function () { closeSheet(); toast('振込の日を ' + md(bd.dataset.d) + ' にしました'); }); });
+  }
+  /* 自分の振込を動かした時に、再引落の無い引き落としが全部落ちるかを見て、一番早い日を返す */
+  function bestTransferDay(e) {
+    var a = acct(); if (a.baseBalance == null) return null;
+    var close = closeDateOf(cycleOf(e.date)), last = e.date > close ? e.date : close;
+    var d = TODAY > (a.baseDate || TODAY) ? TODAY : addDays(a.baseDate, 1);
+    for (var g = 0; g < 70 && d <= last; g++, d = addDays(d, 1)) { if (!isBiz(d)) continue; if (okIf(e, d)) return d; }
+    return null;
+  }
+  function okIf(e, day) {
+    var a = acct(), bal = a.baseBalance || 0;
+    var list = entries.filter(function (x) { return (x.account || (accounts[0] && accounts[0].name)) === a.name && !x.provisional; }).map(function (x) { return x.id === e.id ? Object.assign({}, x, { date: day }) : x; });
+    list = list.filter(function (x) { var ed = effDate(x); return !a.baseDate || ed > a.baseDate || (ed === a.baseDate && !x.doneDate); });
+    list.sort(function (x, y) { var dx = effDate(x), dy = effDate(y); if (dx !== dy) return dx < dy ? -1 : 1; return x.kind === '入金' ? -1 : 1; });
+    for (var i = 0; i < list.length; i++) { var x = list[i]; bal += x.kind === '入金' ? (x.amount || 0) : -(x.amount || 0); if (x.kind === '出金' && !x.doneDate && payType(payeeOf(x.payee)) === 'debit' && bal < 0) return false; if (x.id === e.id && bal < 0) return false; }
+    return true;
   }
   function cur() { return entries.filter(function (x) { return x.id === actId; })[0]; }
   $('btnDone').addEventListener('click', function () { var e = cur(); if (!e) return; if (!$('actDoneDate').value) { toast('実行した日を入れてください'); return; } saveEntry(Object.assign({}, e, { doneDate: $('actDoneDate').value })).then(function () { closeSheet(); toast('実行済みにしました'); }); });
   $('btnUndone').addEventListener('click', function () { var e = cur(); if (!e) return; saveEntry(Object.assign({}, e, { doneDate: '' })).then(function () { closeSheet(); toast('未実行に戻しました'); }); });
   $('btnEdit').addEventListener('click', function () { var e = cur(); if (!e) return; openAdd(e); });
+  $('btnProv').addEventListener('click', function () { var e = cur(); if (!e) return; saveEntry(Object.assign({}, e, { provisional: !e.provisional })).then(function () { closeSheet(); toast(e.provisional ? '資金の計算に入れました' : '資金の計算から外しました（記録には残ります）'); }); });
   var resetDelEntry = armDelete($('btnDelete'), 'この予定を削除', function () { deleteEntry(actId).then(function () { closeSheet(); toast('削除しました'); }); });
 
   /* fill (自己資金 / 借入) */
@@ -1261,45 +1354,53 @@ body[data-kview="seikyu"] #ie{display:block}
   $('btnCalc').addEventListener('click', openCalc);
   function renderCalc() {
     var r = lastR; if (!r) return; var cyc = r.scope; var p = cyc.split('-'), y = +p[0], m = +p[1] - 1;
-    var d27 = ymd(new Date(y, m, 27)), eom = ymd(eomDate(y, m)), eomPrev = addDays(eom, -1), close = closeDateOf(cyc);
-    var rows = computed.filter(function (e) { return cycleOf(e.date) === cyc && !e.doneDate; });
+    var d27 = nextBiz(ymd(new Date(y, m, 27))), eom = ymd(eomDate(y, m)), eomPrev = addDays(eom, -1), close = closeDateOf(cyc);
+    var rows = computed.filter(function (e) { return cycleOf(e.date) === cyc && !e.doneDate && !e.provisional; });
     var isRebill = function (e) { var pp = payeeOf(e.payee); return !!(pp && pp.rebill); };
     var reb = rows.filter(function (e) { return e.kind === '出金' && isRebill(e); });
+    reb.forEach(function (e) { e._win = rebWin(e); });
     var rebN = reb.length ? ((payeeOf(reb[0].payee) || {}).rebillDays || 4) : 0;
     var rebDates = reb.length ? rebillWindow(reb[0].date, rebN) : [];
     var rebEnd = rebDates.length ? rebDates[rebDates.length - 1] : eomPrev;
     var splitEnd = reb.length ? rebEnd : eomPrev;
     var rebLabel = rebDates.map(md).join('・');
-    var A = rows.filter(function (e) { return e.kind === '出金' && !isRebill(e) && e.date >= d27 && e.date <= splitEnd; });
-    var Bout = rows.filter(function (e) { return e.kind === '出金' && !isRebill(e) && e.date > splitEnd && e.date <= close; });
+    var isTr = function (e) { return payType(payeeOf(e.payee)) === 'transfer'; };
+    var A = rows.filter(function (e) { return e.kind === '出金' && !isRebill(e) && !isTr(e) && e.date >= d27 && e.date <= splitEnd; });
+    var Bout = rows.filter(function (e) { return e.kind === '出金' && !isRebill(e) && !isTr(e) && e.date > splitEnd && e.date <= close; });
+    var T = rows.filter(function (e) { return e.kind === '出金' && isTr(e) && e.date >= d27 && e.date <= close; });
     var Bin = rows.filter(function (e) { return e.kind === '入金' && e.date >= d27 && e.date <= close; });
     var C = rows.filter(function (e) { return e.date >= TODAY && e.date < d27; });
     var sum = function (l) { return l.reduce(function (t, e) { return t + (e.amount || 0); }, 0); };
     var bal0 = calcBalOverride != null ? calcBalOverride : (r.balNow == null ? 0 : r.balNow);
     var cNet = C.reduce(function (t, e) { return t + (e.kind === '入金' ? (e.amount || 0) : -(e.amount || 0)); }, 0);
     var x = bal0 + cNet;                                  // 27日の残高
-    var R = sum(reb), sA = sum(A), sBo = sum(Bout), sBi = sum(Bin);
-    var balOn = function (d) { var b = x; rows.forEach(function (e) { if (isRebill(e)) return; if (e.date < d27 || e.date > d) return; b += (e.kind === '入金' ? (e.amount || 0) : -(e.amount || 0)); }); return b; };
+    var R = sum(reb), sA = sum(A), sBo = sum(Bout), sBi = sum(Bin), sT = sum(T);
+    var balOn = function (d) { var b = x; rows.forEach(function (e) { if (isRebill(e) || isTr(e)) return; if (e.date < d27 || e.date > d) return; b += (e.kind === '入金' ? (e.amount || 0) : -(e.amount || 0)); }); return b; };
     var rebHit = null; if (reb.length && R) { for (var ri = 0; ri < rebDates.length; ri++) { if (balOn(rebDates[ri]) >= R) { rebHit = rebDates[ri]; break; } } }
     var rname = reb.length ? reb[0].payee : '楽天カード';
     var noAmt = reb.filter(function (e) { return !e.amount; }).map(function (e) { return e.payee; });
     var list = function (l) { return l.length ? '<div class="sub">' + l.map(function (e) { return '<div><span>' + md(e.date) + ' ' + esc(e.payee) + '</span><span>' + fmt(e.amount || 0) + '</span></div>'; }).join('') + '</div>' : ''; };
     var html = '<div class="line hd"><span class="k">' + (+cyc.slice(5)) + '月（' + md(r.from) + '〜' + md(close) + '）</span><span class="v"></span></div>';
+    var planned = reb.filter(function (e) { return e.rebillPlan; });
+    if (planned.length) html += '<div class="judge ok">' + esc(planned[0].payee) + ' は、最初から再振替（' + md(effDate(planned[0])) + '）に回す予定です。<small>' + md(planned[0].date) + 'の残高を ' + fmt(R) + '円より少なく、その他の引き落とし ' + fmt(sA) + '円 以上にしておきます。手数料220円は翌月の請求に入ります。前の月の分が延滞中だと、再振替の対象外になることがあります。</small></div>';
+    var d20 = ymd(new Date(y, m, 20));
+    if (reb.length && R && TODAY <= d20 && sA + R > x + sBi) html += '<div class="judge warn">' + esc(rname) + ' の額は、' + md(d20) + 'までなら楽天の「お支払い金額を調整する」で減らせます（分割・あとから払い）。<small>再振替と月末の入金でも足りない見込みの時に使ってください。</small></div>';
     html += '<div class="bal-in"><div><div class="lbl" style="font-size:.72rem;color:var(--ink-soft)">今日の残高' + (calcBalOverride != null ? '（通帳の額）' : (acct().baseDate === TODAY ? '（今日更新した残高）' : '（アプリの計算値）')) + '</div><div class="amount-in"><input id="calcBal" inputmode="numeric" pattern="[0-9\\-]*" value="' + bal0 + '"><span class="yen">円</span></div></div><button type="button" class="ghost" id="calcBalBtn" style="width:auto;margin:0;padding:10px 12px;font-size:.8rem">通帳の額に</button></div>';
     if (C.length) html += '<div class="line"><span class="k">27日までに動く分</span><span class="v">' + (cNet >= 0 ? '+' : '') + fmt(cNet) + '</span></div>' + list(C);
     html += '<div class="line hd"><span class="k">27日の残高</span><span class="v">' + fmt(x) + '</span></div>';
     html += '<div class="line hd" style="margin-top:10px;border-bottom:none"><span class="k">' + md(d27) + '〜' + md(splitEnd) + ' に落ちるもの</span><span class="v"></span></div>';
     if (reb.length) html += '<div class="line"><span class="k">' + esc(rname) + '（落ちなければ再振替 ' + esc(rebLabel) + '）</span><span class="v">' + fmt(R) + '</span></div>' + list(reb);
-    html += '<div class="line"><span class="k">その他</span><span class="v">' + fmt(sA) + '</span></div>' + list(A);
+    html += '<div class="line"><span class="k">再引落の無い引き落とし</span><span class="v">' + fmt(sA) + '</span></div>' + list(A);
+    if (T.length) html += '<div class="line"><span class="k">自分で振り込むもの（日にちを選べる・入金の後に回せる）</span><span class="v">' + fmt(sT) + '</span></div>' + list(T);
     var j = '', fell = false, unknown = false, danger = false;
     if (noAmt.length) { unknown = true; j = '<div class="judge warn">' + esc(noAmt.join('・')) + ' の金額が未入力です。<small>12日頃のメールで確定したら、行をタップして金額を入れてください。</small></div>'; }
     else if (!reb.length && !A.length) { fell = true; j = '<div class="judge ok">27日〜月末前日に落ちるものはありません。</div>'; }
     else if (!reb.length) { fell = true; j = '<div class="judge ' + (x >= sA ? 'ok' : 'ng') + '">' + (x >= sA ? '残高 ' + fmt(x) + '円 ≧ ' + fmt(sA) + '円 → 全部落ちます。' : '残高 ' + fmt(x) + '円 ＜ ' + fmt(sA) + '円 → あと ' + fmt(sA - x) + '円 足りません。') + '</div>'; }
     else if (x >= R + sA) { fell = true; j = '<div class="judge ok">残高 ' + fmt(x) + '円 ≧ ' + fmt(R + sA) + '円 → ' + esc(rname) + ' も含めて全部落ちます。<small>再振替は使いません。</small></div>'; }
-    else if (x >= R) { danger = true; j = '<div class="judge ng">残高 ' + fmt(x) + '円 ≧ ' + fmt(R) + '円 → ' + esc(rname) + ' が先に落ちて、その他 ' + fmt(sA) + '円 のうち ' + fmt(R + sA - x) + '円 分が落ちません。<small>27日の残高を ' + fmt(R) + '円 未満にする（今より ' + fmt(x - R + 1) + '円 以上減らす）か、' + fmt(R + sA) + '円 以上にしてください。</small></div>'; }
-    else if (x >= sA) { j = '<div class="judge ok">残高 ' + fmt(x) + '円 ＜ ' + fmt(R) + '円 → ' + esc(rname) + ' は落ちません（この後 再振替）。<br>残高 ' + fmt(x) + '円 ≧ ' + fmt(sA) + '円 → その他は落ちます。<small>あと ' + fmt(R - x - 1) + '円 までなら入れても大丈夫です。</small></div>'; }
-    else if (sA < R) { j = '<div class="judge ng">残高 ' + fmt(x) + '円 ＜ ' + fmt(R) + '円 → ' + esc(rname) + ' は落ちません（この後 再振替）。<br>残高 ' + fmt(x) + '円 ＜ ' + fmt(sA) + '円 → その他が落ちません。あと ' + fmt(sA - x) + '円 入れてください。<small>入れてよい幅は ' + fmt(sA - x) + '〜' + fmt(R - x - 1) + '円（' + fmt(R - x) + '円 以上入れると ' + esc(rname) + ' が先に落ちます）。</small></div>'; }
-    else { j = '<div class="judge ng">その他 ' + fmt(sA) + '円 が ' + esc(rname) + ' ' + fmt(R) + '円 以上なので、両方落ちる額まで入れる必要があります。あと ' + fmt(R + sA - x) + '円。</div>'; }
+    else if (x >= R) { danger = true; j = '<div class="judge ng">残高 ' + fmt(x) + '円 ≧ ' + fmt(R) + '円 → ' + esc(rname) + ' が先に落ちて、再引落の無い引き落とし ' + fmt(sA) + '円 のうち ' + fmt(R + sA - x) + '円 分が落ちません。<small>27日の残高を ' + fmt(R) + '円 未満にする（今より ' + fmt(x - R + 1) + '円 以上減らす）か、' + fmt(R + sA) + '円 以上にしてください。</small></div>'; }
+    else if (x >= sA) { j = '<div class="judge ok">残高 ' + fmt(x) + '円 ＜ ' + fmt(R) + '円 → ' + esc(rname) + ' は落ちません（この後 再振替）。<br>残高 ' + fmt(x) + '円 ≧ ' + fmt(sA) + '円 → 再引落の無い引き落としは落ちます。<small>あと ' + fmt(R - x - 1) + '円 までなら入れても大丈夫です。</small></div>'; }
+    else if (sA < R) { j = '<div class="judge ng">残高 ' + fmt(x) + '円 ＜ ' + fmt(R) + '円 → ' + esc(rname) + ' は落ちません（この後 再振替）。<br>残高 ' + fmt(x) + '円 ＜ ' + fmt(sA) + '円 → 再引落の無い引き落としが落ちません。あと ' + fmt(sA - x) + '円 入れてください。<small>入れてよい幅は ' + fmt(sA - x) + '〜' + fmt(R - x - 1) + '円（' + fmt(R - x) + '円 以上入れると ' + esc(rname) + ' が先に落ちます）。</small></div>'; }
+    else { j = '<div class="judge ng">再引落の無い引き落とし ' + fmt(sA) + '円 が ' + esc(rname) + ' ' + fmt(R) + '円 以上なので、両方落ちる額まで入れる必要があります。あと ' + fmt(R + sA - x) + '円。</div>'; }
     html += j;
     if (reb.length && R && !unknown) {
       html += rebHit
@@ -1315,11 +1416,11 @@ body[data-kview="seikyu"] #ie{display:block}
       var needR = fell ? 0 : R;
       var short27 = fell ? Math.max(0, R + sA - x) : Math.max(0, sA - x);   // 27日までに入れる分（別枠）
       var left = Math.max(0, fell ? x - R - sA : x - sA);
-      var need = needR + sBo - sBi - left;
+      var need = needR + sBo + sT - sBi - left;
       if (needR) html += '<div class="line"><span class="k">' + esc(rname) + ' の再振替</span><span class="v">' + fmt(needR) + '</span></div>';
       html += '<div class="line"><span class="k">再振替の後に残る分' + (short27 ? '（27日までに ' + fmt(short27) + '円 入れた前提）' : '') + '</span><span class="v">' + fmt(left) + '</span></div>';
       html += '<div class="line hd"><span class="k">' + md(rebEnd) + ' までに用意する額</span><span class="v">' + fmt(Math.max(0, need)) + '</span></div>';
-      html += '<div class="judge ' + (need > 0 ? 'warn' : 'ok') + '">' + (need > 0 ? '' + md(rebEnd) + ' までに ' + fmt(need) + '円 を調整（自己資金・借入）で用意すると、締め（' + md(close) + '）まで全部落ちます。' : '入金と残りで足ります。調整は不要の見込みです。') + '<small>' + (needR ? '再振替 ' + fmt(needR) + ' ＋ ' : '') + '支払い ' + fmt(sBo) + ' − 入金 ' + fmt(sBi) + ' − 残る分 ' + fmt(left) + '</small></div>';
+      html += '<div class="judge ' + (need > 0 ? 'warn' : 'ok') + '">' + (need > 0 ? '' + md(rebEnd) + ' までに ' + fmt(need) + '円 を調整（自己資金・借入）で用意すると、締め（' + md(close) + '）まで全部落ちます。' : '入金と残りで足ります。調整は不要の見込みです。') + '<small>' + (needR ? '再振替 ' + fmt(needR) + ' ＋ ' : '') + '支払い ' + fmt(sBo + sT) + ' − 入金 ' + fmt(sBi) + ' − 残る分 ' + fmt(left) + '</small></div>';
     }
     $('calcBody').innerHTML = html;
     var inp = $('calcBal'); inp.addEventListener('change', function () { var v = inp.value.replace(/[^0-9\-]/g, ''); calcBalOverride = v === '' ? null : +v; renderCalc(); });
@@ -1341,7 +1442,7 @@ body[data-kview="seikyu"] #ie{display:block}
   function planBulk(ym) {
     var have = {}; entries.forEach(function (e) { if (cycleOf(e.date) === ym) have[e.payee + '|' + (e.account || '')] = 1; });
     var plan = [];
-    sortedPayees().forEach(function (p) { if (p.hidden || !p.rule || !inPeriod(p, ym)) return; if (p.kind !== '入金' && p.kind !== '出金') return; var accName = p.account || acct().name; if (have[p.name + '|' + accName]) return; var cat = p.category || ''; plan.push({ payee: p, date: dateForRule(p.rule, ym), amount: amountFor(p, ym), account: accName, on: !(cat === 'スタッフ支払い' && amountFor(p, ym) == null) }); });
+    sortedPayees().forEach(function (p) { if (p.hidden || !p.rule || !inPeriod(p, ym)) return; if (p.kind !== '入金' && p.kind !== '出金') return; var accName = p.account || acct().name; if (have[p.name + '|' + accName]) return; var cat = p.category || ''; plan.push({ payee: p, date: dateForRule(p.rule, ym, p.kind), amount: amountFor(p, ym), account: accName, on: !(cat === 'スタッフ支払い' && amountFor(p, ym) == null) }); });
     return plan;
   }
   function renderBulkList() {
@@ -1363,7 +1464,7 @@ body[data-kview="seikyu"] #ie{display:block}
   function renderPayeeList() {
     var groups = {}; sortedPayees().forEach(function (p) { var c = p.category || (p.kind === '入金' ? '報酬' : 'その他出金'); (groups[c] = groups[c] || []).push(p); });
     var html = '';
-    CATS_IN.concat(CATS_OUT).forEach(function (c) { if (!groups[c]) return; html += '<li class="grp">' + esc(c) + '</li>'; groups[c].forEach(function (p) { var per = p.period && (p.period.from || p.period.to) ? (p.period.from || '') + '〜' + (p.period.to || '') : ''; html += '<li class="' + (p.hidden ? 'hid' : '') + '"><button type="button" data-name="' + esc(p.name) + '"><span class="pn">' + esc(p.name) + '<span class="k">' + (p.kind || 'その都度') + (p.hidden ? ' · 非表示' : '') + '</span></span><span class="pr">' + esc(ruleLabel(p.rule) || '—') + (p.amount ? '<br>' + fmt(p.amount) + '円' : '') + (per ? '<br>' + esc(per) : '') + '</span></button></li>'; }); });
+    CATS_IN.concat(CATS_OUT).forEach(function (c) { if (!groups[c]) return; html += '<li class="grp">' + esc(c) + '</li>'; groups[c].forEach(function (p) { var per = p.period && (p.period.from || p.period.to) ? (p.period.from || '') + '〜' + (p.period.to || '') : ''; html += '<li class="' + (p.hidden ? 'hid' : '') + '"><button type="button" data-name="' + esc(p.name) + '"><span class="pn">' + esc(p.name) + '<span class="k">' + (p.kind || 'その都度') + (payType(p) ? ' · ' + payTypeLabel(payType(p)) : '') + (p.hidden ? ' · 非表示' : '') + '</span></span><span class="pr">' + esc(ruleLabel(p.rule) || '—') + (p.amount ? '<br>' + fmt(p.amount) + '円' : '') + (per ? '<br>' + esc(per) : '') + '</span></button></li>'; }); });
     elPayeeList.innerHTML = html;
     elPayeeList.querySelectorAll('button').forEach(function (b) { b.addEventListener('click', function () { openPayeeForm(b.dataset.name); }); });
   }
@@ -1377,7 +1478,7 @@ body[data-kview="seikyu"] #ie{display:block}
     var p = name ? payeeOf(name) : null; pf.editing = p ? p.name : null; pf.ex = p && p.exceptions ? p.exceptions.map(function (x) { return { ym: x.ym, amount: x.amount }; }) : [];
     $('pfName').value = p ? p.name : ''; setPfKind(p ? (p.kind || '') : '出金'); fillPfCat(p ? p.category : ''); fillAccountSelects(); $('pfAccount').value = p ? (p.account || '') : '';
     $('pfRule').value = p ? (p.rule || '') : ''; $('pfAmount').value = p && p.amount ? p.amount : ''; $('pfFrom').value = p && p.period ? (p.period.from || '') : ''; $('pfTo').value = p && p.period ? (p.period.to || '') : '';
-    $('pfMailKey').value = p ? (p.mailKey || '') : ''; $('pfRebill').checked = !!(p && p.rebill); $('pfRebillDays').value = p && p.rebillDays ? p.rebillDays : 4; $('pfRebillDaysField').style.display = (p && p.rebill) ? '' : 'none'; $('pfHidden').checked = !!(p && p.hidden); $('pfDelete').style.display = p ? '' : 'none';
+    $('pfMailKey').value = p ? (p.mailKey || '') : ''; $('pfRebill').checked = !!(p && p.rebill); $('pfPay').value = p ? payType(p) : 'debit'; $('pfRebillDays').value = p && p.rebillDays ? p.rebillDays : 4; $('pfRebillDaysField').style.display = (p && p.rebill) ? '' : 'none'; $('pfHidden').checked = !!(p && p.hidden); $('pfDelete').style.display = p ? '' : 'none';
     renderEx(); resetDelPayee(); elPayeeListWrap.style.display = 'none'; elPayeeForm.style.display = ''; sheets.payees.scrollTop = 0; $('pfName').focus();
   }
   function closePayeeForm() { elPayeeForm.style.display = 'none'; elPayeeListWrap.style.display = ''; renderPayeeList(); }
@@ -1386,9 +1487,10 @@ body[data-kview="seikyu"] #ie{display:block}
   $('pfCancel').addEventListener('click', closePayeeForm);
   numOnly($('pfAmount')); numOnly($('pfRebillDays'));
   $('pfRebill').addEventListener('change', function () { $('pfRebillDaysField').style.display = $('pfRebill').checked ? '' : 'none'; });
+  $('pfPay').addEventListener('change', function () { $('pfRebill').checked = $('pfPay').value === 'rebill'; $('pfRebillDaysField').style.display = $('pfRebill').checked ? '' : 'none'; });
   $('pfSave').addEventListener('click', function () {
     var name = $('pfName').value.trim(); if (!name) { toast('名前を入れてください'); return; }
-    var rec = { name: name, kind: pfKind(), category: $('pfCat').value, account: $('pfAccount').value || '', rule: $('pfRule').value, amount: $('pfAmount').value ? +$('pfAmount').value : null, period: { from: $('pfFrom').value || '', to: $('pfTo').value || '' }, exceptions: pf.ex.filter(function (x) { return x.ym; }), mailKey: $('pfMailKey').value.trim(), rebill: $('pfRebill').checked, rebillDays: +$('pfRebillDays').value || 4, hidden: $('pfHidden').checked };
+    var rec = { name: name, kind: pfKind(), category: $('pfCat').value, account: $('pfAccount').value || '', rule: $('pfRule').value, amount: $('pfAmount').value ? +$('pfAmount').value : null, period: { from: $('pfFrom').value || '', to: $('pfTo').value || '' }, exceptions: pf.ex.filter(function (x) { return x.ym; }), mailKey: $('pfMailKey').value.trim(), rebill: $('pfPay').value === 'rebill', pay: $('pfPay').value === 'rebill' ? 'debit' : $('pfPay').value, rebillDays: +$('pfRebillDays').value || 4, hidden: $('pfHidden').checked };
     var list = payees.slice(); var idx = list.findIndex(function (x) { return x.name === pf.editing; });
     if (pf.editing !== null && idx >= 0) { rec.order = list[idx].order; list[idx] = rec; }
     else { if (list.some(function (x) { return x.name === name; })) { toast('同じ名前の相手先があります'); return; } rec.order = list.reduce(function (m, p) { return Math.max(m, p.order || 0); }, 0) + 1; list.push(rec); }
@@ -1578,7 +1680,7 @@ var QI = (function () {
   /* ---------- 経理ファイルから読む / 書く ---------- */
   var H_ANKEN = ['案件ID', '依頼先', '得意先', '宛名', '件名', '施工日', '状態', '見積番号', '旧番号', '合計', '支払い区分'];
   // 打ち合わせシートは「案件ID／項目／値」の3列で持つ（写真は入れない。写真は Apple のメモ）
-  var H_ALINE = ['案件ID', '行', '品名', '数量', '単価', '金額', '単位', '一式', '備考'];
+  var H_ALINE = ['案件ID', '行', '品名', '数量', '単価', '金額', '単位', '一式', '備考', '未処理'];
   var H_INV = ['請求ID', '請求番号', '得意先', '宛名', '発行日', '支払期限', '合計', '状態'];
   var H_ILINE = ['請求ID', '案件ID', '行', '品名', '数量', '単価', '金額', '単位', '一式', '備考'];
   var H_SET = ['種類', '名前', '値1', '値2', '値3'];
@@ -1610,7 +1712,7 @@ var QI = (function () {
     var a = R('案件'); if (a) a.forEach(function (r) {
       q.anken.push({ id: S(r[0]), brand: S(r[1]) || 'cafe', client: S(r[2]), to: S(r[3]), title: S(r[4]), day: S(r[5]), date: S(r[5]), state: S(r[6]), no: S(r[7]), oldNo: S(r[8]), total: r[9] || 0, pay: S(r[10]) || 'matsu' }); });
     var al = R('案件明細'); if (al) al.forEach(function (r) {
-      q.lines.push({ ankenId: S(r[0]), no: r[1], name: S(r[2]), qty: r[3] == null ? 1 : r[3], price: r[4] || 0, amount: r[5] || 0, unit: S(r[6]), lump: (S(r[7]) === '一式') ? 1 : 0, note: S(r[8]) }); });
+      q.lines.push({ ankenId: S(r[0]), no: r[1], name: S(r[2]), qty: r[3] == null ? 1 : r[3], price: r[4] || 0, amount: r[5] || 0, unit: S(r[6]), lump: (S(r[7]) === '一式') ? 1 : 0, note: S(r[8]), chk: S(r[9]) === '1' ? 1 : 0 }); });
     var iv = R('請求書'); if (iv) iv.forEach(function (r) {
       q.inv.push({ id: S(r[0]), no: S(r[1]), client: S(r[2]), to: S(r[3]), issue: S(r[4]), due: S(r[5]), total: r[6] || 0, state: S(r[7]) }); });
     var il = R('請求明細'); if (il) il.forEach(function (r) {
@@ -1643,8 +1745,8 @@ var QI = (function () {
       return [a.id, a.brand, a.client, a.to, a.title, a.day || a.date, a.state, a.no || '', a.oldNo || '', a.total, a.pay || ''];
     }), [9], [14, 8, 18, 26, 44, 12, 8, 14, 16, 12, 10]), '案件');
     XLSX.utils.book_append_sheet(wb, sheet(H_ALINE, q.lines.map(function (l) {
-      return [l.ankenId, l.no, l.name, l.qty, l.price, l.amount, l.unit || '', l.lump ? '一式' : '', l.note || ''];
-    }), [4, 5], [14, 5, 40, 7, 12, 12, 6, 6, 34]), '案件明細');
+      return [l.ankenId, l.no, l.name, l.qty, l.price, l.amount, l.unit || '', l.lump ? '一式' : '', l.note || '', l.chk ? '1' : ''];
+    }), [4, 5], [14, 5, 40, 7, 12, 12, 6, 6, 34, 6]), '案件明細');
     XLSX.utils.book_append_sheet(wb, sheet(H_INV, q.inv.map(function (v) {
       return [v.id, v.no, v.client, v.to, v.issue, v.due, v.total, v.state];
     }), [6], [14, 14, 18, 26, 14, 14, 12, 8]), '請求書');
@@ -1691,10 +1793,30 @@ var QI = (function () {
     var a = q().anken.some(function (x) { return x.no === no && x.id !== selfId; });
     var b = q().inv.some(function (x) { return x.no === no && x.id !== selfId; });
     return a || b; }
-  var MT_IDS = ["mt_client","mt_date","mt_use","mt_plan","mt_len","mt_songs","mt_scope","mt_fmt","mt_due","mt_start","mt_trip","mt_fix","mt_alt","mt_loop","mt_stem","mt_rec","mt_ref","mt_memo"];
+  var MT_IDS = ["mt_client","mt_date","mt_use","mt_use_other","mt_when","mt_plan","mt_len","mt_songs","mt_scope","mt_fmt","mt_due","mt_start","mt_trip","mt_num","mt_wday","mt_mday","mt_car","mt_train","mt_hotel","mt_park","mt_fix","mt_alt","mt_loop","mt_stem","mt_rec","mt_ref","mt_memo"];
   function meetGet() { var o = {}; MT_IDS.forEach(function (i) { var e = $(i); if (!e) return; o[i] = (e.type === "checkbox") ? (e.checked ? "1" : "") : e.value; }); return o; }
-  function meetSet(o) { o = o || {}; MT_IDS.forEach(function (i) { var e = $(i); if (!e) return; if (e.type === "checkbox") e.checked = (o[i] === "1"); else e.value = o[i] || ""; }); }
-  function meetClear() { meetSet({}); $("mt_songs").value = 1; ["mt_fix","mt_alt","mt_loop","mt_stem","mt_rec"].forEach(function (i) { $(i).value = 0; }); }
+  function meetSet(o) { o = o || {}; MT_IDS.forEach(function (i) { var e = $(i); if (!e) return; if (e.type === "checkbox") e.checked = (o[i] === "1"); else e.value = o[i] || ""; }); meetSync(); }
+  function meetSync() {   // 選ぶ所(チェック)を、しまってある文字に合わせる。出張・曲数の欄を出し分ける
+    document.querySelectorAll(".mt-g[data-g]").forEach(function (g) { var v = String(($(g.getAttribute("data-g")) || {}).value || "").split("／");
+      g.querySelectorAll("input").forEach(function (c) { c.checked = v.indexOf(c.value) >= 0; }); });
+    if ($("mt_tripbox")) $("mt_tripbox").hidden = !$("mt_trip").checked;
+    if ($("mt_songsbox")) $("mt_songsbox").style.display = ($("mt_len").value === "フル") ? "none" : "";
+  }
+  function meetGroups() {   // チェックから、しまう文字を作る
+    document.querySelectorAll(".mt-g[data-g]").forEach(function (g) { var t = $(g.getAttribute("data-g")); if (!t) return;
+      t.value = Array.prototype.filter.call(g.querySelectorAll("input"), function (c) { return c.checked; }).map(function (c) { return c.value; }).join("／"); });
+  }
+  document.addEventListener("change", function (e) {
+    var t = e.target; if (!t || !t.closest) return;
+    if (t.closest(".mt-g[data-g]")) meetGroups();
+    if (t.id === "mt_trip" || t.id === "mt_len") meetSync();
+    if (t.id === "mt_trip" && t.checked && $("mt_num") && !$("mt_num").value) { $("mt_num").value = 1; }
+  });
+  document.addEventListener("input", function (e) {   // 人数・日数は、出張費の計算の欄にもそのまま入れる
+    var t = e.target, m = { mt_num: "t_num", mt_wday: "t_wday", mt_mday: "t_mday" }[t && t.id];
+    if (m && $(m)) { $(m).value = t.value; $(m).dispatchEvent(new Event("input", { bubbles: true })); }
+  });
+  function meetClear() { meetSet({}); $("mt_songs").value = 1; ["mt_fix","mt_alt","mt_loop","mt_stem","mt_rec"].forEach(function (i) { $(i).value = 0; }); meetSync(); }
   function clientOf(n) { var a = q().clients.filter(function (c) { return c.name === n; }); return a[0]; }
   function allNames() { var seen = {}, out = [];
     q().clients.forEach(function (c) { if (!seen[c.name]) { seen[c.name] = 1; out.push(c.name); } });
@@ -1727,7 +1849,21 @@ var QI = (function () {
     });
     $(sub).textContent = n2(t); $(tot).textContent = yen(t); $(big).textContent = yen(t);
   }
-  window.__QI={getQ:function(){return Q},getI:function(){return I},rq:function(){return rq()},ri:function(){return ri()},
+  function loadAnken(id) {   // 残してある案件(問い合わせ・見積)を、そのまま開いて続ける
+    var a = q().anken.filter(function (x) { return x.id === id; })[0]; if (!a) return false;
+    Q.lines = q().lines.filter(function (l) { return l.ankenId === id; }).map(function (l) { return { n: l.name, q: l.qty, p: l.price, m: l.note, u: l.unit || "", lump: !!l.lump, chk: l.chk ? 1 : 0 }; });
+    if (a.client && !clientOf(a.client)) { q().clients.push({ name: a.client, to: a.to || "", pay: a.pay || "mae" }); fillClients(); }
+    $("q_client").value = a.client || ""; lastClient = $("q_client").value;
+    $("qf_to").textContent = a.to || a.client || ""; $("qf_subj").textContent = a.title || "";
+    $("q_brand").value = (a.brand === "dcloud") ? "dcloud" : "cafe"; $("q_pay").value = a.pay || "mae";
+    $("q_day").value = a.day || ""; $("qf_no").value = a.no || peekNo("M");
+    meetClear(); meetSet((q().meet || {})[id] || {}); if ($("q_stat")) $("q_stat").value = a.state || "見積";
+    Q.id = id; setValid(); applyCfg(); rq(); drawPast();
+    if (a.brand === "dcloud" && $("d_meet")) $("d_meet").open = true;
+    $("q_state").textContent = (a.state === "問い合わせ" ? "問い合わせを開きました。明細を入れて「この見積を入れる」を押すと、見積番号が付きます。" : "開きました（" + (a.no || "") + "）。");
+    return true;
+  }
+  window.__QI={getQ:function(){return Q},getI:function(){return I},loadAnken:function(id){return loadAnken(id)},rq:function(){return rq()},ri:function(){return ri()},
     fillClients:function(){return fillClients()},fillItems:function(){return fillItems()},fillVenues:function(){return fillVenues()},
     applyCfg:function(){return applyCfg()},drawPast:function(){return drawPast()},setValid:function(){return setValid()},
     showValid:function(){return showValid()},peekNo:function(p){return peekNo(p)}};
@@ -1914,9 +2050,12 @@ var QI = (function () {
     var c = $("q_client").value.trim(), box = $("q_past");
     if (!c) { box.innerHTML = '<div class="qi-empty">上で得意先をえらぶと、その人の過去の仕事が出ます。</div>'; return; }
     var L = q().anken.filter(function (a) { return same(a.client, c); }).sort(function (a, b) { return String(b.date || "").localeCompare(String(a.date || "")); });
-    box.innerHTML = L.length ? L.slice(0, 20).map(function (a) {
-      return '<button type="button" class="qi-card" data-dup="' + esc(a.id) + '"><span class="go">これを使う →</span><b>' + esc(a.title || "（件名なし）") + '</b><span>' + esc(a.date || "") + '　' + n2(a.total) + '円</span></button>';
-    }).join("") : '<div class="qi-empty">この得意先の過去はまだありません。下の 3 から作ってください。</div>';
+    var card = function (a) { var pend = q().lines.some(function (l) { return l.ankenId === a.id && l.chk; });
+      return '<button type="button" class="qi-card" data-dup="' + esc(a.id) + '"><span class="go">これを使う →</span><b>' + esc(a.title || "（件名なし）") + (pend ? '<span class="qe-chk">未処理あり</span>' : '') + '</b><span>' + esc(a.date || "") + '　' + n2(a.total) + '円　' + esc(a.state || "") + '</span></button>'; };
+    var now = L.filter(function (a) { return a.state !== "実績"; }), old = L.filter(function (a) { return a.state === "実績"; });
+    box.innerHTML = L.length ? (now.length ? '<div class="qi-note" style="margin:4px 0">今の仕事</div>' + now.slice(0, 20).map(card).join("") : '') +
+      (old.length ? '<div class="qi-note" style="margin:10px 0 4px">昔の見本（金額を写す時に使う）</div>' + old.slice(0, 20).map(card).join("") : '')
+      : '<div class="qi-empty">この得意先の過去はまだありません。下の 3 から作ってください。</div>';
   }
   function drawInvPick() {
     var c = $("i_client").value.trim(), box = $("i_list");
@@ -1949,7 +2088,7 @@ var QI = (function () {
       if (id) {
         var a = q().anken.filter(function (x) { return x.id === id; })[0]; if (!a) return;
         Q.lines = q().lines.filter(function (l) { return l.ankenId === id; }).map(function (l) {
-          return { n: l.name, q: l.qty, p: l.price, m: l.note, u: l.unit || "", lump: !!l.lump }; });
+          return { n: l.name, q: l.qty, p: l.price, m: l.note, u: l.unit || "", lump: !!l.lump, chk: 1 }; });
         if (a.client && !clientOf(a.client)) { q().clients.push({ name: a.client, to: a.to || "", pay: a.pay || "mae" }); fillClients(); }
         $("q_client").value = a.client || ""; lastClient = $("q_client").value;
         $("qf_to").textContent = a.to || a.client || "";
@@ -1959,12 +2098,12 @@ var QI = (function () {
         meetSet((q().meet || {})[id] || {});
         if ($("q_stat")) $("q_stat").value = "見積";
         $("qf_note").textContent = ""; applyCfg();
-        Q.id = null; $("q_state").textContent = "複製しました。上の 1 で施工日を入れてください（件名と有効期限も、その日に変わります）。";
+        Q.id = null; $("q_state").textContent = "複製しました。写した行には「未処理」の印が付いています。行を押して金額を確かめると外れます。施工日も入れてください。";
         rq(); return;
       }
       var pl = up(e.target, "data-pull");
       if (pl) { var p2 = pl.split("|"), l2 = q().lines.filter(function (x) { return x.ankenId === p2[0] && String(x.no) === p2[1]; })[0];
-        if (l2) { Q.lines.push({ n: l2.name, q: l2.qty, p: l2.price, m: l2.note, u: l2.unit || "", lump: !!l2.lump }); rq(); } return; }
+        if (l2) { Q.lines.push({ n: l2.name, q: l2.qty, p: l2.price, m: l2.note, u: l2.unit || "", lump: !!l2.lump, chk: 1 }); rq(); } return; }
     });
 
     $("q_client").addEventListener("change", function () {
@@ -2091,14 +2230,32 @@ var QI = (function () {
       if ($("q_brand").value === "dcloud") q().meet[id] = meetGet(); else delete q().meet[id];
       q().anken.push({ id: id, brand: $("q_brand").value, client: $("q_client").value.trim() || $("qf_to").textContent.trim(),
         to: $("qf_to").textContent.trim(), title: $("qf_subj").textContent, day: $("q_day").value || "",
-        date: $("q_day").value || "", state: ($("q_stat") ? $("q_stat").value : "見積"), no: $("qf_no").value,
+        date: $("q_day").value || "", state: (($("q_stat") && $("q_stat").value !== "問い合わせ") ? $("q_stat").value : "見積"), no: $("qf_no").value,
         oldNo: "", total: total(Q.lines), pay: $("q_pay").value });
       Q.lines.forEach(function (r, i) { q().lines.push({ ankenId: id, no: i + 1, name: r.n, qty: r.q, price: r.p,
-        amount: r.lump ? r.p : r.q * r.p, unit: r.u || "", lump: r.lump ? 1 : 0, note: r.m }); });
-      Q.id = id; fillClients(); drawPast();
+        amount: r.lump ? r.p : r.q * r.p, unit: r.u || "", lump: r.lump ? 1 : 0, note: r.m, chk: r.chk ? 1 : 0 }); });
+      Q.id = id; fillClients(); drawPast(); if ($("q_stat") && $("q_stat").value === "問い合わせ") $("q_stat").value = "見積";
       $("q_state").textContent = "入れました（" + $("qf_no").value + "）。メニューの「作業を終える」で保存されます。";
       if (window.__kaikeiTouched) window.__kaikeiTouched();
     });
+    function keepAsk() {
+      var cl = $("q_client").value.trim() || ($("mt_client") ? $("mt_client").value.trim() : "") || $("qf_to").textContent.trim();
+      if (!cl) { alert("お客様の名前を入れてください（打ち合わせシートの「お客様名」か、宛名）。"); return; }
+      var id = Q.id || ("A-" + Date.now()), old = q().anken.filter(function (a) { return a.id === id; })[0];
+      if (old && old.no) { alert("この案件には、もう見積番号（" + old.no + "）が付いています。「この見積を入れる」を使ってください。"); return; }
+      q().anken = q().anken.filter(function (a) { return a.id !== id; });
+      q().lines = q().lines.filter(function (l) { return l.ankenId !== id; });
+      q().meet = q().meet || {}; if ($("q_brand").value === "dcloud") q().meet[id] = meetGet();
+      q().anken.push({ id: id, brand: $("q_brand").value, client: cl, to: $("qf_to").textContent.trim() || cl, title: $("qf_subj").textContent || "",
+        day: $("q_day").value || "", date: ($("mt_date") && $("mt_date").value) || $("q_day").value || "", state: "問い合わせ", no: "", oldNo: "", total: total(Q.lines), pay: $("q_pay").value });
+      Q.lines.forEach(function (r, i) { q().lines.push({ ankenId: id, no: i + 1, name: r.n, qty: r.q, price: r.p, amount: r.lump ? r.p : r.q * r.p, unit: r.u || "", lump: r.lump ? 1 : 0, note: r.m, chk: r.chk ? 1 : 0 }); });
+      Q.id = id; if ($("q_stat")) $("q_stat").value = "問い合わせ"; fillClients(); drawPast();
+      var msg = "問い合わせとして残しました（" + cl + "）。メニューの「問い合わせ」から開けます。「作業を終える」で経理ファイルに入ります。";
+      $("q_state").textContent = msg; if ($("mt_state")) $("mt_state").textContent = msg;
+      if (window.__kaikeiTouched) window.__kaikeiTouched();
+    }
+    $("q_keep").addEventListener("click", keepAsk);
+    $("mt_keep").addEventListener("click", keepAsk);
     $("q_new").addEventListener("click", function () {
       if (Q.lines.length && !confirm("打ちかけの明細が" + Q.lines.length + "行あります。消して新しくはじめますか？")) return;
       Q = { lines: [], id: null }; var d = new Date();
@@ -2131,17 +2288,21 @@ var QI = (function () {
         var row = { n: name, q: qty, p: m.p, m: m.m || "", u: m.u || unit || "", lump: false };
         if (idx >= 0) Q.lines[idx] = row; else Q.lines.push(row);
       }
-      put(nm, cnt($("mt_songs").value, 1), "式");
+      put(nm, len === "フル" ? 1 : cnt($("mt_songs").value, 1), "式");
       put("追加修正（3回目以降）", cnt($("mt_fix").value, 0), "回");
       put("尺違い書き出し", cnt($("mt_alt").value, 0), "本");
       put("長尺ループ版", cnt($("mt_loop").value, 0), "本");
       put("ステム納品", cnt($("mt_stem").value, 0), "式");
       put("現地録音", cnt($("mt_rec").value, 0), "日");
-      if ($("mt_plan").value === "使用許諾" && $("mt_scope").value.trim()) $("qf_note").textContent = "ご利用範囲：" + $("mt_scope").value.trim();
-      if ($("mt_plan").value === "著作権譲渡" && $("qf_note").textContent.trim() === "ご利用範囲：") $("qf_note").textContent = "";
+      var nl = String($("qf_note").textContent || "").split("\n").filter(function (x) { return x.indexOf("ご利用範囲：") !== 0; });   // 手で書いた行は残し、「ご利用範囲：」の行だけ入れ替える
+      if ($("mt_plan").value === "使用許諾") nl.unshift("ご利用範囲：" + $("mt_scope").value.trim());
+      $("qf_note").textContent = nl.join("\n").replace(/^\n+|\n+$/g, "");
       if (!$("qf_to").textContent.trim() && $("mt_client").value.trim()) $("qf_to").textContent = $("mt_client").value.trim();
       applyCfg(); rq();
-      $("mt_state").textContent = "見積に入れました（" + Q.lines.length + "行）。金額は紙の上で直せます。";
+      var hasTrip = Q.lines.some(function (r) { return String(r.n).indexOf("出張費") === 0; });
+      if ($("mt_park") && $("mt_park").checked && !Q.lines.some(function (r) { return r.n === "駐車場代"; })) { Q.lines.push({ n: "駐車場代", q: 1, p: 0, m: "実費", u: "", lump: true }); rq(); }
+      $("mt_state").textContent = "見積に入れました（" + Q.lines.length + "行）。金額は行を押して直せます。" +
+        (((cnt($("mt_rec").value, 0) > 0) || $("mt_trip").checked) && !hasTrip ? "\n※ 出張があるのに、出張費の行がまだありません。「＋ 行を足す」→「出張費をはかる」で入れてください。" : "");
     });
     $("q_print").addEventListener("click", function () {
       if (!Q.lines.length) { alert("明細が1行もありません。\n下の 3 で行を足してから印刷してください。"); return; }
@@ -2301,6 +2462,8 @@ var QI = (function () {
   function yen(n) { if (n == null || n === '' || isNaN(n)) return '—'; var v = Math.round(Number(n) * 100) / 100; var neg = v < 0; v = Math.abs(v); var s = (Math.floor(v)).toLocaleString('ja-JP'); var f = Math.round((v - Math.floor(v)) * 100); if (f) s += '.' + (f % 10 === 0 ? String(f / 10) : pad(f)); return (neg ? '−' : '') + s; }
   function num(v) { if (v == null || v === '') return null; var n = Number(String(v).replace(/[,，円\s]/g, '').replace(/[０-９．]/g, function (c) { return c === '．' ? '.' : String.fromCharCode(c.charCodeAt(0) - 0xFEE0); })); return isNaN(n) ? null : n; }
   function r2(n) { return Math.round(n * 100) / 100; }
+  function ceilAbs(n) { var v = Math.round(Math.abs(Number(n)) * 100) / 100, c = Math.ceil(v); return Number(n) < 0 ? -c : c; }   // -1234.5 → -1235
+  function yenC(n) { if (n == null || n === '' || isNaN(n)) return '—'; var c = ceilAbs(n); return (c < 0 ? '-' : '') + Math.abs(c).toLocaleString('ja-JP'); }
   function dnum(s) { return String(s || '').replace(/-/g, ''); }
   function md(s) { var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || ''); return m ? (+m[2]) + '/' + (+m[3]) : String(s || ''); }
   function toast(m) { if (A && A.toast) A.toast(m); }
@@ -2449,7 +2612,6 @@ var QI = (function () {
     if (view === 'seisan') renderSeisan(true);
     if (view === 'kiroku') renderKiroku();
     if (view === 'menu') renderStatus();
-    if (view === 'toiawase') { try { QI.enter('mitsumori', K); } catch (e) { } }   // 問い合わせも見積の仕組みを使うので、先に立ち上げる
     if (view === 'mitsumori' || view === 'seikyu') { try { QI.enter(view, K); } catch (e) { alert('見積書・請求書の画面をひらけませんでした。\n' + (e && e.message || '') + '\n月末経理と精算は、そのまま使えます。'); show('menu'); } }
   }
   function ready() { return !!K && sessionStorage.getItem(SS_TAB) === K.tab; }
@@ -2465,7 +2627,7 @@ var QI = (function () {
     var s = '経理ファイル 版 ' + K.ver + '（' + md(K.loadedDay) + ' に受け取り）';
     if (K.dirty) s += '<br><b class="kwarn">保存していない変更があります。</b>終わったら「作業を終える」を押してください。';
     else s += '<br>変更はありません。';
-    if (K.draft) s += '<br>' + NM() + '精算に、途中の下書きがあります。';
+    if (K.draft) s += '<br>拠点経費清算に、途中の下書きがあります。';
     if (K.note) s += '<br>' + K.note;
     try { if (K.len > 80000) s += '<br><b class="kwarn">経理ファイルの中身が ' + Number(K.len).toLocaleString('ja-JP') + ' 文字になりました（保存できる上限は約10万文字）。年ごとにファイルを分ける時期です。</b>'; } catch (e) {}
     st.innerHTML = s;
@@ -2573,6 +2735,7 @@ var QI = (function () {
       var start = function (useLocalMonthly) {
         K = { len: f.__len || 0, ver: fver, info: f.info, sum: f.sum, det: f.det, draft: f.draft, qi: f.qi, dirty: false, tab: TAB, loadedDay: today(), note: note || '' };
         if (useLocalMonthly) { K.dirty = true; A.applyData(local); A.lsSaveQuiet(); A.render(); } else { A.applyData(f.snap); A.lsSaveQuiet(); A.render(); }
+        migrate16();
         K.snapFp = fp(A.snapshot());
         sessionDraft = JSON.stringify(K.draft);
         sessionStorage.setItem(SS_TAB, TAB);
@@ -2588,7 +2751,7 @@ var QI = (function () {
         var own = lastClaim && prev.tab && lastClaim.indexOf(prev.tab + '-') === 0;   // 最後の保存がこの端末の前の押下なら「別の端末」ではない
         askChoice('前回、保存していない変更がこの端末に残っています。' + (prev.ver === fver || own ? '' : '（その後、別の端末で保存されています。前回の変更を使うと、その保存の内容は、この端末の内容で置き換わります）'),
           [['経理ファイルの内容で始める(前回の変更は捨てる)', function () { backupLocal(local); start(false); }],
-           ['前回の変更を使って続ける', function () { A.applyData(local); A.lsSaveQuiet(); A.render(); K = prev; try { K.len = f.__len || 0; } catch (e2) {} if (!K.qi) K.qi = f.qi; K.snapFp = fp(A.snapshot()); K.tab = TAB; K.loadedDay = today(); K.ver = fver; K.note = note || ''; delete K.pendingVer; sessionDraft = JSON.stringify(K.draft); sessionStorage.setItem(SS_TAB, TAB); saveLocal(); announce(); show('menu'); }]]);
+           ['前回の変更を使って続ける', function () { A.applyData(local); A.lsSaveQuiet(); A.render(); K = prev; try { K.len = f.__len || 0; } catch (e2) {} if (!K.qi) K.qi = f.qi; K.snapFp = fp(A.snapshot()); K.tab = TAB; K.loadedDay = today(); K.ver = fver; K.note = note || ''; delete K.pendingVer; migrate16(); sessionDraft = JSON.stringify(K.draft); sessionStorage.setItem(SS_TAB, TAB); saveLocal(); announce(); show('menu'); }]]);
         return;
       }
       // 初めての時、または古いタブなど新しいアプリの外で月末経理が書き換わっていた時(空の時は聞かない)
@@ -2601,6 +2764,16 @@ var QI = (function () {
         return;
       }
       start(false);
+  }
+  function migrate16() {
+    var n = 0;
+    K.sum.forEach(function (x) { if (/要確認/.test(x.check || '')) { x.check = ''; n++; } });
+    if (String(infoGet('精算の相手先') || '') !== '拠点経費清算') { infoSet('精算の相手先', '拠点経費清算'); n++; }
+    var snap = A.snapshot(), ch = false;
+    var pay = snap.payees.map(function (p) { if (p.name === 'るみちゃん精算') { ch = true; return Object.assign({}, p, { name: '拠点経費清算' }); } return p; });
+    var ent = snap.entries.map(function (e) { if (e.payee === 'るみちゃん精算') { ch = true; return Object.assign({}, e, { payee: '拠点経費清算' }); } return e; });
+    if (ch) { A.applyData(Object.assign({}, snap, { payees: pay, entries: ent })); A.lsSaveQuiet(); A.render(); n++; }
+    if (n) { K.dirty = true; K.note = (K.note ? K.note + '<br>' : '') + '新しい版に合わせて、経理ファイルの中を直しました（「要確認」の印を消し、呼び名を「拠点経費清算」にしました）。「作業を終える」で保存されます。'; }
   }
   var clipTimer = null;
   function clearClipLater() {
@@ -2758,7 +2931,7 @@ var QI = (function () {
   function billOf(r) { var a = num(r.amount), q = num(r.qty); return (a == null || q == null) ? 0 : r2(a * q); }
   function totals(d) {
     var ru = d.rumi.reduce(function (s, r) { return s + billOf(r); }, 0), sa = d.sane.reduce(function (s, r) { return s + billOf(r); }, 0);
-    return { rumi: r2(ru), sane: r2(sa), bill: r2(sa - ru) };
+    return { rumi: r2(ru), sane: r2(sa), bill: ceilAbs(r2(sa - ru)) };
   }
   function period(d) { return dnum(d.start) + '-' + dnum(d.end); }
   function rowEditor(list, who) {
@@ -2768,7 +2941,7 @@ var QI = (function () {
         '<input class="text-in kin knote" data-f="note" value="' + esc(r.note) + '" placeholder="例：08月分"></div>' +
         '<div class="krow2"><span class="klbl">金額</span><input class="text-in kin kamt" data-f="amount" inputmode="decimal" value="' + esc(r.amount == null ? '' : r.amount) + '" placeholder="0">' +
         '<span class="klbl">負担</span><input class="text-in kin kqty" data-f="qty" inputmode="decimal" value="' + esc(r.qty == null ? '' : r.qty) + '">' +
-        '<span class="kbill">' + yen(billOf(r)) + '円</span>' +
+        '<span class="kbill">' + yenC(billOf(r)) + '円</span>' +
         '<button type="button" class="linkish kdel" data-del="' + who + ':' + i + '">消す</button></div>' +
         '<div class="krow3"><span class="klbl">日付・区分</span><input class="text-in kin kdate" data-f="date" value="' + esc(r.date) + '"></div></div>';
     }).join('');
@@ -2781,15 +2954,18 @@ var QI = (function () {
     $('kPStart').value = d.start; $('kPEnd').value = d.end;
     $('kRumiRows').innerHTML = rowEditor(d.rumi, 'rumi');
     $('kSaneRows').innerHTML = rowEditor(d.sane, 'sane');
-    updateTotals();
+    updateTotals(); renderKiroku();
+    $('kConfirm').hidden = true; $('kEdit').hidden = false;
+    if (!$('kFix')) $('kMode').insertAdjacentHTML('afterend', '<div class="kcard kwarnbox" id="kFix" hidden></div>');
+    $('kFix').hidden = !d.fix; if (d.fix) $('kFix').innerHTML = '<b>' + md(d.start) + '〜' + md(d.end) + ' の回を直しています。</b><br>直したら「送る前に、メールの中身を確かめる」で、訂正のメールを送れます。やめる時は「今回の入力を元に戻す」を押すと、前の記録に戻ります。';
     if (refetch) { loadReply(); gasCall({ action: 'ping' }).then(function (r) { $('kMode').hidden = !(r.ok && r.mode === 'test'); }, function () {}); }
     else if (lastReplyHtml) $('kReply').innerHTML = lastReplyHtml;
   }
   function updateTotals() {
     var t = totals(K.draft);
-    $('kTotRumi').textContent = yen(t.rumi); $('kTotSane').textContent = yen(t.sane);
+    $('kTotRumi').textContent = yenC(t.rumi); $('kTotSane').textContent = yenC(t.sane);
     var dir = t.bill > 0 ? '' + NM() + ' → sanericci' : (t.bill < 0 ? 'sanericci → ' + NM() + '' : '差し引きなし');
-    $('kResult').innerHTML = '<div class="klbl">今回の精算結果</div><div class="kbig">' + dir + '　' + yen(Math.abs(t.bill)) + '<span class="yen">円</span></div>';
+    $('kResult').innerHTML = '<div class="klbl">今回の清算結果</div><div class="kbig">' + dir + '　' + yenC(Math.abs(t.bill)) + '<span class="yen">円</span></div>';
   }
   function readInputs() {
     var d = K.draft;
@@ -2807,7 +2983,7 @@ var QI = (function () {
     if (!ev.target.classList.contains('kin') && ev.target.id !== 'kPStart' && ev.target.id !== 'kPEnd') return;
     readInputs(); if (ready() && !K.dirty) markDirty();
     var row = ev.target.closest('.krow');
-    if (row) { var list = row.getAttribute('data-who') === 'rumi' ? K.draft.rumi : K.draft.sane; row.querySelector('.kbill').textContent = yen(billOf(list[+row.getAttribute('data-i')])) + '円'; }
+    if (row) { var list = row.getAttribute('data-who') === 'rumi' ? K.draft.rumi : K.draft.sane; row.querySelector('.kbill').textContent = yenC(billOf(list[+row.getAttribute('data-i')])) + '円'; }
     updateTotals();
     saveLocal();
   });
@@ -2876,13 +3052,13 @@ var QI = (function () {
   function mailParts(d) {
     var t = totals(d), M = +d.end.slice(5, 7), P = M === 1 ? 12 : M - 1;
     var allHalf = d.rumi.concat(d.sane).every(function (r) { return num(r.qty) === 0.5; });
-    var head = t.bill > 0 ? '' + NM() + '　→　sanericci　　' + yen(t.bill) + '円' : (t.bill < 0 ? 'sanericci　→　' + NM() + '　　' + yen(-t.bill) + '円' : '今回は差し引き0円です');
+    var head = t.bill > 0 ? '' + NM() + '　→　sanericci　　' + yenC(t.bill) + '円' : (t.bill < 0 ? 'sanericci　→　' + NM() + '　　' + yenC(-t.bill) + '円' : '今回は差し引き0円です');
     var sum = function (l) { return l.reduce(function (s, r) { return s + (num(r.amount) || 0); }, 0); };
     var td = 'padding:5px 4px;border-bottom:1px solid #ece5d8', tdr = td + ';text-align:right';
     var tbl = function (title, list) {
       var h = '<table style="width:100%;border-collapse:collapse;font-size:13px;margin-top:14px"><tr><td colspan="2" style="padding:6px 4px;font-size:11px;color:#8a8071;letter-spacing:0.04em">' + title + '</td></tr>';
-      list.forEach(function (r) { h += '<tr><td style="' + td + '">' + esc(r.item) + (r.note ? '（' + esc(r.note) + '）' : '') + (num(r.qty) !== 0.5 ? '　負担 ' + esc(r.qty) : '') + '</td><td style="' + tdr + '">' + yen(r.amount) + '円</td></tr>'; });
-      return h + '<tr><td style="padding:5px 4px;font-weight:600;border-top:1px solid #cdbfa5">小計</td><td style="padding:5px 4px;font-weight:600;border-top:1px solid #cdbfa5;text-align:right">' + yen(sum(list)) + '円</td></tr></table>';
+      list.forEach(function (r) { h += '<tr><td style="' + td + '">' + esc(r.item) + (r.note ? '（' + esc(r.note) + '）' : '') + (num(r.qty) !== 0.5 ? '　負担 ' + esc(r.qty) : '') + '</td><td style="' + tdr + '">' + yenC(r.amount) + '円</td></tr>'; });
+      return h + '<tr><td style="padding:5px 4px;font-weight:600;border-top:1px solid #cdbfa5">小計</td><td style="padding:5px 4px;font-weight:600;border-top:1px solid #cdbfa5;text-align:right">' + yenC(sum(list)) + '円</td></tr></table>';
     };
     var calc = '<table style="width:100%;border-collapse:collapse;font-size:13px;margin-top:14px"><tr><td colspan="2" style="padding:6px 4px;font-size:11px;color:#8a8071;letter-spacing:0.04em">精算計算</td></tr>';
     var lines = [];
@@ -2892,18 +3068,18 @@ var QI = (function () {
     } else {
       lines = [['sanericciが払った分のうち、' + NM() + 'の負担', t.sane], ['' + NM() + 'が払った分のうち、sanericciの負担', t.rumi], ['差し引き', Math.abs(t.bill)]];
     }
-    lines.forEach(function (l, i) { calc += '<tr><td style="' + (i < 2 ? td : 'padding:5px 4px') + '">' + l[0] + '</td><td style="' + (i < 2 ? tdr : 'padding:5px 4px;text-align:right') + '">' + yen(l[1]) + '円</td></tr>'; });
+    lines.forEach(function (l, i) { calc += '<tr><td style="' + (i < 2 ? td : 'padding:5px 4px') + '">' + l[0] + '</td><td style="' + (i < 2 ? tdr : 'padding:5px 4px;text-align:right') + '">' + yenC(l[1]) + '円</td></tr>'; });
     calc += '</table>';
     var html = '<div style="font-family:\'Hiragino Mincho ProN\',\'Yu Mincho\',serif;color:#2b2620;max-width:560px;line-height:1.9">' +
-      '<p>' + esc(NM()) + '</p><p>返信ありがとう！</p><p>' + M + '月分（先月' + P + '月分）の精算、内訳を計算しました。<br>詳細はこの下の表の通りです。</p>' +
+      '<p>' + esc(NM()) + '</p>' + (d.fix ? '<p>先ほど送った' + M + '月分の精算に、間違いがありました。ごめんなさい。<br>こちらが正しい内容です。</p>' : '<p>返信ありがとう！</p><p>' + M + '月分（先月' + P + '月分）の精算、内訳を計算しました。<br>詳細はこの下の表の通りです。</p>') +
       '<div style="margin:18px 0;padding:16px 20px;border:1px solid #e7dcc4;border-radius:4px"><div style="font-size:12px;color:#8a8071;letter-spacing:0.06em">今回の精算結果</div><div style="font-size:20px;font-weight:600;margin-top:4px">' + head + '</div></div>' +
       '<p>よろしくお願いします。</p><p>sanericci</p><hr style="border:none;border-top:1px solid #ddd4c4;margin:24px 0">' +
       tbl('sanericci支払い分', d.sane) + tbl('' + NM() + '支払い分', d.rumi) + calc + '</div>';
-    var text = NM() + '\n\n返信ありがとう！\n' + M + '月分（先月' + P + '月分）の精算、内訳を計算しました。\n\n今回の精算結果: ' + head.replace(/　+/g, ' ') + '\n\n';
-    text += '【sanericci支払い分】\n' + d.sane.map(function (r) { return '・' + r.item + (r.note ? '（' + r.note + '）' : '') + ' ' + yen(r.amount) + '円'; }).join('\n') + '\n小計 ' + yen(sum(d.sane)) + '円\n\n';
-    text += '【' + NM() + '支払い分】\n' + d.rumi.map(function (r) { return '・' + r.item + (r.note ? '（' + r.note + '）' : '') + ' ' + yen(r.amount) + '円'; }).join('\n') + '\n小計 ' + yen(sum(d.rumi)) + '円\n\n';
-    text += lines.map(function (l) { return l[0] + ' ' + yen(l[1]) + '円'; }).join('\n') + '\n\nよろしくお願いします。\nsanericci';
-    return { html: html, text: text, subject: M + '月の精算の結果', month: M };
+    var text = NM() + '\n\n' + (d.fix ? '先ほど送った' + M + '月分の精算に、間違いがありました。ごめんなさい。\nこちらが正しい内容です。' : '返信ありがとう！\n' + M + '月分（先月' + P + '月分）の精算、内訳を計算しました。') + '\n\n今回の精算結果: ' + head.replace(/　+/g, ' ') + '\n\n';
+    text += '【sanericci支払い分】\n' + d.sane.map(function (r) { return '・' + r.item + (r.note ? '（' + r.note + '）' : '') + ' ' + yenC(r.amount) + '円'; }).join('\n') + '\n小計 ' + yenC(sum(d.sane)) + '円\n\n';
+    text += '【' + NM() + '支払い分】\n' + d.rumi.map(function (r) { return '・' + r.item + (r.note ? '（' + r.note + '）' : '') + ' ' + yenC(r.amount) + '円'; }).join('\n') + '\n小計 ' + yenC(sum(d.rumi)) + '円\n\n';
+    text += lines.map(function (l) { return l[0] + ' ' + yenC(l[1]) + '円'; }).join('\n') + '\n\nよろしくお願いします。\nsanericci';
+    return { html: html, text: text, subject: (d.fix ? '【訂正】' : '') + M + '月の精算の結果', month: M };
   }
   function checkDraft(d) {
     var bad = [];
@@ -2922,42 +3098,51 @@ var QI = (function () {
     K.sum.push({ period: p, start: d.start, end: d.end, rumi: t.rumi, sane: t.sane, bill: t.bill, rumiSum: t.rumi, saneSum: t.sane, check: '一致' });
     if (t.bill !== 0) {
       var acc = (A.snapshot().accounts[0] || {}).name || '';
-      A.saveEntry({ id: 'e_' + Date.now().toString(36) + '_sei', date: d.end, doneDate: '', kind: t.bill > 0 ? '入金' : '出金', payee: (infoGet('精算の相手先') || NM() + '精算'), category: 'その他入金', amount: Math.abs(t.bill), account: acc, memo: m + '月の精算（' + md(d.start) + '〜' + md(d.end) + '）' + (how === 'mail' ? ' 結果メール送信済み' : ''), provisional: false, createdAt: new Date().toISOString() });
+      A.saveEntry({ id: 'e_' + Date.now().toString(36) + '_sei', date: d.end, doneDate: '', kind: t.bill > 0 ? '入金' : '出金', payee: (infoGet('精算の相手先') || '拠点経費清算'), category: t.bill > 0 ? 'その他入金' : 'その他出金', amount: Math.abs(t.bill), account: acc, memo: m + '月の清算（' + md(d.start) + '〜' + md(d.end) + '）' + (how === 'mail' ? (d.fix ? ' 訂正メール送信済み' : ' 結果メール送信済み') : ''), provisional: !$('kCount').checked, seisanPeriod: p, createdAt: new Date().toISOString() });
     }
     K.draft = null; sessionDraft = 'null'; markDirty();
-    $('kFinished').innerHTML = '<b>精算を記録しました。</b>' + (how === 'mail' ? '結果メールは ' + esc(rec && rec.to || '') + ' に送りました。' : '') + '<br>最後に「作業を終える」を押して、経理ファイルに保存してください。';
-    $('kFinished').hidden = false;
+    $('kFinished').innerHTML = '<b>清算を記録しました。</b>' + (how === 'mail' ? (d.fix ? '訂正のメール' : '結果メール') + 'を ' + esc(rec && rec.to || NM()) + ' に送りました。' : '') + '<br>間違いに気づいたら、下の「これまでの記録」の「直す」から直せます。<br><button class="primary kEndBtn" type="button" style="margin-top:10px">作業を終える（経理ファイルに保存）</button>';
+    $('kFinished').hidden = false; $('kConfirm').hidden = true; $('kEdit').hidden = false; $('kFix') && ($('kFix').hidden = true); renderKiroku();
   }
   // 精算を終えて、結果をメールで送る(3秒以内に2回押す)
-  var armAt = 0, lastTap = 0;
+  var lastTap = 0;
   $('kSend').addEventListener('click', function () {
-    var now = Date.now(); if (now - lastTap < 400) return; lastTap = now;
     readInputs(); var d = K.draft, bad = checkDraft(d);
     if (bad.length) { $('kMsg').innerHTML = '<span class="kwarn">' + bad.map(esc).join('<br>') + '</span>'; return; }
-    if (now - armAt > 3000) { armAt = now; $('kSend').textContent = 'もう一度押すと送ります(3秒以内)'; setTimeout(function () { if (Date.now() - armAt >= 3000) $('kSend').textContent = '精算を終えて、結果をメールで送る'; }, 3100); return; }
-    armAt = 0; $('kSend').textContent = '送っています…'; $('kSend').disabled = true;
+    $('kMsg').innerHTML = '';
+    var mp = mailParts(d); $('kConfirmSubj').textContent = '件名：' + mp.subject; $('kConfirmBody').innerHTML = mp.html;
+    $('kEdit').hidden = true; $('kConfirm').hidden = false; try { $('kConfirm').scrollIntoView({ block: 'start' }); } catch (e) {}
+  });
+  $('kBack').addEventListener('click', function () { $('kConfirm').hidden = true; $('kEdit').hidden = false; });
+  $('kSendGo').addEventListener('click', function () {
+    var now = Date.now(); if (now - lastTap < 1500) return; lastTap = now;
+    readInputs(); var d = K.draft, bad = checkDraft(d);
+    if (bad.length) { $('kConfirm').hidden = true; $('kEdit').hidden = false; $('kMsg').innerHTML = '<span class="kwarn">' + bad.map(esc).join('<br>') + '</span>'; return; }
+    $('kSendGo').textContent = '送っています…'; $('kSendGo').disabled = true;
     var mp = mailParts(d);
-    gasCall({ action: 'send', period: period(d), threadId: d.replyThread || '', subject: mp.subject, html: mp.html, text: mp.text }).then(function (r) {
-      $('kSend').disabled = false; $('kSend').textContent = '精算を終えて、結果をメールで送る';
-      if (!r.ok) { $('kMsg').innerHTML = '<span class="kwarn">送れませんでした: ' + esc(r.error) + '</span>'; return; }
-      if (r.already && r.record && /^\d{8}-\d{8}$/.test(r.record.period || '')) { var pe = r.record.period.slice(9); K.draft.end = pe.slice(0, 4) + '-' + pe.slice(4, 6) + '-' + pe.slice(6); }
+    gasCall({ action: 'send', period: period(d) + (d.fix ? '-fix' + d.fix.n : ''), threadId: d.replyThread || '', subject: mp.subject, html: mp.html, text: mp.text }).then(function (r) {
+      $('kSendGo').disabled = false; $('kSendGo').textContent = 'この内容でメールを送る';
+      if (!r.ok) { $('kConfirm').hidden = true; $('kEdit').hidden = false; $('kMsg').innerHTML = '<span class="kwarn">送れませんでした: ' + esc(r.error) + '</span>'; return; }
+      if (!d.fix && r.already && r.record && /^\d{8}-\d{8}$/.test(r.record.period || '')) { var pe = r.record.period.slice(9); K.draft.end = pe.slice(0, 4) + '-' + pe.slice(4, 6) + '-' + pe.slice(6); }
+      if (d.fix && r.already) { $('kConfirm').hidden = true; $('kEdit').hidden = false; $('kMsg').innerHTML = '<span class="kwarn">受け口が「この訂正はもう送ってある」と答えたので、送っていません。記録もまだしていません。</span>'; return; }
       finalize('mail', r.record);
       if (r.already) $('kMsg').innerHTML = 'この期間の結果メールは、' + esc(r.record.at) + ' にもう送ってありました。記録だけしました。';
-    }, function (e) { $('kSend').disabled = false; $('kSend').textContent = '精算を終えて、結果をメールで送る'; $('kMsg').innerHTML = '<span class="kwarn">送れたか分かりません(電波など)。もう一度押しても、同じ期間は2通目が出ないようになっています。</span>'; });
+    }, function (e) { $('kSendGo').disabled = false; $('kSendGo').textContent = 'この内容でメールを送る'; $('kConfirm').hidden = true; $('kEdit').hidden = false; $('kMsg').innerHTML = '<span class="kwarn">送れたか分かりません(電波など)。もう一度押しても、同じ期間は2通目が出ないようになっています。</span>'; });
   });
   // 精算を終える(メールは送らない)
   $('kNoMail').addEventListener('click', function () {
     readInputs(); var d = K.draft, bad = checkDraft(d);
     if (bad.length) { $('kMsg').innerHTML = '<span class="kwarn">' + bad.map(esc).join('<br>') + '</span>'; return; }
     var mp = mailParts(d);
-    $('kCopyText').value = mp.text; $('kCopyBox').hidden = false;
-    finalize('nomail');
+    $('kCopyText').value = mp.text;
+    finalize('nomail'); $('kCopyBox').hidden = false;
   });
   $('kCopyBtn').addEventListener('click', function () { copyText($('kCopyText').value).then(function () { toast('結果の文をコピーしました'); }, function () { toast('コピーできませんでした。文を長押しして選んでください'); }); });
   // 途中でやめる(あとで続ける)
   $('kHold').addEventListener('click', function () { readInputs(); markDirty(); toast('途中の内容を残しました。「作業を終える」で経理ファイルにも残ります'); show('menu'); });
   // 今回の変更を取り消す
   $('kCancel').addEventListener('click', function () {
+    if (K.draft && K.draft.fix && K.draft.fix.backup) { undoFix(K.draft.fix.backup); K.draft = null; sessionDraft = 'null'; markDirty(); toast('直すのをやめて、記録を元に戻しました'); renderSeisan(false); return; }
     K.draft = sessionDraft && sessionDraft !== 'null' ? JSON.parse(sessionDraft) : null; saveLocal();
     toast('今回の精算の変更を取り消しました'); renderSeisan(false);
   });
@@ -2965,14 +3150,40 @@ var QI = (function () {
   /* ---------- これまでの記録 ---------- */
   function renderKiroku() {
     var s = K.sum.slice().sort(function (a, b) { return a.end < b.end ? 1 : -1; });
-    $('kKirokuList').innerHTML = s.map(function (x) {
+    var html = s.map(function (x) {
       var dir = x.bill > 0 ? '' + NM() + ' → sanericci' : (x.bill < 0 ? 'sanericci → ' + NM() + '' : '差し引きなし');
       var det = K.det.filter(function (d) { return d.period === x.period; });
-      return '<details class="kk"><summary><span class="kkp">' + md(x.start) + '〜' + md(x.end) + (x.start.slice(0, 4) !== x.end.slice(0, 4) || x.end.slice(0, 4) !== today().slice(0, 4) ? '<small> ' + x.end.slice(0, 4) + '</small>' : '') + '</span><span class="kkb">' + dir + ' ' + yen(Math.abs(x.bill)) + '円</span>' +
-        (x.check && x.check !== '一致' ? '<span class="kwarn kkc">' + esc(x.check) + '</span>' : '') + '</summary>' +
-        '<table class="kkt">' + det.map(function (d) { return '<tr><td>' + esc(d.who) + '</td><td>' + esc(d.item) + (d.note ? '<small>（' + esc(d.note) + '）</small>' : '') + '</td><td class="r">' + yen(d.amount) + '</td><td class="r">' + yen(d.bill) + '</td></tr>'; }).join('') + '</table></details>';
+      return '<details class="kk"><summary><span class="kkp">' + yd(x.start) + '〜' + (String(x.start).slice(0, 4) === String(x.end).slice(0, 4) ? md(x.end) : yd(x.end)) + '</span><span class="kkb">' + dir + ' ' + yenC(Math.abs(x.bill)) + '円</span></summary>' +
+        '<table class="kkt">' + det.map(function (d) { return '<tr><td>' + esc(d.who) + '</td><td>' + esc(d.item) + (d.note ? '<small>（' + esc(d.note) + '）</small>' : '') + '</td><td class="r">' + yenC(d.amount) + '</td><td class="r">' + yenC(d.bill) + '</td></tr>'; }).join('') + '</table>' +
+        (/^\d{4}-\d{2}-\d{2}$/.test(x.start) && /^\d{4}-\d{2}-\d{2}$/.test(x.end) ? '<button type="button" class="ghost kkfix" data-fix="' + esc(x.period) + '">直す（この回を清算の画面に戻す）</button>' : '') + '</details>';
     }).join('');
+    $('kKirokuList').innerHTML = html; $('kKirokuList2').innerHTML = html;
   }
+  function yd(s) { var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || ''); return m ? m[1] + '/' + (+m[2]) + '/' + (+m[3]) : String(s || ''); }
+  /* 記録した回を直す: 記録と月末の予定から外して下書きに戻す。やめた時に戻せるよう、外した分を持っておく */
+  function startFix(per) {
+    if (K.draft && !(K.draft.fix) && !confirm('今、書きかけの清算があります。書きかけを消して、この回を直しますか？')) return;
+    if (K.draft && K.draft.fix && K.draft.fix.backup) undoFix(K.draft.fix.backup);
+    var sum = K.sum.filter(function (x) { return x.period === per; })[0]; if (!sum) return;
+    var det = K.det.filter(function (x) { return x.period === per; });
+    var snap = A.snapshot(), ent = snap.entries.filter(function (e) { return e.seisanPeriod === per || (/_sei$/.test(e.id) && e.date === sum.end && /精算|清算/.test(e.payee)); });
+    var fc = {}; try { fc = JSON.parse(infoGet('訂正の回数(JSON)') || '{}') || {}; } catch (e0) { fc = {}; } var prevFix = fc[per] || 0;
+    K.sum = K.sum.filter(function (x) { return x.period !== per; });
+    K.det = K.det.filter(function (x) { return x.period !== per; });
+    if (ent.length) { var ids = ent.map(function (e) { return e.id; }); A.applyData(Object.assign({}, snap, { entries: snap.entries.filter(function (e) { return ids.indexOf(e.id) < 0; }) })); A.lsSaveQuiet(); A.render(); }
+    fc[per] = prevFix + 1; infoSet('訂正の回数(JSON)', JSON.stringify(fc));
+    var row = function (d) { return { date: d.date, item: d.item, kind: d.kind, amount: d.amount, qty: d.qty, note: d.note }; };
+    K.draft = { start: sum.start, end: sum.end, rumi: det.filter(function (d) { return d.who !== 'sanericci'; }).map(row), sane: det.filter(function (d) { return d.who === 'sanericci'; }).map(row), replyThread: '', createdAt: new Date().toISOString(),
+      fix: { n: prevFix + 1, backup: { sum: sum, det: det, entries: ent } } };
+    sessionDraft = 'null'; markDirty(); $('kFinished').hidden = true; $('kCopyBox').hidden = true; renderSeisan(false); window.scrollTo(0, 0);
+    toast(md(sum.start) + '〜' + md(sum.end) + ' の回を戻しました。直してから、もう一度記録してください');
+  }
+  function undoFix(b) {
+    K.sum.push(b.sum); b.det.forEach(function (d) { K.det.push(d); });
+    if (b.entries && b.entries.length) { var snap = A.snapshot(); A.applyData(Object.assign({}, snap, { entries: snap.entries.concat(b.entries) })); A.lsSaveQuiet(); A.render(); }
+    renderKiroku();
+  }
+  document.addEventListener('click', function (ev) { var b = ev.target.closest && ev.target.closest('[data-fix]'); if (b) startFix(b.getAttribute('data-fix')); });
 
   window.KAIKEI_ONCHANGE = function () { if (ready()) { markDirty(); setFp(); } };
   $('kRestore').addEventListener('click', function () {
@@ -2997,7 +3208,7 @@ var QI = (function () {
 
 </script>
 
-<button type="button" id="qe_close">閉じる</button>
+<button type="button" id="qe_close">閉じる</button><button type="button" id="qe_printbtn">印刷 ／ PDF</button>
 <div id="qep"><div class="qep-in"><div class="qep-h" id="qep_h">入れる</div><div id="qep_b"></div>
  <div class="qep-f"><button type="button" class="qe-b" id="qep_del">この行を消す</button><button type="button" class="qe-b qep-ok" id="qep_ok">入れる</button></div></div></div>
 <style>
@@ -3073,7 +3284,7 @@ var QI = (function () {
   for(var i=0;i<L.length;i++){
    var e=L[i], amt=e.lump?(+e.p||0):((+e.q||0)*(+e.p||0)); t+=amt;
    h+='<div class="qe-line" data-i="'+i+'">'
-     +'<span class="nm">'+(e.n?esc(e.n):'<span style="color:#8a8071">（品名を入れる）</span>')
+     +'<span class="nm">'+(e.n?esc(e.n):'<span style="color:#8a8071">（品名を入れる）</span>')+(e.chk?'<span class="qe-chk">未処理</span>':'')
      +'<span class="sb">'+(e.lump?'一式':((+e.q||0)+esc(e.u||'')+' × '+yen(e.p)))+(e.m?'　'+esc(e.m):'')+'</span></span>'
      +'<span class="am">'+yen(amt)+'</span>'
      +'<button type="button" data-up="'+i+'" aria-label="上へ">↑</button>'
@@ -3095,6 +3306,8 @@ var QI = (function () {
    if($('qe_pay'))$('qe_pay').textContent=({mae:'前払い',matsu:'末締め・翌月末',nouhin:'納品もの（着手金・残金）'})[g('q_pay')]||'—';
    if($('qe_note'))$('qe_note').textContent=g('qf_note')||'—';
    if($('qe_brand')&&$('q_brand'))$('qe_brand').textContent=($('q_brand').value==='cafe')?'sanericci café':'Dcloud（楽曲制作）';
+   if($('qe_stat')&&$('q_stat'))$('qe_stat').textContent=$('q_stat').value||'—';
+   if($('qe_msg')&&$('q_state'))$('qe_msg').textContent=$('q_state').textContent||'';
   }
   var iv=IV(); if(iv&&$('ie_lines')){
    drawLines('ie_lines','ie_total',iv.lines||[]);
@@ -3103,6 +3316,7 @@ var QI = (function () {
    if($('ie_due'))$('ie_due').textContent=V('if_due')||'—';
    if($('ie_no'))$('ie_no').textContent=V('if_no')||'—';
    if($('ie_note'))$('ie_note').textContent=V('if_note')||'—';
+   if($('ie_msg')&&$('i_state'))$('ie_msg').textContent=$('i_state').textContent||'';
   }
  }
  window.__qeDraw=draw;
@@ -3119,7 +3333,7 @@ var QI = (function () {
   +'<div class="qep-fld"><label>数え方</label><select id="qep_l"><option value="">ふつう（数量×単価）</option><option value="1">一式（単価をそのまま）</option></select></div>',
   function(){ var L2=lines(); if(!L2||!L2[i])return;
     L2[i].n=$('qep_n').value; L2[i].q=+$('qep_q').value||0; L2[i].p=+$('qep_p').value||0;
-    L2[i].m=$('qep_m').value; L2[i].lump=($('qep_l').value==='1'); redraw(); }, true);
+    L2[i].m=$('qep_m').value; L2[i].lump=($('qep_l').value==='1'); L2[i].chk=0; redraw(); }, true);
   $('qep_l').value=e.lump?'1':'';
  }
 
@@ -3131,7 +3345,7 @@ var QI = (function () {
   h+='<button type="button" class="qep-pick" data-sp="lump">一式の行<small>数量なし・金額だけ</small></button>';
   h+='<button type="button" class="qep-pick" data-sp="disc">値引き<small>マイナスの金額</small></button>';
   if(!isInv()) h+='<button type="button" class="qep-pick" data-sp="travel">出張費をはかる<small>会場・km・高速代から出す</small></button>';
-  if(isInv()) h+='<button type="button" class="qep-pick" data-sp="park">駐車場代<small>実費</small></button>';
+  h+='<button type="button" class="qep-pick" data-sp="park">駐車場代<small>実費</small></button>';
   panel('行を足す',h,null,false);
  }
  function itemList(cat,kw){
@@ -3174,21 +3388,26 @@ var QI = (function () {
    +fld('tp_km','片道 km','number',$('t_km')?$('t_km').value:'','min="0" step="any"')
    +fld('tp_gas','ハイオク 円/ℓ','number',$('t_gas')?$('t_gas').value:'','min="0" step="any"')
    +fld('tp_toll','高速代（往復）','number',$('t_toll')?$('t_toll').value:'','min="0" step="any"')
+   +'<label class="qep-fld" style="display:flex;gap:8px;align-items:center;font-size:15px"><input type="checkbox" id="tp_car" style="width:22px;min-height:22px"> 車で行く（外すと、ガソリン代・高速代・車両費が無くなり、運賃を使います）</label>'
+   +fld('tp_fare','車でない時の運賃（電車・飛行機）','number',$('t_fare')?$('t_fare').value:'','min="0" step="any"')
    +fld('tp_hotel','宿泊代','number',$('t_hotel')?$('t_hotel').value:'','min="0" step="any"')
+   +(($('q_brand')&&$('q_brand').value==='dcloud')?(fld('tp_num','人数（Dcloud）','number',$('t_num')?$('t_num').value:'1','min="0" step="1"')+fld('tp_wday','作業日数','number',$('t_wday')?$('t_wday').value:'0','min="0" step="1"')+fld('tp_mday','移動日数','number',$('t_mday')?$('t_mday').value:'0','min="0" step="1"')+'<p class="khint" style="margin:0 0 8px">22,000円×人数×作業日数 ＋ 11,000円×人数×移動日数 を足します（紙には「出張費 一式」の1行だけ）。</p>'):'')
    +fld('tp_misc','必要経費','number',$('t_misc')?$('t_misc').value:'','min="0" step="any"')
    +'<div class="qep-out" id="tp_out">出張費　0 円</div>'
    +'<p class="khint" id="tp_br" style="margin:6px 0 0"></p>'
    +'<button type="button" class="qep-pick" data-tsave="1" style="margin-top:10px">この会場を覚える<small>次から km と高速代が出ます</small></button>';
   panel('出張費をはかる',h,function(){ push(); var b=$('t_add'); if(b)b.click(); },false);
   if($('t_free'))$('tp_free').checked=$('t_free').checked;
+  if($('t_car')&&$('tp_car'))$('tp_car').checked=$('t_car').checked;
   function push(){
-   var m=[['tp_place','t_place'],['tp_km','t_km'],['tp_gas','t_gas'],['tp_toll','t_toll'],['tp_hotel','t_hotel'],['tp_misc','t_misc']];
+   var m=[['tp_place','t_place'],['tp_km','t_km'],['tp_gas','t_gas'],['tp_toll','t_toll'],['tp_hotel','t_hotel'],['tp_misc','t_misc'],['tp_fare','t_fare'],['tp_num','t_num'],['tp_wday','t_wday'],['tp_mday','t_mday'],['tp_num','mt_num'],['tp_wday','mt_wday'],['tp_mday','mt_mday']];
    m.forEach(function(p){ var a=$(p[0]),b=$(p[1]); if(a&&b){b.value=a.value; ev(b,'input');} });
    if($('t_free')){ $('t_free').checked=$('tp_free').checked; ev($('t_free'),'change'); }
-   if($('t_car')&&!$('t_car').checked){ $('t_car').checked=true; ev($('t_car'),'change'); }
+   if($('t_car')&&$('tp_car')&&$('t_car').checked!==$('tp_car').checked){ $('t_car').checked=$('tp_car').checked; ev($('t_car'),'change'); }
   }
   function show(){ push(); if($('t_out'))$('tp_out').textContent=$('t_out').textContent; if($('t_br'))$('tp_br').textContent=$('t_br').textContent; }
-  ['tp_place','tp_km','tp_gas','tp_toll','tp_hotel','tp_misc'].forEach(function(i){ var e=$(i); if(e)e.addEventListener('input',show); });
+  ['tp_place','tp_km','tp_gas','tp_toll','tp_hotel','tp_misc','tp_fare','tp_num','tp_wday','tp_mday'].forEach(function(i){ var e=$(i); if(e)e.addEventListener('input',show); });
+  var pc=$('tp_car'); if(pc)pc.addEventListener('change',show);
   var pf=$('tp_free'); if(pf)pf.addEventListener('change',show);
   var pp=$('tp_place'); if(pp)pp.addEventListener('change',function(){
     var v=((KQ()||{}).venues||[]).filter(function(x){return x.name===pp.value})[0];
@@ -3265,6 +3484,11 @@ var QI = (function () {
   if(t.id==='qe_add'||t.id==='ie_add'){ addMenu(); return; }
   if(t.id==='qe_paper'||t.id==='ie_paper'){ document.body.classList.add('qe-paper'); window.scrollTo(0,0); return; }
   if(t.id==='qe_close'){ document.body.classList.remove('qe-paper'); return; }
+  if(t.id==='qe_printbtn'){ var pb=isInv()?$('i_print'):$('q_print'); if(pb)pb.click(); return; }
+  if(t.id==='qe_save'){ var sb=$('q_save'); if(sb)sb.click(); draw(); return; }
+  if(t.id==='ie_save'){ var ib=$('i_save'); if(ib)ib.click(); draw(); return; }
+  if(t.id==='qe_keep'){ var kb=$('q_keep'); if(kb)kb.click(); draw(); return; }
+  if(t.id==='qe_new'){ var nb=$('q_new'); if(nb)nb.click(); draw(); return; }
   if(t.id==='qep_del'){ var L3=lines(); if(L3&&delRow>=0){L3.splice(delRow,1);redraw();} closeP(); return; }
   if(t.id==='qep_ok'){ var f=pOK; closeP(); if(f)f(); draw(); return; }
   if(t.id==='qep'){ closeP(); return; }
@@ -3295,6 +3519,9 @@ var QI = (function () {
   if(k==='valid'){
    panel('有効期限',fld('vl_d','有効期限','date',V('qf_valid')),
    function(){ $('qf_valid').value=$('vl_d').value; ev($('qf_valid'),'change'); }, false); return; }
+  if(k==='stat'){
+   var sts=['問い合わせ','見積','発注','着手金入金','確認待ち','残金請求','納品済'];
+   panel('状態',sts.map(function(x){return '<button type="button" class="qep-pick" data-st="'+x+'">'+x+'</button>';}).join('')+'<p class="khint" style="margin:6px 0 0">「この見積を入れる」を押すと、この状態で残ります。</p>',null,false); return; }
   if(k==='no'){
    panel('見積No.',fld('no_t','見積No.','text',V('qf_no'))+'<p class="khint" style="margin:0">空にして「この見積を入れる」を押すと、自動で付きます。</p>',
    function(){ $('qf_no').value=$('no_t').value; }, false); return; }
@@ -3341,7 +3568,10 @@ var QI = (function () {
  document.addEventListener('click',function(e){
   var t=e.target, b=t.closest?t.closest('[data-pay]'):null;
   if(b){ var p=$('q_pay'); if(p){ p.value=b.getAttribute('data-pay'); ev(p,'change'); } closeP(); draw(); }
+  var st=t.closest?t.closest('[data-st]'):null;
+  if(st){ var s0=$('q_stat'); if(s0){ s0.value=st.getAttribute('data-st'); ev(s0,'change'); } closeP(); draw(); }
  },false);
+ (function(){ var dm=$('d_meet'), qe=$('qe'); if(dm&&qe&&qe.children[1]) qe.insertBefore(dm, qe.children[1]); })();   // 打ち合わせシートを「くわしい入力」の外に出す
 
  /* ===== 長押しドラッグで行の順番を変える（指の時だけ。マウスは ↑↓ ボタン） ===== */
  var dragIdx=-1, holdT=null, startY=0, dragEnd=0;
@@ -3377,46 +3607,22 @@ var QI = (function () {
 <script>
 (function(){
  var $=function(i){return document.getElementById(i)};
- var moved=false;
- function ev(el,t){ if(el) el.dispatchEvent(new Event(t,{bubbles:true})); }
- function brand(){ var b=$('q_brand'); return b?b.value:'cafe'; }
- function move(){
-  if(moved) return;
-  var a=$('d_meet'), b=$('d_name'), c=$('d_travel');
-  var A=$('ti_meet'), B=$('ti_name'), C=$('ti_travel');
-  if(!a||!b||!c||!A||!B||!C) return;
-  A.appendChild(a); B.appendChild(b); C.appendChild(c);
-  a.open=true; b.open=true; c.open=true; moved=true;
- }
- function fillClient(){
-  var src=$('q_client'), dst=$('ti_client'); if(!src||!dst) return;
-  if(dst.innerHTML!==src.innerHTML) dst.innerHTML=src.innerHTML;
-  if(dst.value!==src.value) dst.value=src.value;
- }
+ function anken(){try{var K=window.KAIKEI&&window.KAIKEI.get();return (K&&K.qi&&K.qi.anken)||[]}catch(e){return []}}
  function draw(){
-  move(); fillClient();
-  var dc=(brand()==='dcloud');
-  if($('d_meet')) $('d_meet').style.display = dc ? '' : 'none';
-  if($('ti_cafe')) $('ti_cafe').style.display = dc ? 'none' : '';
-  if($('ti_brand')) $('ti_brand').textContent = dc ? 'Dcloud（楽曲制作）' : 'sanericci café';
-  if($('ti_day')&&$('q_day')&&$('ti_day').value!==$('q_day').value) $('ti_day').value=$('q_day').value;
-  if($('ti_pay')&&$('q_pay')&&$('ti_pay').value!==$('q_pay').value&&$('q_pay').value!=='nouhin') $('ti_pay').value=$('q_pay').value;
+  var box=$('ti_list'); if(!box)return;
+  var L=anken().filter(function(a){return a.state==='問い合わせ' || (!a.no && a.state!=='実績');}).sort(function(a,b){return String(b.date||'').localeCompare(String(a.date||''));}); // 見積番号がまだ無い話
+  var h='';
+  for(var i=0;i<L.length;i++){var a=L[i];
+   h+='<div class="qe-line" data-ti="'+String(a.id).replace(/"/g,'')+'"><span class="nm">'+String(a.client||a.title||'（名前なし）').replace(/</g,'&lt;')
+     +'<span class="sb">'+(a.brand==='dcloud'?'Dcloud':'sanericci café')+(a.date?'　'+a.date:'')+(a.title?'　'+String(a.title).replace(/</g,'&lt;'):'')+'</span></span>'
+     +'<span class="am">見積へ ›</span></div>';}
+  box.innerHTML=h||'<div style="padding:14px 0;color:#4a544d;font-size:15px">まだありません。下の「＋ 問い合わせを足す」から、新しい見積を始められます。</div>';
  }
- document.addEventListener('change',function(e){
-  var t=e.target;
-  if(t.id==='ti_client'){ var c=$('q_client'); if(c){ c.value=t.value; ev(c,'change'); } return; }
-  if(t.id==='ti_day'){ var d=$('q_day'); if(d){ d.value=t.value; ev(d,'input'); ev(d,'change'); } return; }
-  if(t.id==='ti_pay'){ var p=$('q_pay'); if(p){ p.value=t.value; ev(p,'change'); } return; }
- },false);
- document.addEventListener('click',function(e){
-  var t=e.target;
-  if(t.closest&&t.closest('[data-kgo="toiawase"]')){ draw(); return; }
-  var row=t.closest&&t.closest('.qe-row[data-ti="brand"]');
-  if(row){ var b=$('q_brand'); if(b){ b.value=(b.value==='cafe')?'dcloud':'cafe'; ev(b,'change'); } draw(); return; }
-  if(t.id==='ti_go'){
-    if(brand()==='dcloud'){ var a=$('mt_apply'); if(a)a.click(); }
-    else { var n=$('q_mkname'); if(n&&($('q_kind').value.trim()||$('q_day').value)) n.click(); }
-    var m=document.querySelector('[data-kgo="mitsumori"]'); if(m)m.click(); return; }
+ document.addEventListener('click',function(ev){
+  var t=ev.target;
+  if(t.id==='ti_add'){var b=document.querySelector('[data-kgo="mitsumori"]'); if(b)b.click(); var nb=$('q_new'); if(nb)nb.click(); var mq=$('qe_msg'); if(mq)mq.textContent='新しい問い合わせです。Dcloud の時は、上の「依頼先」を Dcloud にすると打ち合わせシートが出ます。聞いたら「問い合わせとして残す」を押してください。'; return;}
+  var row=t.closest&&t.closest('[data-ti]');
+  if(row){var b2=document.querySelector('[data-kgo="mitsumori"]'); if(b2)b2.click(); if(window.__QI&&window.__QI.loadAnken)window.__QI.loadAnken(row.getAttribute('data-ti')); if(window.__qeDraw)window.__qeDraw(); return;}
  },false);
  setInterval(function(){ if(document.body.getAttribute('data-kview')==='toiawase') draw(); },700);
 })();
