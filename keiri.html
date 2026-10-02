@@ -794,7 +794,7 @@ table.pa-tb, table.pb-tb { width: 100%; border-collapse: collapse; margin-top: 2
 
 <!-- ===== メニュー ===== -->
 <section class="kview" id="kMenu">
-  <div class="top"><div class="eyebrow"><strong>sanericci cafe 経理</strong> <span style="color:var(--ink-soft)" id="kVer">v17.4</span></div><div class="theme-toggle" role="group" aria-label="表示の明るさ"><button type="button" data-theme-choice="light">明るい</button><button type="button" data-theme-choice="dark">夜</button></div></div>
+  <div class="top"><div class="eyebrow"><strong>sanericci cafe 経理</strong> <span style="color:var(--ink-soft)" id="kVer">v17.4.1</span></div><div class="theme-toggle" role="group" aria-label="表示の明るさ"><button type="button" data-theme-choice="light">明るい</button><button type="button" data-theme-choice="dark">夜</button></div></div>
   <div class="kcard" id="kDone" hidden></div>
   <div class="kcard" id="kStatus"></div>
   <div id="kAsk" class="kcard" hidden></div>
@@ -2674,7 +2674,7 @@ var QI = (function () {
     PDFST.busy = true;
     var saved = pdfFlip(document), sizes = [], svgs = [], boxes = [], pages = [], title = pdfFileName().replace(/\.pdf$/, "");
     var LIMIT = opt.limit || 30000;
-    var done = function () { PDFST.busy = false; try { pdfUnflip(saved); } catch (e) { } try { ppRestoreNow(); } catch (e) { } };
+    var done = function () { PDFST.busy = false; try { pdfUnflip(saved); } catch (e) { } try { ppRestoreNow(); } catch (e) { } var st = $("pp_page"); if (st && !PP.length) st.parentNode.removeChild(st); };   // 紙が無かった時も余白0の指定を残さない
     try {
       ppBeforePrint();   // 印刷と同じ: 印を付けて、紙を1枚ずつの箱に分ける
       boxes = Array.prototype.filter.call(document.querySelectorAll(".qi-sheet.pp"), function (b) { return b.getClientRects().length; });
@@ -2724,9 +2724,8 @@ var QI = (function () {
       return chain;
     }).then(function () {
       if (!pages.length) throw new Error("紙が見つかりませんでした");
-      var r = { bytes: pdfBuild(pages, title), name: title + ".pdf", pages: pages.length };
-      done(); return r;
-    }, function (e) { done(); throw e; });
+      return { bytes: pdfBuild(pages, title), name: title + ".pdf", pages: pages.length };
+    }).then(function (r) { done(); return r; }, function (e) { done(); throw e; });   // 失敗した時も、必ず元に戻す(v17.4.1)
   }
   function pdfShareNow() {   // 「保存・送る」: 押した直後に呼ぶ(待ちを挟まない)
     var f = PDFST.file; if (!f) return Promise.resolve("none");
