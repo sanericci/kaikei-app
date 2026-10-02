@@ -428,13 +428,17 @@ body[data-kview="seikyu"] #ie{display:block}
  body.qe-paper[data-kview="mitsumori"] .qi-right,body.qe-paper[data-kview="seikyu"] .qi-right{position:fixed !important;left:0;visibility:visible}
  body.qe-paper[data-kview="mitsumori"] .qi-right,body.qe-paper[data-kview="seikyu"] .qi-right{inset:0;width:auto;z-index:60;overflow:auto;background:var(--bg);padding:58px 10px 24px}
  body.qe-paper #qe_close{display:block}
-#qe_pdfbtn{display:none;position:fixed;top:62px;left:12px;z-index:61;min-height:44px;padding:0 18px;border-radius:12px;border:1px solid var(--line);background:var(--card);font-size:16px;color:var(--ink)}
-body.qe-paper #qe_pdfbtn{display:block}
-body.qe-paper[data-kview="mitsumori"] .qi-right,body.qe-paper[data-kview="seikyu"] .qi-right{padding-top:112px !important}   /* PDF のボタンの分だけ紙を下げる */
-#qe_pdfbtn.ready{background:#4b6f65;color:#fff;border-color:#4b6f65}   /* --a は紙の中だけの色なので、ここでは色を直接書く(v17.4.2) */
-#pdf_veil{position:fixed;inset:0;z-index:200;background:rgba(255,255,255,.96);display:flex;align-items:center;justify-content:center;font-size:17px;color:#333}
+#pdf_veil{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center}
+#pdf_veil .pv{width:min(86vw,360px);background:#fff;color:#333;border-radius:14px;padding:20px 18px 16px;box-shadow:0 8px 30px rgba(0,0,0,.25);font-size:16px}
+#pdf_veil .pv-t{margin-bottom:12px;line-height:1.5}
+#pdf_veil .pv-bar{height:12px;border-radius:6px;background:#e4e8e6;overflow:hidden}
+#pdf_veil .pv-bar i{display:block;height:100%;width:0;background:#4b6f65;transition:width .25s}
+#pdf_veil .pv-n{display:flex;justify-content:space-between;margin-top:8px;font-size:14px;color:#555;font-variant-numeric:tabular-nums}
+#pdf_veil button{display:block;width:100%;min-height:44px;margin-top:12px;border-radius:10px;border:1px solid #cfd6d3;background:#fff;font-size:16px;color:#333}
+#pdf_veil #pv_go{background:#4b6f65;color:#fff;border-color:#4b6f65}
+#pdf_veil button[hidden]{display:none}
 #pdf_veil[hidden]{display:none}
-@media print{#qe_pdfbtn,#pdf_veil{display:none !important}}
+@media print{#pdf_veil{display:none !important}}
 }
 #qe_close{display:none;position:fixed;top:10px;right:12px;z-index:61;min-height:44px;padding:0 18px;border-radius:12px;border:1px solid var(--line);background:var(--card);font-size:16px;color:var(--ink)}
 .qep-fld textarea{width:100%;font-size:16px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);line-height:1.5}
@@ -794,7 +798,7 @@ table.pa-tb, table.pb-tb { width: 100%; border-collapse: collapse; margin-top: 2
 
 <!-- ===== メニュー ===== -->
 <section class="kview" id="kMenu">
-  <div class="top"><div class="eyebrow"><strong>sanericci cafe 経理</strong> <span style="color:var(--ink-soft)" id="kVer">v17.4.2</span></div><div class="theme-toggle" role="group" aria-label="表示の明るさ"><button type="button" data-theme-choice="light">明るい</button><button type="button" data-theme-choice="dark">夜</button></div></div>
+  <div class="top"><div class="eyebrow"><strong>sanericci cafe 経理</strong> <span style="color:var(--ink-soft)" id="kVer">v17.5</span></div><div class="theme-toggle" role="group" aria-label="表示の明るさ"><button type="button" data-theme-choice="light">明るい</button><button type="button" data-theme-choice="dark">夜</button></div></div>
   <div class="kcard" id="kDone" hidden></div>
   <div class="kcard" id="kStatus"></div>
   <div id="kAsk" class="kcard" hidden></div>
@@ -2688,6 +2692,8 @@ var QI = (function () {
         }));
       });
     } catch (e) { done(); return Promise.reject(e); }
+    var TOT = boxes.length + 2, prog = function (d, t) { try { if (opt.progress) opt.progress(d, TOT, t); } catch (e) { } };
+    prog(1, "紙を分けました");
     var pre = [].concat.apply([], svgs).filter(function (f) { return f.vis; }).map(function (f) { var im = new Image(); im.src = f.src; return (im.decode ? im.decode() : Promise.resolve()).catch(function () { }); });
     return Promise.all(pre).then(function () {
       pdfUnflip(saved);   // 測り終えたら画面の書き方に戻す(印刷用のままだと html2canvas の作業用の枠まで隠れる)
@@ -2696,6 +2702,7 @@ var QI = (function () {
       var chain = Promise.resolve();
       boxes.forEach(function (b, k) {
         chain = chain.then(function () {
+          prog(1 + k, (k + 1) + " / " + boxes.length + " 枚目を作っています");
           var S = 2480 / sizes[k].W;
           var job = html2canvas(b, { scale: S, backgroundColor: "#ffffff", logging: false, useCORS: true, windowWidth: Math.max(900, sizes[k].W + 40),
             onclone: function (d, el) {
@@ -2717,46 +2724,71 @@ var QI = (function () {
             } });
           var cut = new Promise(function (_, no) { setTimeout(function () { no(new Error("時間切れ")); }, LIMIT); });
           return Promise.race([job, cut]).then(function (cv) {
-            return pdfJpeg(cv).then(function (jpg) { pages.push({ jpg: jpg, w: cv.width, h: cv.height, mmH: cv.height / cv.width * 210 }); cv.width = cv.height = 0; });
+            return pdfJpeg(cv).then(function (jpg) { pages.push({ jpg: jpg, w: cv.width, h: cv.height, mmH: cv.height / cv.width * 210 }); prog(2 + k, (k + 1) + " / " + boxes.length + " 枚目ができました"); cv.width = cv.height = 0; });
           });
         });
       });
       return chain;
     }).then(function () {
       if (!pages.length) throw new Error("紙が見つかりませんでした");
+      prog(TOT, "できました");
       return { bytes: pdfBuild(pages, title), name: title + ".pdf", pages: pages.length };
     }).then(function (r) { done(); return r; }, function (e) { done(); throw e; });   // 失敗した時も、必ず元に戻す(v17.4.1)
   }
-  function pdfShareNow() {   // 「保存・送る」: 押した直後に呼ぶ(待ちを挟まない)
-    var f = PDFST.file; if (!f) return Promise.resolve("none");
-    if (navigator.canShare && navigator.share && navigator.canShare({ files: [f] })) {
-      return navigator.share({ files: [f], title: PDFST.name }).then(function () { return "shared"; }, function (e) { return e && e.name === "AbortError" ? "cancel" : pdfDownload(); });
-    }
-    return Promise.resolve(pdfDownload());
+  function pdfCheck() {   // 印刷の前の確かめ(今までの印刷と同じ)
+    var inv = viewNow() === "seikyu";
+    var ok = inv ? (document.body.classList.contains("rcpt-on") ? rcCheck() : (iCheck && iCheck())) : (qCheck && qCheck());
+    if (!ok) $("qf_validbox").style.visibility = "visible";
+    return ok;
   }
-  function pdfDownload() {   // 共有の画面が使えない時: ファイルとして保存
-    var f = PDFST.file, u = URL.createObjectURL(f), a = document.createElement("a"); a.href = u; a.download = PDFST.name; document.body.appendChild(a); a.click();
-    setTimeout(function () { URL.revokeObjectURL(u); a.parentNode.removeChild(a); }, 60000); return "download";
+  var PV = { file: null, url: "", win: null, cancel: false, t0: 0, tick: 0 };
+  function pvShow(on) { $("pdf_veil").hidden = !on; if (!on) { clearInterval(PV.tick); $("pv_go").hidden = true; } }
+  function pvSet(d, n, t) { var p = Math.round(d / n * 100); $("pv_bar").style.width = p + "%"; $("pv_n").textContent = p + "%"; if (t) $("pv_t").textContent = t; }
+  function pvEnd() {   // 終わったら PDF を捨てる
+    PV.file = null; if (PV.url) { var u = PV.url; setTimeout(function () { URL.revokeObjectURL(u); }, 60000); } PV.url = ""; PV.win = null; pvShow(false);
   }
-  function pdfReset() { PDFST.file = null; PDFST.name = ""; var b = $("qe_pdfbtn"); if (b) { b.textContent = "PDF を作る"; b.classList.remove("ready"); b.disabled = false; } }
-  function pdfButton() {   // 紙を見る画面の「PDF を作る」/「保存・送る」
-    var b = $("qe_pdfbtn"); if (!b || PDFST.busy) return;
-    if (PDFST.file) { pdfShareNow().then(function (how) { if (how === "shared" || how === "download") pdfReset(); }); return; }
-    var inv = viewNow() === "seikyu", ok = inv ? (document.body.classList.contains("rcpt-on") ? rcCheck() : (iCheck && iCheck())) : (qCheck && qCheck());
-    if (!ok) { $("qf_validbox").style.visibility = "visible"; return; }
-    var veil = $("pdf_veil"); veil.hidden = false; b.disabled = true;
-    setTimeout(function () {   // 幕を先に出してから作る
-      pdfMake().then(function (r) {
-        veil.hidden = true; b.disabled = false; if (r.busy) return;
-        PDFST.file = new File([r.bytes], r.name, { type: "application/pdf" }); PDFST.name = r.name;
-        b.textContent = "保存・送る"; b.classList.add("ready");
+  function pvShare() {   // 共有の画面(プリント・“ファイル”に保存など)を出す。押した直後でないと Safari は出させない
+    var f = PV.file; if (!f) return pvEnd();
+    var p; try { p = navigator.share({ files: [f], title: f.name }); } catch (e) { p = Promise.reject(e); }
+    p.then(function () { pvEnd(); }, function (e) {
+      if (e && e.name === "NotAllowedError") { $("pv_t").textContent = "できました。下のボタンを押すと印刷の画面が出ます。"; $("pv_go").hidden = false; return; }
+      pvEnd();   // 閉じた(AbortError)時も、ほかの失敗の時も、PDF は捨てる
+    });
+  }
+  function pdfPrint() {   // 紙を見る画面の「印刷」
+    if (PDFST.busy || !$("pdf_veil").hidden) return;
+    if (!pdfCheck()) return;
+    var canShare = !!(navigator.share && navigator.canShare && window.File);
+    PV.cancel = false; PV.win = null;
+    if (!canShare) { try { PV.win = window.open("", "_blank"); } catch (e) { PV.win = null; } }   // 共有の画面が無い時は、先にタブだけ開く(後からは開けない)
+    pvSet(0, 1, "印刷の準備をしています"); $("pv_s").textContent = "0.0 秒"; pvShow(true);
+    PV.t0 = Date.now(); PV.tick = setInterval(function () { $("pv_s").textContent = ((Date.now() - PV.t0) / 1000).toFixed(1) + " 秒"; }, 100);
+    setTimeout(function () {
+      pdfMake({ progress: pvSet }).then(function (r) {
+        clearInterval(PV.tick); $("pv_s").textContent = ((Date.now() - PV.t0) / 1000).toFixed(1) + " 秒";
+        if (r.busy) return pvEnd();
+        if (PV.cancel) { if (PV.win) try { PV.win.close(); } catch (e) { } return pvEnd(); }
+        PV.file = new File([r.bytes], r.name, { type: "application/pdf" });
+        if (canShare && navigator.canShare({ files: [PV.file] })) {
+          if (navigator.userActivation && !navigator.userActivation.isActive) { $("pv_t").textContent = "できました。下のボタンを押すと印刷の画面が出ます。"; $("pv_go").hidden = false; return; }
+          return pvShare();
+        }
+        PV.url = URL.createObjectURL(PV.file);   // 共有の画面が無いブラウザ: 新しいタブに PDF を出す(そこで印刷できる)
+        if (PV.win && !PV.win.closed) { PV.win.location.href = PV.url; return pvEnd(); }
+        $("pv_t").textContent = "できました。下のボタンを押すと PDF が開きます。"; $("pv_go").hidden = false;
       }, function (e) {
-        veil.hidden = true; b.disabled = false; pdfReset();
-        alert("PDF を作れませんでした。\n" + (e && e.message ? e.message : e) + "\nもう一度押すか、「印刷」を使ってください。");
+        clearInterval(PV.tick); if (PV.win) try { PV.win.close(); } catch (x) { } pvEnd();
+        alert("印刷の準備ができませんでした。\n" + (e && e.message ? e.message : e) + "\nもう一度押してください。");
       });
-    }, 50);
+    }, 50);   // 進み具合の画面を先に出してから作る
   }
-  window.__PDF = { make: pdfMake, button: pdfButton, reset: pdfReset, state: function () { return { busy: PDFST.busy, ready: !!PDFST.file, name: PDFST.name, size: PDFST.file ? PDFST.file.size : 0 }; }, fileName: pdfFileName };
+  function pvGo() {   // 「印刷を開く」(間に合わなかった時だけ出る)
+    if (PV.url) { window.open(PV.url, "_blank"); return pvEnd(); }
+    pvShare();
+  }
+  function pvCancel() { PV.cancel = true; if (!PDFST.busy) { if (PV.win) try { PV.win.close(); } catch (e) { } pvEnd(); } else $("pv_t").textContent = "やめています…"; }
+  function pdfReset() { }
+  window.__PDF = { make: pdfMake, print: pdfPrint, go: pvGo, cancel: pvCancel, reset: pdfReset, state: function () { return { busy: PDFST.busy, open: !$("pdf_veil").hidden, file: !!PV.file, go: !$("pv_go").hidden }; }, fileName: pdfFileName };
 
   function markMulti() {
     fixMoney();
@@ -4290,8 +4322,8 @@ var QI = (function () {
 
 </script>
 
-<button type="button" id="qe_close">紙を閉じる</button><button type="button" id="qe_printbtn">印刷</button><button type="button" id="qe_pdfbtn">PDF を作る</button>
-<div id="pdf_veil" hidden><div>PDF を作っています…</div></div>
+<button type="button" id="qe_close">紙を閉じる</button><button type="button" id="qe_printbtn">印刷</button>
+<div id="pdf_veil" hidden role="dialog" aria-live="polite"><div class="pv"><div class="pv-t" id="pv_t">印刷の準備をしています</div><div class="pv-bar"><i id="pv_bar"></i></div><div class="pv-n"><span id="pv_n">0%</span><span id="pv_s">0.0 秒</span></div><button type="button" id="pv_go" hidden>印刷を開く</button><button type="button" id="pv_x">やめる</button></div></div>
 <div id="qep"><div class="qep-in"><div class="qep-h" id="qep_h">入れる</div><div id="qep_b"></div>
  <div class="qep-f"><button type="button" class="qe-b" id="qep_del">この行を消す</button><button type="button" class="qe-b qep-ok" id="qep_ok">入れる</button></div></div></div>
 <style>
@@ -4627,7 +4659,9 @@ var QI = (function () {
   if(t.id==='qe_add'||t.id==='ie_add'){ addMenu(); return; }
   if(t.id==='qe_paper'||t.id==='ie_paper'){ if(window.__PDF)window.__PDF.reset(); document.body.classList.add('qe-paper'); window.scrollTo(0,0); if(window.__QI&&window.__QI.fit)window.__QI.fit(); return; }
   if(t.id==='qe_close'){ if(window.__PDF)window.__PDF.reset(); document.body.classList.remove('qe-paper'); if(window.__QI&&window.__QI.fit)window.__QI.fit(); return; }
-  if(t.id==='qe_pdfbtn'){ if(window.__PDF)window.__PDF.button(); return; }
+  if(t.id==='qe_printbtn'&&window.__PDF){ window.__PDF.print(); return; }
+  if(t.id==='pv_go'&&window.__PDF){ window.__PDF.go(); return; }
+  if(t.id==='pv_x'&&window.__PDF){ window.__PDF.cancel(); return; }
   if(t.id==='qe_printbtn'&&isInv()&&document.body.classList.contains('rcpt-on')){ window.__QI.rcPrint(); return; }
   if(t.id==='qe_printbtn'){ var pb=isInv()?$('i_print'):$('q_print'); if(pb)pb.click(); return; }
   if(t.id==='qe_save'){ var sb=$('q_save'); if(sb)sb.click(); draw(); return; }
