@@ -787,7 +787,7 @@ table.pa-tb, table.pb-tb { width: 100%; border-collapse: collapse; margin-top: 2
 
 <!-- ===== メニュー ===== -->
 <section class="kview" id="kMenu">
-  <div class="top"><div class="eyebrow"><strong>sanericci cafe 経理</strong> <span style="color:var(--ink-soft)" id="kVer">v17.2</span></div><div class="theme-toggle" role="group" aria-label="表示の明るさ"><button type="button" data-theme-choice="light">明るい</button><button type="button" data-theme-choice="dark">夜</button></div></div>
+  <div class="top"><div class="eyebrow"><strong>sanericci cafe 経理</strong> <span style="color:var(--ink-soft)" id="kVer">v17.3</span></div><div class="theme-toggle" role="group" aria-label="表示の明るさ"><button type="button" data-theme-choice="light">明るい</button><button type="button" data-theme-choice="dark">夜</button></div></div>
   <div class="kcard" id="kDone" hidden></div>
   <div class="kcard" id="kStatus"></div>
   <div id="kAsk" class="kcard" hidden></div>
@@ -2596,7 +2596,21 @@ var QI = (function () {
     PP = []; var st = $("pp_page"); if (st) st.parentNode.removeChild(st);
     Array.prototype.forEach.call(document.querySelectorAll(".qi-meta .qi-pg"), function (e) { e.textContent = ""; }); if ($("q2_pg")) $("q2_pg").textContent = "";
   }
-  window.__PP = { split: ppSplit, unsplit: ppUnsplit };
+  var ppArmed = false, ppArmAt = 0;
+  function ppArm() { ppArmed = true; ppArmAt = Date.now(); }
+  function ppRestoreNow() {   // 印刷の後、画面に触れた時に、紙・題名・有効期限の欄を元に戻す
+    ppArmed = false;
+    try { ppUnsplit(); } catch (e) { }
+    $("qf_validbox").style.visibility = "visible";
+    q2Out(); clearHeads("qf_body"); clearHeads("if_body");
+    document.title = "sanericci cafe 経理";
+  }
+  function ppBeforePrint() {   // 印刷のボタンから: 合図を待たずに先に紙を分ける
+    if (PP.length) return;
+    markMulti();
+    try { ppSplit(); } catch (e) { try { ppUnsplit(); } catch (e2) { } }
+  }
+  window.__PP = { split: ppSplit, unsplit: ppUnsplit, restore: ppRestoreNow, armed: function () { return ppArmed; } };
   function markMulti() {
     fixMoney();
     Array.prototype.forEach.call(document.querySelectorAll(".qi-sheet.pa, .qi-sheet.pb"), function (el) {   // 中身の高さ(上下の余白を除く)が 259mm を超えたら2枚以上
@@ -2706,6 +2720,7 @@ var QI = (function () {
   function rcPrint() {
     if (!String(RC.to || "").trim()) { alert("提出先が空です。"); return; }
     if (!RC.lines.length) { alert("明細が1行もありません。"); return; }
+    ppBeforePrint();
     window.print(); }
   function rcMail() {
     var cafe = (RC.brand || "cafe") !== "dcloud", nm = cafe ? "sanericci café" : "Dcloud", rep = (String(q().cfg.company || "").match(/代表[：:]\s*([^\n]+)/) || [])[1] || "";
@@ -3127,8 +3142,8 @@ var QI = (function () {
       var ng = pastDate($("qf_subj").textContent) || pastDate($("qf_valid").value);
       if (ng && !confirm("「" + ng + "」は、もう過ぎた日付です。\n古い見積書を複製したままかもしれません。\nこのまま印刷しますか？")) return;
       $("qf_validbox").style.visibility = $("qf_valid").value.trim() ? "visible" : "hidden";
-      markMulti();
-      window.print(); $("qf_validbox").style.visibility = "visible"; });
+      ppBeforePrint();
+      window.print(); });
 
     /* 請求書 */
     $("i_client").addEventListener("change", function () {
@@ -3222,7 +3237,7 @@ var QI = (function () {
       if (!I.lines.length) { alert("明細が1行もありません。\n下の 2 で仕事をえらんでから印刷してください。"); return; }
       if (!$("if_to").textContent.trim()) { alert("提出先が空です。\n「提出先」を選んでから印刷してください。"); return; }
       if (!$("if_due").value.trim() && !confirm("お支払い期限が空のままです。\nこのまま印刷しますか？")) return;
-      markMulti();
+      ppBeforePrint();
       window.print(); });
     document.addEventListener("blur", function (e) {   // 金額の欄から離れたら、けた区切りを入れ直す
       var t = e.target, d = t && t.dataset;
@@ -3232,17 +3247,17 @@ var QI = (function () {
     }, true);
     window.addEventListener("resize", fit);
     window.addEventListener("beforeprint", function () { var v = viewNow(); if (v === "mitsumori" || v === "seikyu") { try { document.title = names().file; } catch (e) { } } });
-    window.addEventListener("afterprint", function () { document.title = "sanericci cafe 経理"; });
     window.addEventListener("beforeprint", function () {   // ⌘P で直接印刷した時も、空の有効期限は出さない
       $("qf_validbox").style.visibility = $("qf_valid").value.trim() ? "visible" : "hidden";
       if (PP.length) return;   // もう分けてある時は、何もしない(2回呼ばれた時のため)
       markMulti();
       try { ppSplit(); } catch (e) { try { ppUnsplit(); } catch (e2) { } }   // 分けられない時は、今までの印刷のまま
     });
-    window.addEventListener("afterprint", function () {
-      try { ppUnsplit(); } catch (e) { }
-      $("qf_validbox").style.visibility = "visible";
-      q2Out(); clearHeads("qf_body"); clearHeads("if_body");
+    // Safari は印刷の画面を作る前に afterprint を出す。ここで戻すと、戻った形で刷られる(見込み。2026-10-02 の iPhone の PDF がそうなっていた)。
+    // だから afterprint では「戻す用意」だけをして、画面に触れた時に戻す(押した直後 0.6 秒の触れ方は数えない)。
+    window.addEventListener("afterprint", function () { ppArm(); });
+    ["pointerdown", "touchstart", "keydown"].forEach(function (ev) {
+      document.addEventListener(ev, function () { if (ppArmed && Date.now() - ppArmAt > 600) ppRestoreNow(); }, true);
     });
   }
 
