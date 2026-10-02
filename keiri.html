@@ -787,7 +787,7 @@ table.pa-tb, table.pb-tb { width: 100%; border-collapse: collapse; margin-top: 2
 
 <!-- ===== メニュー ===== -->
 <section class="kview" id="kMenu">
-  <div class="top"><div class="eyebrow"><strong>sanericci cafe 経理</strong> <span style="color:var(--ink-soft)" id="kVer">v17.1</span></div><div class="theme-toggle" role="group" aria-label="表示の明るさ"><button type="button" data-theme-choice="light">明るい</button><button type="button" data-theme-choice="dark">夜</button></div></div>
+  <div class="top"><div class="eyebrow"><strong>sanericci cafe 経理</strong> <span style="color:var(--ink-soft)" id="kVer">v17.2</span></div><div class="theme-toggle" role="group" aria-label="表示の明るさ"><button type="button" data-theme-choice="light">明るい</button><button type="button" data-theme-choice="dark">夜</button></div></div>
   <div class="kcard" id="kDone" hidden></div>
   <div class="kcard" id="kStatus"></div>
   <div id="kAsk" class="kcard" hidden></div>
@@ -860,7 +860,7 @@ table.pa-tb, table.pb-tb { width: 100%; border-collapse: collapse; margin-top: 2
     <div class="qi-left"><div id="qe">
 <div class="qe-card">
  <div class="qe-row" data-qe="brand"><span class="qe-lb">依頼先</span><span class="qe-v" id="qe_brand">sanericci café</span><span class="qe-go">›</span></div>
- <div class="qe-row" data-qe="client"><span class="qe-lb">宛名</span><span class="qe-v" id="qe_to">えらんでください</span><span class="qe-go">›</span></div>
+ <div class="qe-row" data-qe="client"><span class="qe-lb">提出先</span><span class="qe-v" id="qe_to">選んで下さい</span><span class="qe-go">›</span></div>
  <div class="qe-row" data-qe="title"><span class="qe-lb">件名</span><span class="qe-v" id="qe_title">—</span><span class="qe-go">›</span></div>
  <div class="qe-row" data-qe="day"><span class="qe-lb">施工日</span><span class="qe-v" id="qe_day">—</span><span class="qe-go">›</span></div>
  <div class="qe-row" data-qe="valid"><span class="qe-lb">有効期限</span><span class="qe-v" id="qe_valid">—</span><span class="qe-go">›</span></div>
@@ -868,6 +868,8 @@ table.pa-tb, table.pb-tb { width: 100%; border-collapse: collapse; margin-top: 2
  <div class="qe-row" data-qe="no"><span class="qe-lb">見積No.</span><span class="qe-v" id="qe_no">—</span><span class="qe-go">›</span></div>
   <div class="qe-row" data-qe="stat"><span class="qe-lb">状態</span><span class="qe-v" id="qe_stat">—</span><span class="qe-go">›</span></div>
 </div>
+<details class="qe-card qe-fold" id="qe_pastcard"><summary class="qe-row"><span class="qe-lb">前の仕事から写す</span><span class="qe-v" id="qe_pastv"></span><span class="qe-go">›</span></summary><div class="qe-moved" id="qe_pastbox"></div></details>
+<div class="qe-card qe-fold" id="qe_meetcard" style="display:none"></div>
 <div class="qe-card"><div class="qe-h">明細</div><div id="qe_lines"></div>
  <button type="button" class="qe-add" id="qe_add">＋ 行を足す</button>
  <button type="button" class="linkish" data-kgo="jigyo" style="margin-top:6px">料金表を直す（設定）</button></div>
@@ -879,7 +881,7 @@ table.pa-tb, table.pb-tb { width: 100%; border-collapse: collapse; margin-top: 2
 <div class="qe-card qe-names" id="qe_names"></div>
 <div class="qe-sub"><button type="button" class="qe-b" id="qe_toinv">この見積から請求書にする</button><button type="button" class="qe-b" id="qe_keep">問い合わせとして残す</button><button type="button" class="qe-b" id="qe_new">新しい見積をはじめる</button></div>
 <div class="qe-bar kbar"><button type="button" class="qe-b" id="qe_paper">紙を見る</button><button type="button" class="qe-b qe-k" id="qe_save">この見積を保存する</button></div><p class="khint" id="qe_msg" style="margin:0 4px 14px"></p>
-</div><details class="qi-sub" id="qe_old"><summary>くわしい入力（今までの画面）</summary><div>
+</div><details class="qi-sub" id="qe_old" hidden style="display:none"><summary>くわしい入力（今までの画面）</summary><div>
       <div class="qi-steps"><span><i>1</i>だれに出す？</span><span><i>2</i>前と同じ？</span><span><i>3</i>行を足す</span><span><i>4</i>印刷</span></div>
       <div class="qi-step"><div class="qi-sh"><i>1</i>だれに出しますか？</div>
         <div class="qi-row"><select id="q_client" style="flex:1;min-width:190px;padding:11px 10px;font-size:15px"></select>
@@ -979,7 +981,7 @@ table.pa-tb, table.pb-tb { width: 100%; border-collapse: collapse; margin-top: 2
   <div class="qi-ttl"><div class="qi-dt">お見積書</div></div>
   <div class="qi-party">
     <div class="qi-to">
-      <div class="nm"><div id="qf_to" class="qi-ce" contenteditable="true" data-ph="宛名"></div></div>
+      <div class="nm"><div id="qf_to" class="qi-ce" contenteditable="true" data-ph="提出先"></div></div>
       <div class="qi-sub2"><div id="qf_subj" class="qi-ce" contenteditable="true" data-ph="2026年11月25日：結婚式音響"></div></div>
       <div class="qi-lead">下記の通り、お見積もりさせていただきます。<br>ご検討のほど、よろしくお願いいたします。</div>
     </div>
@@ -1010,7 +1012,7 @@ table.pa-tb, table.pb-tb { width: 100%; border-collapse: collapse; margin-top: 2
     <div class="qi-left"><div id="ie">
 <div class="qe-seg" id="ie_seg" role="group" aria-label="請求書と領収書の切り替え"><button type="button" data-seg="inv" class="on">請求書</button><button type="button" data-seg="rcpt">領収書</button></div>
 <div class="qe-card">
- <div class="qe-row" data-ie="client"><span class="qe-lb">宛名</span><span class="qe-v" id="ie_to">えらんでください</span><span class="qe-go">›</span></div>
+ <div class="qe-row" data-ie="client"><span class="qe-lb">提出先</span><span class="qe-v" id="ie_to">選んで下さい</span><span class="qe-go">›</span></div>
  <div class="qe-row" data-ie="work"><span class="qe-lb">仕事</span><span class="qe-v" id="ie_work">えらぶ ›</span><span class="qe-go">›</span></div>
  <div class="qe-row" data-ie="issue"><span class="qe-lb">発行日</span><span class="qe-v" id="ie_issue">—</span><span class="qe-go">›</span></div>
  <div class="qe-row" data-ie="due"><span class="qe-lb">支払期限</span><span class="qe-v" id="ie_due">—</span><span class="qe-go">›</span></div>
@@ -1024,7 +1026,7 @@ table.pa-tb, table.pb-tb { width: 100%; border-collapse: collapse; margin-top: 2
  <div class="qe-total">合計 <b id="ie_total">¥0</b></div>
 </div>
 <div class="qe-card" id="ir_card"><div class="qe-h">領収書</div>
- <div class="qe-row" data-ir="to"><span class="qe-lb">宛名</span><span class="qe-v" id="ir_to">—</span><span class="qe-go">›</span></div>
+ <div class="qe-row" data-ir="to"><span class="qe-lb">提出先</span><span class="qe-v" id="ir_to">—</span><span class="qe-go">›</span></div>
  <div class="qe-row" data-ir="tada"><span class="qe-lb">但し書き</span><span class="qe-v" id="ir_tada">—</span><span class="qe-go">›</span></div>
  <div class="qe-row" data-ir="issue"><span class="qe-lb">発行日</span><span class="qe-v" id="ir_issue">—</span><span class="qe-go">›</span></div>
  <div class="qe-row" data-ir="no"><span class="qe-lb">領収書No.</span><span class="qe-v" id="ir_no">—</span><span class="qe-go">›</span></div>
@@ -1039,7 +1041,7 @@ table.pa-tb, table.pb-tb { width: 100%; border-collapse: collapse; margin-top: 2
 <div class="qe-sub" id="ir_sub"><button type="button" class="qe-b" id="ir_mail">領収書のメールの下書きを作る</button><button type="button" class="qe-b" id="ir_back">請求書にもどる</button></div>
 <div class="qe-sub"><button type="button" class="qe-b" id="ie_rcpt">この請求から領収書にする</button><button type="button" class="qe-b" id="ie_build">えらんだ仕事をまとめて入れる（月末まとめ）</button><button type="button" class="qe-b" id="ie_half">着手金の請求にする</button><button type="button" class="qe-b" id="ie_rest">残金の請求にする</button><button type="button" class="qe-b" id="ie_mail">メールの下書きを作る</button><button type="button" class="qe-b" id="ie_new">新しい請求をはじめる</button></div>
 <div class="qe-bar kbar"><button type="button" class="qe-b" id="ie_paper">紙を見る</button><button type="button" class="qe-b qe-k" id="ie_save">この請求を保存する</button></div><p class="khint" id="ie_msg" style="margin:0 4px 14px"></p>
-</div><details class="qi-sub" id="ie_old"><summary>くわしい入力（今までの画面）</summary><div>
+</div><details class="qi-sub" id="ie_old" hidden style="display:none"><summary>くわしい入力（今までの画面）</summary><div>
       <div class="qi-steps"><span><i>1</i>だれに請求？</span><span><i>2</i>どの仕事？</span><span><i>3</i>あとから出た分</span><span><i>4</i>印刷</span></div>
       <div class="qi-step"><div class="qi-sh"><i>1</i>だれに請求しますか？</div>
         <div class="qi-row"><select id="i_client" style="flex:1;min-width:190px;padding:11px 10px;font-size:15px"></select>
@@ -1064,7 +1066,7 @@ table.pa-tb, table.pb-tb { width: 100%; border-collapse: collapse; margin-top: 2
   <div class="qi-ttl"><div class="qi-dt">請求書</div></div>
   <div class="qi-party">
     <div class="qi-to">
-      <div class="nm"><div id="if_to" class="qi-ce" contenteditable="true" data-ph="宛名"></div></div>
+      <div class="nm"><div id="if_to" class="qi-ce" contenteditable="true" data-ph="提出先"></div></div>
       <div class="qi-lead">下記の通りご請求申し上げます。</div>
     </div>
     <div class="qi-meta"><div class="mr"><span>発行日</span><input id="if_issue" style="width:92px;text-align:right"></div><div class="mr"><span>No.</span><input id="if_no" style="width:92px;text-align:right"></div><div class="mr"><span>お支払い期限</span><input id="if_due" style="width:120px;text-align:right"></div><span class="qi-pg" id="if_pg"></span></div>
@@ -2115,7 +2117,7 @@ SOFTWARE.*/
    保存はメニューの「作業を終える」（今までと同じ仕組み）。 */
 var QI = (function () {
   "use strict";
-  var K = null, Q = { lines: [], id: null }, I = { lines: [], id: null, ankenIds: [] }, lastClient = "";
+  var K = null, Q = { lines: [], id: null }, I = { lines: [], id: null, ankenIds: [], tax: 0 }, lastClient = "";
   function $(i) { return document.getElementById(i); }
   function n2(x) { return Math.round(x || 0).toLocaleString("ja-JP"); }
   function yen(x) { return (x < 0 ? "-¥" : "¥") + Math.abs(Math.round(x || 0)).toLocaleString("ja-JP"); }
@@ -2189,10 +2191,10 @@ var QI = (function () {
   var CFG0 = { company: "", qfoot: "", ifoot: "", dfoot: "", difoot: "" };
 
   /* ---------- 経理ファイルから読む / 書く ---------- */
-  var H_ANKEN = ['案件ID', '依頼先', '得意先', '宛名', '件名', '施工日', '状態', '見積番号', '旧番号', '合計', '支払い区分', '免税の一文'];
+  var H_ANKEN = ['案件ID', '依頼先', '得意先', '宛名', '件名', '施工日', '状態', '見積番号', '旧番号', '合計', '支払い区分', '免税の一文', '備考'];
   // 打ち合わせシートは「案件ID／項目／値」の3列で持つ（写真は入れない。写真は Apple のメモ）
   var H_ALINE = ['案件ID', '行', '品名', '数量', '単価', '金額', '単位', '一式', '備考', '未処理'];
-  var H_INV = ['請求ID', '請求番号', '得意先', '宛名', '発行日', '支払期限', '合計', '状態', '免税の一文'];
+  var H_INV = ['請求ID', '請求番号', '得意先', '宛名', '発行日', '支払期限', '合計', '状態', '免税の一文', '備考'];
   var H_ILINE = ['請求ID', '案件ID', '行', '品名', '数量', '単価', '金額', '単位', '一式', '備考'];
   var H_SET = ['種類', '名前', '値1', '値2', '値3'];
 
@@ -2228,11 +2230,11 @@ var QI = (function () {
     var q = { anken: [], lines: [], inv: [], invLines: [], items: [], clients: [], venues: [], seq: {}, cfg: {}, ctab: [], rcpt: [] };
     function R(nm) { return wb.Sheets[nm] ? rows(wb, nm).slice(1).filter(function (r) { return r && r[0] != null; }) : null; }
     var a = R('案件'); if (a) a.forEach(function (r) {
-      q.anken.push({ id: S(r[0]), brand: S(r[1]) || 'cafe', client: S(r[2]), to: S(r[3]), title: S(r[4]), day: S(r[5]), date: S(r[5]), state: S(r[6]), no: S(r[7]), oldNo: S(r[8]), total: r[9] || 0, pay: S(r[10]) || 'matsu', tax: S(r[11]) === '1' ? 1 : 0 }); });
+      q.anken.push({ id: S(r[0]), brand: S(r[1]) || 'cafe', client: S(r[2]), to: S(r[3]), title: S(r[4]), day: S(r[5]), date: S(r[5]), state: S(r[6]), no: S(r[7]), oldNo: S(r[8]), total: r[9] || 0, pay: S(r[10]) || 'matsu', tax: S(r[11]) === '1' ? 1 : 0, note: S(r[12]) }); });
     var al = R('案件明細'); if (al) al.forEach(function (r) {
       q.lines.push({ ankenId: S(r[0]), no: r[1], name: S(r[2]), qty: r[3] == null ? 1 : r[3], price: r[4] || 0, amount: r[5] || 0, unit: S(r[6]), lump: (S(r[7]) === '一式') ? 1 : 0, note: S(r[8]), chk: S(r[9]) === '1' ? 1 : 0 }); });
     var iv = R('請求書'); if (iv) iv.forEach(function (r) {
-      q.inv.push({ id: S(r[0]), no: S(r[1]), client: S(r[2]), to: S(r[3]), issue: S(r[4]), due: S(r[5]), total: r[6] || 0, state: S(r[7]), tax: S(r[8]) === '0' ? 0 : 1 }); });
+      q.inv.push({ id: S(r[0]), no: S(r[1]), client: S(r[2]), to: S(r[3]), issue: S(r[4]), due: S(r[5]), total: r[6] || 0, state: S(r[7]), tax: S(r[8]) === '0' ? 0 : 1, note: S(r[9]) }); });
     var il = R('請求明細'); if (il) il.forEach(function (r) {
       q.invLines.push({ invId: S(r[0]), ankenId: S(r[1]), no: r[2], name: S(r[3]), qty: r[4] == null ? 1 : r[4], price: r[5] || 0, amount: r[6] || 0, unit: S(r[7]), lump: (S(r[8]) === '一式') ? 1 : 0, note: S(r[9]) }); });
     var rc = R('領収書'); if (rc) rc.forEach(function (r) {
@@ -2265,13 +2267,13 @@ var QI = (function () {
       return;
     }
     XLSX.utils.book_append_sheet(wb, sheet(H_ANKEN, q.anken.map(function (a) {
-      return [a.id, a.brand, a.client, a.to, a.title, a.day || a.date, a.state, a.no || '', a.oldNo || '', a.total, a.pay || '', a.tax ? '1' : '0'];
+      return [a.id, a.brand, a.client, a.to, a.title, a.day || a.date, a.state, a.no || '', a.oldNo || '', a.total, a.pay || '', a.tax ? '1' : '0', a.note || ''];
     }), [9], [14, 8, 18, 26, 44, 12, 8, 14, 16, 12, 10, 8]), '案件');
     XLSX.utils.book_append_sheet(wb, sheet(H_ALINE, q.lines.map(function (l) {
       return [l.ankenId, l.no, l.name, l.qty, l.price, l.amount, l.unit || '', l.lump ? '一式' : '', l.note || '', l.chk ? '1' : ''];
     }), [4, 5], [14, 5, 40, 7, 12, 12, 6, 6, 34, 6]), '案件明細');
     XLSX.utils.book_append_sheet(wb, sheet(H_INV, q.inv.map(function (v) {
-      return [v.id, v.no, v.client, v.to, v.issue, v.due, v.total, v.state, v.tax === 0 ? '0' : '1'];
+      return [v.id, v.no, v.client, v.to, v.issue, v.due, v.total, v.state, v.tax === 0 ? '0' : '1', v.note || ''];
     }), [6], [14, 14, 18, 26, 14, 14, 12, 8, 8]), '請求書');
     XLSX.utils.book_append_sheet(wb, sheet(H_ILINE, q.invLines.map(function (l) {
       return [l.invId, l.ankenId || '', l.no, l.name, l.qty, l.price, l.amount, l.unit || '', l.lump ? '一式' : '', l.note || ''];
@@ -2292,7 +2294,7 @@ var QI = (function () {
     });
     XLSX.utils.book_append_sheet(wb, sheet(['案件ID', '項目', '値'], mt, [], [14, 12, 60]), '打ち合わせ');
     XLSX.utils.book_append_sheet(wb, sheet(H_RCPT, (q.rcpt || []).map(function (r) {
-      return [r.id, r.no, r.invId || '', r.to, r.issue, r.total, r.tada || '', r.note || '', r.client || '', r.day || '', r.brand || 'cafe', JSON.stringify(r.lines || [, r.tax ? '1' : '0'])];
+      return [r.id, r.no, r.invId || '', r.to, r.issue, r.total, r.tada || '', r.note || '', r.client || '', r.day || '', r.brand || 'cafe', JSON.stringify(r.lines || []), r.tax ? '1' : '0'];
     }), [5], [14, 16, 14, 26, 14, 12, 34, 30, 18, 12, 8, 40]), '領収書');
   }
 
@@ -2382,7 +2384,7 @@ var QI = (function () {
     $("q_client").value = a.client || ""; lastClient = $("q_client").value;
     $("qf_to").textContent = a.to || a.client || ""; $("qf_subj").textContent = a.title || "";
     $("q_brand").value = (a.brand === "dcloud") ? "dcloud" : "cafe"; $("q_pay").value = a.pay || "mae";
-    $("q_day").value = a.day || ""; $("qf_no").value = a.no || peekNo("M");
+    $("q_day").value = a.day || ""; $("qf_no").value = a.no || peekNo("M"); $("qf_note").textContent = a.note || "";
     meetClear(); meetSet((q().meet || {})[id] || {}); if ($("q_stat")) $("q_stat").value = a.state || "見積";
     Q.id = id; setValid(); applyCfg(); rq(); drawPast();
     if (a.brand === "dcloud" && $("d_meet")) $("d_meet").open = true;
@@ -2391,7 +2393,7 @@ var QI = (function () {
   }
   window.__QI={getQ:function(){return Q},getI:function(){return I},rcLoad:function(id){return rcLoad(id)},rcList:function(){return (q().rcpt||[]).slice()},
     tax:function(k){ return k==='q'?(Q.tax?1:0):k==='i'?(I.tax===0?0:1):(RC.tax?1:0); },
-    setTax:function(k,v){ if(k==='q'){Q.tax=v?1:0;rq();} else if(k==='i'){I.tax=v?1:0;ri();} else {RC.tax=v?1:0;paperRcpt();} if(window.__qeDraw)window.__qeDraw(); },loadAnken:function(id){return loadAnken(id)},rq:function(){return rq()},ri:function(){return ri()},
+    setTax:function(k,v){ if(k==='q'){Q.tax=v?1:0;applyCfg();rq();} else if(k==='i'){I.tax=v?1:0;applyCfg();ri();} else {RC.tax=v?1:0;paperRcpt();} if(window.__qeDraw)window.__qeDraw(); },loadAnken:function(id){return loadAnken(id)},rq:function(){return rq()},ri:function(){return ri()},
     fillClients:function(){return fillClients()},fillItems:function(){return fillItems()},fillVenues:function(){return fillVenues()},
     applyCfg:function(){return applyCfg()},drawPast:function(){return drawPast()},setValid:function(){return setValid()},
     showValid:function(){return showValid()},peekNo:function(p){return peekNo(p)},
@@ -2403,7 +2405,7 @@ var QI = (function () {
     if (!Q.id) { $("q_save").click(); if (!Q.id) return; }
     var a = q().anken.filter(function (x) { return x.id === Q.id; })[0]; if (!a) return;
     var go = document.querySelector('[data-kgo="seikyu"]'); if (go) go.click();
-    I = { lines: [], id: null, ankenIds: [], brand: a.brand || "cafe" }; $("if_issue").value = jd(new Date()); $("if_to").textContent = "";
+    I = { lines: [], id: null, ankenIds: [], brand: a.brand || "cafe", tax: 0 }; $("if_issue").value = jd(new Date()); $("if_to").textContent = "";
     $("i_client").value = a.client || ""; $("i_client").dispatchEvent(new Event("change", { bubbles: true }));
     var cb = Array.prototype.filter.call(document.querySelectorAll(".ipick"), function (x) { return x.value === a.id; })[0];
     if (cb) { cb.checked = true; $((a.brand === "dcloud") ? "i_half" : "i_build").click(); }
@@ -2444,7 +2446,7 @@ var QI = (function () {
 
   function payFoot() { var p = $("q_pay").value;
     if ($("q_brand").value === "dcloud")   // Dcloud は2枚目と同じ支払いの文だけ。得意先の区分の文は出さない（2枚目と食い違うため）
-      return ((q().cfg.dfoot || CFG0.dfoot) ? ((q().cfg.dfoot || CFG0.dfoot) + "\n") : "") + QI_DPAY.join("\n") + "\n＊2枚目に「楽曲の扱いについて」をまとめました。ご一読ください。";
+      return (Q.tax && q().cfg.qtax ? q().cfg.qtax + "\n" : "") + ((q().cfg.dfoot || CFG0.dfoot) ? ((q().cfg.dfoot || CFG0.dfoot) + "\n") : "") + QI_DPAY.join("\n") + "\n＊2枚目に「楽曲の扱いについて」をまとめました。ご一読ください。";
     var b = q().cfg.qfoot || "", dy = $("q_day").value;
     if (p === "mae") { var pre = dayBefore(dy);
       b += "\n＊料金は前日" + (pre ? "（" + pre + "）" : "") + "まで銀行振込またはカード払いか当日の現金払いとなります。"; }
@@ -2543,6 +2545,58 @@ var QI = (function () {
     var q2 = $("qi_sheet_q2"), q1 = $("qi_sheet_q"); if (!q2 || !q1) return;
     q2.classList.remove("qi-in"); if (q2.parentNode === q1) q1.parentNode.insertBefore(q2, q1.nextSibling);
   }
+
+  // v17.2: 紙を1枚ずつの箱(A4)に分ける。用紙の余白を0にして、余白は箱の中に持たせる。
+  // Safari は用紙の余白に住所・日時・ページ数を書くため。2枚目以降にも表の見出しを付ける。印刷が終わったらすぐ元に戻す。
+  var PP = [];
+  function ppSplit() {
+    if (PP.length) return;
+    q2Out(); clearHeads("qf_body"); clearHeads("if_body");
+    Array.prototype.forEach.call(document.querySelectorAll(".qi-tail.qi-brk"), function (e) { e.classList.remove("qi-brk"); });
+    var st = document.createElement("style"); st.id = "pp_page"; st.textContent = "@page{size:A4;margin:0 !important}"; document.head.appendChild(st);
+    var sheets = Array.prototype.filter.call(document.querySelectorAll(".qi-sheet"), function (e) { return !e.classList.contains("hide") && !e.classList.contains("pp") && e.offsetParent; });
+    sheets.forEach(function (sh) {
+      var qi = !sh.classList.contains("pa") && !sh.classList.contains("pb");
+      var kids = Array.prototype.slice.call(sh.children), host = document.createElement("div"); host.className = "pp_host"; sh.parentNode.insertBefore(host, sh);
+      var mk = function () { var p = document.createElement("div"); p.className = sh.className + " pp" + (qi ? " qi-measure" : ""); host.appendChild(p); return p; };
+      var pg = mk(), boxes = [pg], parts = [];
+      var mm = pg.offsetWidth / 210, inner = (296 - 14 - 12 - 14) * mm;
+      var used = function () { var h = 0; Array.prototype.forEach.call(pg.children, function (c) { var cs = getComputedStyle(c); if (cs.position === "absolute" || cs.display === "none") return; h += c.offsetHeight + parseFloat(cs.marginTop || 0) + parseFloat(cs.marginBottom || 0); }); return h; };
+      var tbl = function (k) { var t = k.cloneNode(false); t.removeAttribute("id"); Array.prototype.forEach.call(k.children, function (c) { if (c.tagName !== "TBODY" && c.tagName !== "CAPTION") t.appendChild(c.cloneNode(true)); }); var tb = document.createElement("tbody"); t.appendChild(tb); return [t, tb]; };
+      kids.forEach(function (k) {
+        if (k.tagName === "TABLE" && k.tBodies.length === 1) {
+          var rows = Array.prototype.slice.call(k.tBodies[0].rows), tt = tbl(k), t = tt[0], tb = tt[1]; pg.appendChild(t);
+          rows.forEach(function (r) { tb.appendChild(r); if (used() > inner && tb.rows.length > 1) { tb.removeChild(r); pg = mk(); boxes.push(pg); tt = tbl(k); t = tt[0]; tb = tt[1]; pg.appendChild(t); tb.appendChild(r); } });
+          parts.push({ k: k, rows: rows });
+        } else {
+          pg.appendChild(k); var cs = getComputedStyle(k);
+          if (cs.position !== "absolute" && used() > inner && pg.children.length > 1) { pg.removeChild(k); pg = mk(); boxes.push(pg); pg.appendChild(k); }
+          parts.push({ k: k });
+        }
+      });
+      if (boxes.length > 1) Array.prototype.forEach.call(host.querySelectorAll(".pa-btm,.qi-wave,.pb-wave"), function (e) { e.style.display = "none"; });
+      sh.style.display = "none"; PP.push({ sh: sh, host: host, parts: parts, boxes: boxes, qi: qi });
+    });
+    // Dcloud の紙は「n / N」を入れる(今までと同じ)
+    var dq = PP.filter(function (o) { return o.qi && (o.sh.id === "qi_sheet_q" || o.sh.id === "qi_sheet_q2"); }), di = PP.filter(function (o) { return o.qi && o.sh.id === "qi_sheet_i"; });
+    [dq, di].forEach(function (grp) {
+      var all = []; grp.forEach(function (o) { all = all.concat(o.boxes); }); var n = all.length; if (n < 2) return;
+      all.forEach(function (b, k) { var m = b.querySelector(".qi-meta .qi-pg"); if (m) { m.textContent = (k + 1) + " / " + n; return; }
+        if (b.querySelector("#q2_pg")) { $("q2_pg").textContent = (k + 1) + " / " + n; return; }
+        var d = document.createElement("div"); d.className = "qi-pg pp-pg"; d.textContent = (k + 1) + " / " + n; b.appendChild(d); });
+    });
+  }
+  function ppUnsplit() {
+    if (!PP.length) return;
+    PP.forEach(function (o) {
+      o.parts.forEach(function (p) { if (p.rows) { var tb = p.k.tBodies[0]; p.rows.forEach(function (r) { tb.appendChild(r); }); } o.sh.appendChild(p.k); });
+      o.host.parentNode.removeChild(o.host); o.sh.style.display = "";
+      Array.prototype.forEach.call(o.sh.querySelectorAll(".pa-btm,.qi-wave,.pb-wave"), function (e) { e.style.display = ""; });
+    });
+    PP = []; var st = $("pp_page"); if (st) st.parentNode.removeChild(st);
+    Array.prototype.forEach.call(document.querySelectorAll(".qi-meta .qi-pg"), function (e) { e.textContent = ""; }); if ($("q2_pg")) $("q2_pg").textContent = "";
+  }
+  window.__PP = { split: ppSplit, unsplit: ppUnsplit };
   function markMulti() {
     fixMoney();
     Array.prototype.forEach.call(document.querySelectorAll(".qi-sheet.pa, .qi-sheet.pb"), function (el) {   // 中身の高さ(上下の余白を除く)が 259mm を超えたら2枚以上
@@ -2599,7 +2653,7 @@ var QI = (function () {
     $("qf_notebox").classList.toggle("qi-off", !$("qf_note").textContent.trim());
     $("if_notebox").classList.toggle("qi-off", !$("if_note").textContent.trim());
     setBrand("if_brand", "if_brandsub", I.brand || "cafe");
-    $("if_foot").textContent = ((I.brand === "dcloud") ? (q().cfg.difoot || CFG0.difoot) : (q().cfg.ifoot || "")) + "\nお支払い期限：" + String($("if_due").value || "").replace(/（[日月火水木金土]）$/, "");
+    $("if_foot").textContent = ((I.brand === "dcloud") ? ((I.tax === 1 && q().cfg.itax ? q().cfg.itax + "\n" : "") + (q().cfg.difoot || CFG0.difoot)) : (q().cfg.ifoot || "")) + "\nお支払い期限：" + String($("if_due").value || "").replace(/（[日月火水木金土]）$/, "");
     paperSwitch(); paperCafe();
   }
   function viewNow() { return document.body.getAttribute("data-kview"); }
@@ -2620,7 +2674,7 @@ var QI = (function () {
     }
     RC.total = 0; RC.lines.forEach(function (r) { RC.total += rcAmt(r); });
     document.body.classList.add("rcpt-on"); paperSwitch(); paperCafe(); fit(); if (window.__qeDraw) window.__qeDraw();
-    $("i_state").textContent = old ? "前に作った領収書（" + RC.no + "）を開きました。" : (I.lines.length ? "請求書の中身から領収書を作りました。宛名と但し書きを確かめて「この領収書を保存する」を押してください。" : "領収書を新しく作ります。明細と宛名・但し書きを入れて「この領収書を保存する」を押してください。");
+    $("i_state").textContent = old ? "前に作った領収書（" + RC.no + "）を開きました。" : (I.lines.length ? "請求書の中身から領収書を作りました。提出先と但し書きを確かめて「この領収書を保存する」を押してください。" : "領収書を新しく作ります。明細と提出先・但し書きを入れて「この領収書を保存する」を押してください。");
   }
   function rcSync() {   // 領収書の明細は請求書の明細と共通。開いている間は、いつも請求書の明細から作り直す
     if (!RC.on) return;
@@ -2640,7 +2694,7 @@ var QI = (function () {
   function rcClose() { RC.on = false; document.body.classList.remove("rcpt-on"); $("i_state").textContent = ""; paperSwitch(); paperCafe(); fit(); if (window.__qeDraw) window.__qeDraw(); }
   function rcSave() {
     if (!RC.on) return; rcSync();
-    if (!String(RC.to || "").trim()) { alert("宛名が空です。"); return; }
+    if (!String(RC.to || "").trim()) { alert("提出先が空です。"); return; }
     if (!(RC.total > 0)) { alert("領収金額が0円以下です。明細を見直してください。"); return; }
     var clash = (q().rcpt || []).some(function (r) { return r.no === RC.no && r.id !== RC.id; });
     if (clash) { var o = RC.no; RC.no = rcNo(String(RC.no).slice(0, 8), RC.id); alert("領収書番号 " + o + " は、ほかの領収書で使われていました。\n" + RC.no + " に変えました。"); }
@@ -2650,7 +2704,7 @@ var QI = (function () {
     if (window.__kaikeiTouched) window.__kaikeiTouched(); if (window.__qeDraw) window.__qeDraw();
   }
   function rcPrint() {
-    if (!String(RC.to || "").trim()) { alert("宛名が空です。"); return; }
+    if (!String(RC.to || "").trim()) { alert("提出先が空です。"); return; }
     if (!RC.lines.length) { alert("明細が1行もありません。"); return; }
     window.print(); }
   function rcMail() {
@@ -2721,12 +2775,12 @@ var QI = (function () {
       return { file: r8 + rk + rn + "様【領収書】", folder: r8 + rk + rn + "様【領収書】", kind: "領収書" };
     }
     if (viewNow() === "seikyu") {
-      var cl = $("i_client").value || lines2($("if_to").textContent).join("") || "宛名未定", c = codeOf($("i_client").value), iss = pd($("if_issue").value) || new Date();
+      var cl = $("i_client").value || lines2($("if_to").textContent).join("") || "提出先未定", c = codeOf($("i_client").value), iss = pd($("if_issue").value) || new Date();
       var wk = null; (I.ankenIds || []).forEach(function (x) { var a = q().anken.filter(function (y) { return y.id === x; })[0]; var d = a && pd(a.day || a.date); if (d && (!wk || d > wk)) wk = d; });
       var w = wk || iss;
       return { file: w.getFullYear() + "." + p2(w.getMonth() + 1) + "月分" + cl.replace(/\s+/g, "") + "様：請求書", folder: String(iss.getFullYear()) + p2(iss.getMonth() + 1) + c.n + c.k + p2(iss.getMonth() + 1) + p2(iss.getDate()), kind: "請求書" };
     }
-    var cq = $("q_client").value || lines2($("qf_to").textContent).join("").replace(/\s*様$/, "") || "宛名未定", cc = codeOf($("q_client").value), day = ymd8($("q_day").value) || ymd8($("qf_issue").value);
+    var cq = $("q_client").value || lines2($("qf_to").textContent).join("").replace(/\s*様$/, "") || "提出先未定", cc = codeOf($("q_client").value), day = ymd8($("q_day").value) || ymd8($("qf_issue").value);
     var subj = $("qf_subj").textContent || "", rest = subj.indexOf("：") >= 0 ? subj.slice(subj.indexOf("：") + 1) : subj;
     var short = (cq.split(/\s+/).slice(-1)[0] || cq);
     return { file: cq.replace(/\s+/g, "") + "様：" + day + "：" + rest.trim() + "_見積書", folder: day + cc.k + short + "様", kind: "見積書" };
@@ -2793,7 +2847,7 @@ var QI = (function () {
     }
   }
   function fillClients() {
-    var o = '<option value="">— えらんでください —</option>' + allNames().map(function (n) { return '<option value="' + esc(n) + '">' + esc(n) + '</option>'; }).join("");
+    var o = '<option value="">— 選んで下さい —</option>' + allNames().map(function (n) { return '<option value="' + esc(n) + '">' + esc(n) + '</option>'; }).join("");
     var a = $("q_client").value, b = $("i_client").value;
     $("q_client").innerHTML = o; $("i_client").innerHTML = o;
     if (a) $("q_client").value = a; if (b) $("i_client").value = b;
@@ -2811,7 +2865,7 @@ var QI = (function () {
   }
   function drawPast() {
     var c = $("q_client").value.trim(), box = $("q_past");
-    if (!c) { box.innerHTML = '<div class="qi-empty">上で得意先をえらぶと、その人の過去の仕事が出ます。</div>'; return; }
+    if (!c) { box.innerHTML = '<div class="qi-empty">先に「提出先」を選ぶと、その人の過去の仕事が出ます。</div>'; return; }
     var L = q().anken.filter(function (a) { return same(a.client, c); }).sort(function (a, b) { return String(b.date || "").localeCompare(String(a.date || "")); });
     var card = function (a) { var pend = q().lines.some(function (l) { return l.ankenId === a.id && l.chk; });
       return '<button type="button" class="qi-card" data-dup="' + esc(a.id) + '"><span class="go">これを使う →</span><b>' + esc(a.title || "（件名なし）") + (pend ? '<span class="qe-chk">未処理あり</span>' : '') + '</b><span>' + esc(a.date || "") + '　' + n2(a.total) + '円　' + esc(a.state || "") + '</span></button>'; };
@@ -2822,7 +2876,7 @@ var QI = (function () {
   }
   function drawInvPick() {
     var c = $("i_client").value.trim(), box = $("i_list");
-    if (!c) { box.innerHTML = '<div class="qi-empty">上で得意先をえらんでください。</div>'; return; }
+    if (!c) { box.innerHTML = '<div class="qi-empty">上で得意先を選んで下さい。</div>'; return; }
     var L = q().anken.filter(function (a) { return same(a.client, c) && a.state !== "実績" && a.state !== "問い合わせ"; }).sort(function (a, b) { return String(b.date || "").localeCompare(String(a.date || "")); });
     box.innerHTML = L.length ? L.slice(0, 20).map(function (a) {
       return '<label class="qi-card" style="display:flex;gap:10px;align-items:flex-start"><input type="checkbox" class="ipick" value="' + esc(a.id) + '" style="margin-top:3px"><span style="flex:1"><b>' + esc(a.title || "（件名なし）") + '</b><span>' + esc(a.date || "") + '　' + n2(a.total) + '円　' + esc(a.state || "") + '</span></span></label>';
@@ -2860,7 +2914,7 @@ var QI = (function () {
         $("q_day").value = ""; $("qf_valid").value = ""; setValid(); applyCfg();   // 前の日付は持ち込まない（古い日付のまま印刷するのを防ぐ）
         meetSet((q().meet || {})[id] || {});
         if ($("q_stat")) $("q_stat").value = "見積";
-        $("qf_note").textContent = ""; applyCfg();
+        Q.tax = a.tax ? 1 : 0; $("qf_note").textContent = a.note || ""; applyCfg();
         Q.id = null; $("q_state").textContent = "複製しました。写した行には「未処理」の印が付いています。行を押して金額を確かめると外れます。施工日も入れてください。";
         rq(); return;
       }
@@ -2882,7 +2936,7 @@ var QI = (function () {
     $("q_newclient").addEventListener("click", function () {
       var n = prompt("新しい得意先の名前"); if (!n || !n.trim()) return; n = n.trim();
       if (clientOf(n)) { alert("もうあります。"); return; }
-      var to = (prompt("いつもの宛名（空でもよい）", "") || "").trim();
+      var to = (prompt("いつもの提出先（空でもよい）", "") || "").trim();
       q().clients.push({ name: n, to: to, pay: "mae" }); fillClients();
       $("q_client").value = n; lastClient = n; $("qf_to").textContent = to || n; drawPast();
     });
@@ -2994,7 +3048,7 @@ var QI = (function () {
       q().anken.push({ id: id, brand: $("q_brand").value, client: $("q_client").value.trim() || $("qf_to").textContent.trim(),
         to: $("qf_to").textContent.trim(), title: $("qf_subj").textContent, day: $("q_day").value || "",
         date: $("q_day").value || "", state: (($("q_stat") && $("q_stat").value !== "問い合わせ") ? $("q_stat").value : "見積"), no: $("qf_no").value,
-        oldNo: "", total: total(Q.lines), pay: $("q_pay").value, tax: Q.tax ? 1 : 0 });
+        oldNo: "", total: total(Q.lines), pay: $("q_pay").value, tax: Q.tax ? 1 : 0, note: ($("qf_note").textContent || "").trim() });
       Q.lines.forEach(function (r, i) { q().lines.push({ ankenId: id, no: i + 1, name: r.n, qty: r.q, price: r.p,
         amount: r.lump ? r.p : r.q * r.p, unit: r.u || "", lump: r.lump ? 1 : 0, note: r.m, chk: r.chk ? 1 : 0 }); });
       Q.id = id; fillClients(); drawPast(); if ($("q_stat") && $("q_stat").value === "問い合わせ") $("q_stat").value = "見積";
@@ -3003,14 +3057,14 @@ var QI = (function () {
     });
     function keepAsk() {
       var cl = $("q_client").value.trim() || ($("mt_client") ? $("mt_client").value.trim() : "") || $("qf_to").textContent.trim();
-      if (!cl) { alert("お客様の名前を入れてください（打ち合わせシートの「お客様名」か、宛名）。"); return; }
+      if (!cl) { alert("お客様の名前を入れてください（打ち合わせシートの「お客様名」か、提出先）。"); return; }
       var id = Q.id || ("A-" + Date.now()), old = q().anken.filter(function (a) { return a.id === id; })[0];
       if (old && old.no) { alert("この案件には、もう見積番号（" + old.no + "）が付いています。「この見積を入れる」を使ってください。"); return; }
       q().anken = q().anken.filter(function (a) { return a.id !== id; });
       q().lines = q().lines.filter(function (l) { return l.ankenId !== id; });
       q().meet = q().meet || {}; if ($("q_brand").value === "dcloud") q().meet[id] = meetGet();
       q().anken.push({ id: id, brand: $("q_brand").value, client: cl, to: $("qf_to").textContent.trim() || cl, title: $("qf_subj").textContent || "",
-        day: $("q_day").value || "", date: ($("mt_date") && $("mt_date").value) || $("q_day").value || "", state: "問い合わせ", no: "", oldNo: "", total: total(Q.lines), pay: $("q_pay").value, tax: Q.tax ? 1 : 0 });
+        day: $("q_day").value || "", date: ($("mt_date") && $("mt_date").value) || $("q_day").value || "", state: "問い合わせ", no: "", oldNo: "", total: total(Q.lines), pay: $("q_pay").value, tax: Q.tax ? 1 : 0, note: ($("qf_note").textContent || "").trim() });
       Q.lines.forEach(function (r, i) { q().lines.push({ ankenId: id, no: i + 1, name: r.n, qty: r.q, price: r.p, amount: r.lump ? r.p : r.q * r.p, unit: r.u || "", lump: r.lump ? 1 : 0, note: r.m, chk: r.chk ? 1 : 0 }); });
       Q.id = id; if ($("q_stat")) $("q_stat").value = "問い合わせ"; fillClients(); drawPast();
       var msg = "問い合わせとして残しました（" + cl + "）。メニューの「問い合わせ」から開けます。「作業を終える」で経理ファイルに入ります。";
@@ -3040,7 +3094,7 @@ var QI = (function () {
     $("mt_memoapp").addEventListener("click", openMemo);
     $("mt_apply").addEventListener("click", function () {   // 打ち合わせシートの中身を見積の明細にする
       var plan = $("mt_plan").value, len = $("mt_len").value;
-      if (!plan || !len) { $("mt_state").textContent = ""; alert("プランと、曲の数と長さをえらんでください。"); return; }
+      if (!plan || !len) { $("mt_state").textContent = ""; alert("プランと、曲の数と長さを選んで下さい。"); return; }
       var nm = "オリジナル楽曲制作 " + len + "（" + plan + "）";
       var it = q().items.filter(function (x) { return x.n === nm; })[0];
       if (!it) { alert("料金表に「" + nm + "」がありません。"); return; }
@@ -3069,7 +3123,7 @@ var QI = (function () {
     });
     $("q_print").addEventListener("click", function () {
       if (!Q.lines.length) { alert("明細が1行もありません。\n下の 3 で行を足してから印刷してください。"); return; }
-      if (!$("qf_to").textContent.trim()) { alert("宛名が空です。\n紙の上の宛名を書いてから印刷してください。"); return; }
+      if (!$("qf_to").textContent.trim()) { alert("提出先が空です。\n「提出先」を選んでから印刷してください。"); return; }
       var ng = pastDate($("qf_subj").textContent) || pastDate($("qf_valid").value);
       if (ng && !confirm("「" + ng + "」は、もう過ぎた日付です。\n古い見積書を複製したままかもしれません。\nこのまま印刷しますか？")) return;
       $("qf_validbox").style.visibility = $("qf_valid").value.trim() ? "visible" : "hidden";
@@ -3090,7 +3144,7 @@ var QI = (function () {
       .reduce(function (s0, l) { return s0 + (Number(l.amount) || 0); }, 0); }
     function depOf(a) { var t = Number(a.total) || 0; return Math.max(Math.round(t / 2), travelOf(a.id)); }
     function build(rate, label) {
-      var ids = picked(); if (!ids.length) { alert("仕事をえらんでください。"); return; }
+      var ids = picked(); if (!ids.length) { alert("仕事を選んで下さい。"); return; }
       I.lines = []; I.ankenIds = ids; I.kind = rate || "";   // 着手金/残金/まとめ のどれか
       ids.forEach(function (id) {
         var a = q().anken.filter(function (x) { return x.id === id; })[0] || {};
@@ -3102,7 +3156,7 @@ var QI = (function () {
       var a0 = q().anken.filter(function (x) { return x.id === ids[0]; })[0] || {};
       var brands = {}; ids.forEach(function (x) { var aa = q().anken.filter(function (y) { return y.id === x; })[0];
         brands[(aa && aa.brand) || "cafe"] = 1; });
-      if (Object.keys(brands).length > 1) { alert("えらんだ仕事に、sanericci café の分と Dcloud の分がまざっています。\n1枚の請求書には、どちらか片方の仕事だけをえらんでください。"); I.lines = []; I.ankenIds = []; ri(); return; }
+      if (Object.keys(brands).length > 1) { alert("えらんだ仕事に、sanericci café の分と Dcloud の分がまざっています。\n1枚の請求書には、どちらか片方の仕事だけを選んで下さい。"); I.lines = []; I.ankenIds = []; ri(); return; }
       I.brand = a0.brand || "cafe";
       var c0 = clientOf(a0.client) || {}, kind = c0.pay || a0.pay || "matsu";
       if ((a0.brand || "cafe") === "dcloud") {   // Dcloud は発行日＋7日。得意先の支払い区分より先に決める（あとから任意の日付に直せる）
@@ -3138,7 +3192,7 @@ var QI = (function () {
       q().inv = q().inv.filter(function (x) { return x.id !== id; });
       q().invLines = q().invLines.filter(function (x) { return x.invId !== id; });
       q().inv.push({ id: id, no: $("if_no").value, client: $("i_client").value, to: $("if_to").textContent,
-        issue: $("if_issue").value, due: $("if_due").value, total: total(I.lines), state: "請求済", tax: I.tax === 0 ? 0 : 1 });
+        issue: $("if_issue").value, due: $("if_due").value, total: total(I.lines), state: "請求済", tax: I.tax === 0 ? 0 : 1, note: ($("if_note").textContent || "").trim() });
       I.lines.forEach(function (r, i) { q().invLines.push({ invId: id, ankenId: r.ankenId || "", no: i + 1, name: r.n,
         qty: r.q, price: r.p, amount: r.lump ? r.p : r.q * r.p, unit: r.u || "", lump: r.lump ? 1 : 0, note: r.m }); });
       // 案件の状態は、決めた6つ（見積/発注/着手金入金/確認待ち/残金請求/納品済）の外に出さない。
@@ -3161,12 +3215,12 @@ var QI = (function () {
     $("i_new").addEventListener("click", function () {
       if (I.lines.length && !confirm("打ちかけの明細が" + I.lines.length + "行あります。消して新しくはじめますか？")) return;
       if (RC.on) { RC.on = false; document.body.classList.remove("rcpt-on"); }
-      I = { lines: [], id: null, ankenIds: [], brand: "cafe" }; var d = new Date();
+      I = { lines: [], id: null, ankenIds: [], brand: "cafe", tax: 0 }; var d = new Date();
       $("if_issue").value = jd(d); $("if_to").textContent = ""; $("if_no").value = peekNo("S");
       setDue(endNextMonthW(d)); $("i_state").textContent = ""; ri(); });
     $("i_print").addEventListener("click", function () {
       if (!I.lines.length) { alert("明細が1行もありません。\n下の 2 で仕事をえらんでから印刷してください。"); return; }
-      if (!$("if_to").textContent.trim()) { alert("宛名が空です。\n紙の上の宛名を書いてから印刷してください。"); return; }
+      if (!$("if_to").textContent.trim()) { alert("提出先が空です。\n「提出先」を選んでから印刷してください。"); return; }
       if (!$("if_due").value.trim() && !confirm("お支払い期限が空のままです。\nこのまま印刷しますか？")) return;
       markMulti();
       window.print(); });
@@ -3181,9 +3235,12 @@ var QI = (function () {
     window.addEventListener("afterprint", function () { document.title = "sanericci cafe 経理"; });
     window.addEventListener("beforeprint", function () {   // ⌘P で直接印刷した時も、空の有効期限は出さない
       $("qf_validbox").style.visibility = $("qf_valid").value.trim() ? "visible" : "hidden";
+      if (PP.length) return;   // もう分けてある時は、何もしない(2回呼ばれた時のため)
       markMulti();
+      try { ppSplit(); } catch (e) { try { ppUnsplit(); } catch (e2) { } }   // 分けられない時は、今までの印刷のまま
     });
     window.addEventListener("afterprint", function () {
+      try { ppUnsplit(); } catch (e) { }
       $("qf_validbox").style.visibility = "visible";
       q2Out(); clearHeads("qf_body"); clearHeads("if_body");
     });
@@ -4080,6 +4137,32 @@ var QI = (function () {
 .qep-back{min-height:44px;padding:0 14px;margin:0 0 10px;font-size:15px;background:transparent;border:1px solid var(--line);border-radius:10px;color:var(--ink)}
 .qep-out{font-size:16px;font-weight:700;margin:10px 0 0;color:var(--ink)}
 .qe-line.qe-dragging{background:var(--mint-soft);border-radius:10px;box-shadow:0 2px 10px var(--shadow)}
+
+/* v17.2 入力画面を1つに */
+.qe-moved>summary{min-height:44px;display:flex;align-items:center;font-size:15px}
+.qe-moved{ background: #fbfaf7; color: #2b2b2b; border-radius: 12px; padding: 8px 10px; margin-top: 6px; }
+.qe-moved .qi-note, .qe-moved .qi-card span, .qe-moved .qi-empty, .qe-moved .qi-f > label, .qe-moved .qi-sh em, .qe-moved .qi-steps{ color: #4d4d4d; font-size: 14px; }
+.qe-moved .qi-steps i, .qe-moved .qi-sh i{ background: #2f4f3f; color: #fff; font-size: 14px; }
+.qe-moved .qi-sh{ font-size: 15px; }
+.qe-moved .qi-card{ font-size: 15px; color: #2b2b2b; }
+.qe-moved details.qi-sub > summary{ color: #2f4f3f; }
+.qe-moved input, .qe-moved select{ color: #2b2b2b; background: #fff; }
+.qe-moved .qi-b{ color: #2b2b2b; background: #fff; }
+.qe-moved .qi-b.k{ color: #fff; background: #2f4f3f; }
+.qe-fold{padding-top:4px;padding-bottom:4px}
+.qe-fold>summary{list-style:none;border-bottom:0}
+.qe-fold>summary::-webkit-details-marker{display:none}
+.qe-fold>summary .qe-lb{white-space:nowrap;flex:1}
+#qe_meetcard summary{text-decoration:none !important;font-weight:700}
+.qe-fold[open]>summary .qe-go{transform:rotate(90deg)}
+#qe_meetcard>details>summary{min-height:48px;display:flex;align-items:center;font-size:16px;color:var(--ink)}
+@media print{
+  .qi-sheet.pp.pp.pp{width:210mm !important;height:296mm !important;box-sizing:border-box !important;padding-top:14mm !important;padding-bottom:12mm !important;margin:0 !important;break-after:page;page-break-after:always;overflow:hidden !important;position:relative !important;box-shadow:none !important;border:0 !important;outline:0 !important;min-height:0 !important;transform:none !important}
+  .pp_host>.qi-sheet.pp:last-child{break-after:auto;page-break-after:auto}
+  .qi-sheet.pp .pa-btm,.qi-sheet.pp .qi-wave{bottom:15mm !important}
+  .qi-sheet.pp .pb-wave{bottom:12mm !important}
+  .qi-sheet.pp .pp-pg{position:absolute;top:9mm;right:18mm}
+}
 </style>
 <script>
 (function(){
@@ -4152,7 +4235,7 @@ var QI = (function () {
   var q=Q(); if(q&&$('qe_lines')){
    drawLines('qe_lines','qe_total',q.lines||[]);
    var g=V;
-   if($('qe_to'))$('qe_to').textContent=g('qf_to')||'えらんでください';
+   if($('qe_to'))$('qe_to').textContent=g('qf_to')||'選んで下さい';
    if($('qe_title'))$('qe_title').textContent=g('qf_subj')||'—';
    if($('qe_day'))$('qe_day').textContent=jw(g('q_day'))||'—';
    if($('qe_valid'))$('qe_valid').textContent=jw(g('qf_valid'))||'—';
@@ -4165,7 +4248,7 @@ var QI = (function () {
   }
   var iv=IV(); if(iv&&$('ie_lines')){
    drawLines('ie_lines','ie_total',iv.lines||[]);
-   if($('ie_to'))$('ie_to').textContent=V('if_to')||'えらんでください';
+   if($('ie_to'))$('ie_to').textContent=V('if_to')||'選んで下さい';
    if($('ie_issue'))$('ie_issue').textContent=V('if_issue')||'—';
    if($('ie_due'))$('ie_due').textContent=V('if_due')||'—';
    if($('ie_no'))$('ie_no').textContent=V('if_no')||'—';
@@ -4187,7 +4270,7 @@ var QI = (function () {
   panel('前に作った領収書','<div class="qep-fld"><label>開く領収書</label><select id="ir_pick">'+L.map(function(r){ return '<option value="'+esc(r.id)+'">'+esc((r.no||'番号なし')+'　'+(r.to||'')+'　'+yen(r.total||0))+'</option>'; }).join('')+'</select></div>',function(){ var v=$('ir_pick').value; if(window.__QI.rcLoad(v)){ closeP(); draw(); } },false);
  }
  function irRow(k){
-  var R0=window.__QI.rc(); var lab={to:'宛名',tada:'但し書き（「但し、◯◯ として」の◯◯）',issue:'発行日',no:'領収書番号',note:'備考'}[k];
+  var R0=window.__QI.rc(); var lab={to:'提出先',tada:'但し書き（「但し、◯◯ として」の◯◯）',issue:'発行日',no:'領収書番号',note:'備考'}[k];
   panel(lab.replace(/（.*$/,''),fld('ir_f',lab,'text',R0[k]),function(){ var v=$('ir_f').value; if(k==='to'&&v.trim()&&!/様\s*$/.test(v))v=v.trim()+' 様'; R0[k]=v; window.__QI.rcDraw(); draw(); drawRc(); drawNames(); },false);
  }
  function drawNames(){
@@ -4303,14 +4386,14 @@ var QI = (function () {
  function clientPanel(selId,toId,after){
   var q=KQ(); var cs=(q&&q.clients)||[];
   var h=cs.map(function(c){ return '<button type="button" class="qep-pick" data-cl="'+esc(c.name)+'">'+esc(c.name)+'<small>'+esc(String(c.to||'').split('\n')[0]||'')+'</small></button>'; }).join('')
-   +'<button type="button" class="qep-pick" data-clnew="1">はじめての人<small>名前と宛名を入れて足す</small></button>';
-  panel('宛名をえらぶ',h,null,false);
+   +'<button type="button" class="qep-pick" data-clnew="1">はじめての人<small>名前と提出先を入れて足す</small></button>';
+  panel('提出先を選ぶ',h,null,false);
  }
  function newClientPanel(){
   panel('はじめての人',
    '<button type="button" class="qep-back" data-back="2">← もどる</button>'
    +fld('nc_name','名前（一覧に出る名前）','text','')
-   +'<div class="qep-fld"><label>宛名（紙に出る形。空でもよい）</label><textarea id="nc_to" rows="3" style="width:100%;font-size:16px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink)"></textarea></div>',
+   +'<div class="qep-fld"><label>提出先（紙に出る形。空でもよい）</label><textarea id="nc_to" rows="3" style="width:100%;font-size:16px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink)"></textarea></div>',
    function(){
     var q=KQ(); if(!q)return; var n=$('nc_name').value.trim(); if(!n)return;
     var to=$('nc_to').value.trim();
@@ -4438,7 +4521,7 @@ var QI = (function () {
  function workPanel(){
   var box=$('i_list');
   var labs=box?box.querySelectorAll('label'):[];
-  if(!labs.length){ panel('仕事をえらぶ','<p style="font-size:15px;color:var(--ink-soft);margin:0">先に「宛名」で得意先をえらんでください。この得意先の仕事がまだない時は、見積書から作ってください。</p>',null,false); return; }
+  if(!labs.length){ panel('仕事をえらぶ','<p style="font-size:15px;color:var(--ink-soft);margin:0">先に「提出先」で得意先を選んで下さい。この得意先の仕事がまだない時は、見積書から作ってください。</p>',null,false); return; }
   var h='';
   for(var i=0;i<labs.length;i++){
    var cb=labs[i].querySelector('input.ipick'); if(!cb)continue;
@@ -4562,7 +4645,7 @@ var QI = (function () {
  function drawClients(){
   $('jg_clients').innerHTML=cls.map(function(c,i){ return '<div class="jg-row" data-i="'+i+'">'
    +'<div class="qep-fld"><label>名前（一覧に出る名前）</label><input data-k="name" value="'+esc(c.name)+'"></div>'
-   +'<div class="qep-fld"><label>請求書の宛名（改行できます）</label><textarea data-k="to" rows="2">'+esc(c.to)+'</textarea></div>'
+   +'<div class="qep-fld"><label>請求書の提出先（改行できます）</label><textarea data-k="to" rows="2">'+esc(c.to)+'</textarea></div>'
    +'<div class="jg-two"><div class="qep-fld"><label>支払い区分</label><select data-k="pay">'+Object.keys(PAY).map(function(k){return '<option value="'+k+'"'+(c.pay===k?' selected':'')+'>'+PAY[k]+'</option>'}).join('')+'</select></div>'
    +'<div class="qep-fld"><label>番号と記号（例 7co）</label><input data-k="code" value="'+esc(c.code||'')+'"></div></div></div>'; }).join('');
  }
@@ -4607,6 +4690,24 @@ var QI = (function () {
     try{ if(window.__QI){window.__QI.fillClients();window.__QI.rq();window.__QI.ri();} }catch(e2){}
     $('jg_msg').textContent='入れました。メニューの「作業を終える」で経理ファイルに保存されます。'; return;}
  },false);
+})();
+</script>
+
+<script>
+/* v17.2: 古い画面にしか無かった「前の仕事」「1行だけ過去から引く」「打ち合わせシート」を、新しい画面へ移す */
+(function(){
+  function mv(){
+    var pb=document.getElementById('qe_pastbox'), past=document.getElementById('q_past'), find=document.getElementById('q_find');
+    if(pb&&past&&!pb.contains(past)){
+      var h=document.createElement('p'); h.className='qi-note'; h.style.margin='0 0 6px'; h.textContent='先に「提出先」を選ぶと、その人の過去の仕事が出ます。「これを使う →」を押すと、明細・件名・依頼先・支払い・免税の一文・備考が写ります。日付は写りません。写した行には「未処理」の印が付きます。';
+      pb.appendChild(h); pb.appendChild(past);
+      var fd=find?find.closest('details'):null; if(fd) pb.appendChild(fd);
+    }
+    var mc=document.getElementById('qe_meetcard'), dm=document.getElementById('d_meet');
+    if(mc&&dm&&!mc.contains(dm)){ dm.classList.add('qe-moved'); mc.appendChild(dm); }
+    if(mc&&dm) mc.style.display=(dm.style.display==='none')?'none':'';
+  }
+  document.addEventListener('DOMContentLoaded',mv); setInterval(mv,700); window.__qeMove=mv;
 })();
 </script>
 </body></html>
